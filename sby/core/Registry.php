@@ -27,8 +27,8 @@ class Registry {
      * constructor
      */
 
-    private function __construct() {
-        
+    private function __construct($properti) {
+        $this->registry = $properti;
     }
 
     /*
@@ -44,11 +44,10 @@ class Registry {
      * @return Registry
      */
 
-    public static function getInstance() {
+    public static function getInstance($properti) {
         if (self::$instance === null) {
-            self::$instance = new Registry();
+            self::$instance = new Registry($properti);
         }
-
         return self::$instance;
     }
 
@@ -59,11 +58,9 @@ class Registry {
      */
 
     public function set($key, $value) {
-        if (isset($this->registry[$key])) {
-            throw new Exception("There is already an entry for key " . $key);
+        if (!isset($this->registry[$key])) {
+            $this->registry[$key] = $value;
         }
-
-        $this->registry[$key] = $value;
     }
 
     /*
@@ -72,11 +69,13 @@ class Registry {
      * @return object
      */
 
-    public function get($key) {
+    public function get($key = null) {
+
         if (!isset($this->registry[$key])) {
-            throw new Exception("There is no entry for key " . $key);
+            return $this->registry;
         }
 
         return $this->registry[$key];
     }
+
 }

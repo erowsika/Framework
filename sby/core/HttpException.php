@@ -9,7 +9,7 @@
 
 namespace sby\core;
 
-class HttpErrorException extends AbstractException {
+class HttpException extends \Exception {
 
     /* return error name
      * @return string
