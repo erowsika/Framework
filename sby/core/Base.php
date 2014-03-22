@@ -7,7 +7,7 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace sby\core;
+namespace core;
 
 class Base {
     /*
@@ -23,13 +23,21 @@ class Base {
      */
     private $_config;
 
+    /*
+     * load these automatically class at runtime
+     */
+    private $classes = array('Config' => 'core\Config',
+        'Router' => 'core\Router',
+        'Logger' => 'core\Logger');
+
     /* this is a constructor
      * @access public
      * 
      */
 
     public function __construct() {
-        $this->init();
+        $this->initClass();
+        $this->initConfig();
     }
 
     /* get instance (Singleton)
@@ -44,21 +52,11 @@ class Base {
     }
 
     /*
-     * initialization
-     * 
-     */
-
-    public function init() {
-        $this->_config = new Config();
-        $this->initConfig();
-    }
-
-    /*
      * initialization config file
      */
 
     private function initConfig() {
-        $conf = $this->_config->get();
+        $conf = $this->config->get();
         foreach ($conf as $key => $value) {
             if (!is_array($value)) {
                 $this->$key = $value;
@@ -66,29 +64,40 @@ class Base {
         }
     }
 
+    /*
+     * load all classes that predifined before
+     * @access private
+     * @param void
+     * @return void
+     */
+
     private function initClass() {
-        $conf = $this->_config->get();
-        foreach ($conf as $key => $value) {
-            if (!is_array($value)) {
-                $this->$key = $value;
-            }
+
+        foreach ($this->classes as $className => $class) {
+
+            $className = strtolower($className);
+            $this->$className = new $class();
         }
     }
 
     /*
      * run application
+     * @return void
      */
 
     public function run() {
-        echo "hello world";
-    }
 
-    public function __get($varName) {
-        return $this->_config->get($varName);
-    }
-
-    public function __set($varName, $value) {
-        $this->_config->set($varName, $value);
+        $controller = '\\controllers\\' . $this->router->getController();
+        $method = $this->router->getMethod();
+        $parameters = $this->router->getParameter();
+        
+        $classController = new $controller();
+        
+        if (isset($method) AND in_array($method, get_class_methods($classController))) {
+            call_user_func_array(array(&$classController, $method), $parameters);
+        } else {
+           new HttpException("404", 'Halaman tidak ditemukan');
+        }
     }
 
 }

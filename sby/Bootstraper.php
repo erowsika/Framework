@@ -1,48 +1,52 @@
 <?php
 
-/*
- * 
+/**
+ * Description of View
+ * @package name
+ * @author masfu
+ * @copyright (c) 2014, Masfu Hisyam
  */
-
 //only load php file
 spl_autoload_extensions(".php");
 
 //this is a magical method to auto load php class without include file
 spl_autoload_register(function($class) {
     $filename = $class . '.php';
-    if (file_exists($filename))
-        require_once $class . '.php';
+
+    if (file_exists(__DIR__ . '\\' . $class . '.php')) {
+        require_once __DIR__ . '\\' . $class . '.php';
+    } else if (file_exists(SYS_PATH . '\\' . $class . '.php')) {
+        require_once SYS_PATH . '\\' . $class . '.php';
+    }
 });
 
-define('DIR_PATH', '././' . BASE_APP);
+define('SYS_PATH', '.././' . BASE_APP);
 
 //config folder
-define('CONFIG_PATH', DIR_PATH . '/config/');
+define('CONFIG_PATH', SYS_PATH . '/config/');
 
 /*
  * controller base path
  */
-define('CONTROLLERS_PATH', DIR_PATH . '/controllers/');
+define('CONTROLLERS_PATH', SYS_PATH . '/controllers/');
 
 /*
  * models folder
  */
-define('MODELS_PATH', BASE_APP . '/models/');
+define('MODELS_PATH', SYS_PATH . '/models/');
 /*
  * views files folder
  */
-define('VIEWS_PATH', BASE_APP . '/views/');
+define('VIEWS_PATH', SYS_PATH . '/views/');
 
 //import sby namespace
-use sby\core as core;
+use core as base;
 
-class Sby extends core\Base {
+class Sby extends base\Base {
     
 }
 
 $sby = Sby::getInstance();
 
 $sby->run();
-
-echo $sby->base_url;
 ?>

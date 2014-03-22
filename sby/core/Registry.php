@@ -8,7 +8,7 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace sby\core;
+namespace core;
 
 class Registry {
     /* store object 
@@ -31,14 +31,7 @@ class Registry {
         $this->registry = $properti;
     }
 
-    /*
-     * magic method
-     */
-
-    private function __clone() {
-        
-    }
-
+ 
     /* get the instance of this class without create an object 
      * @access static
      * @return Registry

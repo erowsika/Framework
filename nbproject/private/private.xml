@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/xampp/htdocs/framework/app/controllers/welcome.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/core/BaseController.php</file>
             <file>file:/D:/xampp/htdocs/framework/sby/core/Config.php</file>
             <file>file:/D:/xampp/htdocs/framework/sby/Bootstraper.php</file>
             <file>file:/D:/xampp/htdocs/framework/sby/core/Base.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/core/Router.php</file>
+            <file>file:/D:/xampp/htdocs/framework/app/config/application.php</file>
         </group>
     </open-files>
 </project-private>

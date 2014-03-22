@@ -7,28 +7,23 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace sby\core;
+namespace core;
 
 class HttpException extends \Exception {
-
     /* return error name
      * @return string
      */
-    public function getErrorMessage() {
-        return 'Invalid http';
-    }
-    /*
-     * print error to browser
-     */
-    public function printMessage() {
+
+    public function __construct($type, $message) {
         
     }
-
-    /*
-     * print stack trace error
-     */
-    public function stackTrace() {
+    
+    public function printError($type, $message) {
         
+        $fileError = SYS_PATH.'/errors/'.$type;
+        if(file_exists($fileError)){
+            include $fileError;
+        }else
+          new \Exception();
     }
-
 }

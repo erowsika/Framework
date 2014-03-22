@@ -1,21 +1,21 @@
 <?php
 
 return array(
-    
     'base_path' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Aplikasi n Teknologi Web',
     /*
      * base url for domain and path 
      */
-    'base_url' => 'http://localhost/framework/',
+    'base_url' => 'http://localhost/framework/app/',
     /* default router where the default class and action should be call
      * controller is a class name
      * action is a function name
      * 
      */
-    'default_router' => array(
-        'controller' => 'welcome',
-        'action' => 'index'),
+    'router' => array(
+        'controller' => 'main',
+        'parameter' => array(
+        )),
     /*
      * modules is an autoload mechanism
      */

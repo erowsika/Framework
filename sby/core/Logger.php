@@ -13,12 +13,12 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace sby\core;
+namespace core;
 
 class Logger {
 
     public static function printError(
-    Exception $exception, $clear = false, $error_file = 'exceptions_log.html'
+    \Exception $exception, $clear = false, $error_file = 'exceptions_log.html'
     ) {
         $message = $exception->getMessage();
         $code = $exception->getCode();

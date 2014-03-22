@@ -7,7 +7,7 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace sby\core;
+namespace core;
 
 class Config {
     /*
