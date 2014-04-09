@@ -7,9 +7,9 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 namespace controllers;
-use core as sys;
+use core;
 
-class welcome extends sys\BaseController{
+class welcome extends core\BaseController{
 
     public function __construct() {
         

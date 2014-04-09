@@ -3,11 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Sapawarga</title>
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.css"/>
-        <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>assets/css/chat.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/screen.css"/>
-        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+    
     </head>
     <body>
         <style>
@@ -27,10 +23,10 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a href="<?php echo base_url() ?>" class="navbar-brand">Sapawarga</a>
+                            <a href="" class="navbar-brand">Sapawarga</a>
                         </div>
                         <div id="bs-example-navbar-collapse-5" class="collapse navbar-collapse">
-                            <p class="navbar-text pull-right"> <a class="navbar-link" href="<?php echo base_url() ?>">Kembali</a></p>
+                            <p class="navbar-text pull-right"> <a class="navbar-link" href="">Kembali</a></p>
                         </div>
                     </div>
                 </div>

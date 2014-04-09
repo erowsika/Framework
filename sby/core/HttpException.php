@@ -15,15 +15,16 @@ class HttpException extends \Exception {
      */
 
     public function __construct($type, $message) {
-        
+        self::printError($type, $message);
     }
-    
-    public function printError($type, $message) {
-        
-        $fileError = SYS_PATH.'/errors/'.$type;
-        if(file_exists($fileError)){
+
+    public static function printError($type, $message) {
+
+        $fileError = SYS_PATH.'/errors/' . $type.EXT_FILE;
+        if (file_exists($fileError)) {
             include $fileError;
-        }else
-          new \Exception();
+        } else
+            echo 'file '.$fileError.' not found';
     }
+
 }

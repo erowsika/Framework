@@ -80,6 +80,19 @@ class Base {
         }
     }
 
+    public static function loader($class) {
+
+        $classname = $class . '.php';
+
+        if (file_exists(__DIR__ . '\\' . $classname)) {
+            $filename = __DIR__ . '\\' . $classname;
+        } else if (file_exists(SYS_PATH . '\\' . $classname)) {
+            $filename = SYS_PATH . '\\' . $classname;
+        }
+        
+        require_once $filename;
+    }
+
     /*
      * run application
      * @return void
@@ -90,13 +103,18 @@ class Base {
         $controller = '\\controllers\\' . $this->router->getController();
         $method = $this->router->getMethod();
         $parameters = $this->router->getParameter();
-        
-        $classController = new $controller();
-        
-        if (isset($method) AND in_array($method, get_class_methods($classController))) {
-            call_user_func_array(array(&$classController, $method), $parameters);
+
+        if (isset($method) and class_exists($controller)) {
+
+            $classController = new $controller();
+
+            if (in_array($method, get_class_methods($classController))) {
+                call_user_func_array(array(&$classController, $method), $parameters);
+            } else {
+                new HttpException("404", 'Halaman tidak ditemukan');
+            }
         } else {
-           new HttpException("404", 'Halaman tidak ditemukan');
+            new HttpException("404", 'Halaman tidak ditemukan');
         }
     }
 
