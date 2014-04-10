@@ -38,6 +38,7 @@ class Base {
     public function __construct() {
         $this->initClass();
         $this->initConfig();
+        $this->initDb();
     }
 
     /* get instance (Singleton)
@@ -80,17 +81,14 @@ class Base {
         }
     }
 
-    public static function loader($class) {
-
-        $classname = $class . '.php';
-
-        if (file_exists(__DIR__ . '\\' . $classname)) {
-            $filename = __DIR__ . '\\' . $classname;
-        } else if (file_exists(SYS_PATH . '\\' . $classname)) {
-            $filename = SYS_PATH . '\\' . $classname;
-        }
+    /**
+     * 
+     * 
+     * */
+    private function initDb() {
+        $conf = $this->config->get();
+        $dbs = $conf['database'];
         
-        require_once $filename;
     }
 
     /*

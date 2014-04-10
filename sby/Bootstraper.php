@@ -44,8 +44,8 @@ spl_autoload_register(function($class) {
     }
 });
 
-set_exception_handler('core\MainException::handler');
-set_error_handler('core\MainException::errorCallback', error_reporting());
+//set_exception_handler('core\MainException::handler');
+//set_error_handler('core\MainException::errorCallback', error_reporting());
 
 //import sby namespace
 use core as base;

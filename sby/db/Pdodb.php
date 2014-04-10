@@ -13,6 +13,8 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 namespace db;
+
+
 class PDODb extends \PDO implements DbDriver{
     
     public function close() {

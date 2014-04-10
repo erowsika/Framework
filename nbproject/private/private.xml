@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/DbFactory.php</file>
+            <file>file:/D:/xampp/htdocs/framework/app/models/User.php</file>
+            <file>file:/D:/xampp/htdocs/framework/app/controllers/welcome.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/Monggodb.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/DbAbstract.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/SqlProvider.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/core/Router.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/Mysql.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/Pdodb.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/Oracle.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/core/MainException.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/core/Base.php</file>
+            <file>file:/D:/xampp/htdocs/framework/app/config/application.php</file>
+        </group>
     </open-files>
 </project-private>

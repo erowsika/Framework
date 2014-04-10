@@ -31,53 +31,44 @@ return array(
         'db' => array(
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'database',
+            'database' => 'bts',
             'username' => 'root',
-            'password' => '',
+            'password' => '1234',
             'charset' => 'utf8',
             'prefix' => '',
         ),
     /*
-      'sqlite' => array(
-      'driver' => 'sqlite',
-      'database' => 'application',
-      'prefix' => '',
-      ),
-      'oracle' => array(
-      'driver' => 'oracle',
-      'connection_string' => '',
-      'username' => '',
-      'password' => ''),
-      'mysql' => array(
-      'driver' => 'mysql',
-      'host' => 'localhost',
-      'database' => 'database',
-      'username' => 'root',
-      'password' => '',
-      'charset' => 'utf8',
-      'prefix' => '',
-      ),
-      'pgsql' => array(
-      'driver' => 'pgsql',
-      'host' => 'localhost',
-      'database' => 'database',
-      'username' => 'root',
-      'password' => '',
-      'charset' => 'utf8',
-      'prefix' => '',
-      'schema' => 'public',
-      ),
-      'sqlsrv' => array(
-      'driver' => 'sqlsrv',
-      'host' => 'localhost',
-      'database' => 'database',
-      'username' => 'root',
-      'password' => '',
-      'prefix' => '',
-      ),
-      /* second database
-     * 
-     */
+              'sqlite' => array(
+              'driver' => 'sqlite',
+              'database' => 'application',
+              'prefix' => '',
+              ),
+              'oracle' => array(
+              'driver' => 'oracle',
+              'connection_string' => '',
+              'username' => '',
+              'password' => ''),
+              'pgsql' => array(
+              'driver' => 'pgsql',
+              'host' => 'localhost',
+              'database' => 'database',
+              'username' => 'root',
+              'password' => '',
+              'charset' => 'utf8',
+              'prefix' => '',
+              'schema' => 'public',
+              ),
+              'sqlsrv' => array(
+              'driver' => 'sqlsrv',
+              'host' => 'localhost',
+              'database' => 'database',
+              'username' => 'root',
+              'password' => '',
+              'prefix' => '',
+              ),
+              /* second database
+             * 
+             */
     //"db" => array()
     ),
     'encoding' => 'UTF-8',

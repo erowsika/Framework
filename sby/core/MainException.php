@@ -21,13 +21,13 @@ class MainException extends \Exception {
         parent::__construct($message, $code, $previous);
     }
 
-    public static function handler($exception) {
-        $message = $exception->getMessage();
+    public function show() {
+        $message = $this->getMessage();
         $file = false;
         $line = false;
-        $traceAsString = $exception->getTraceAsString();
+        $traceAsString = $this->getTraceAsString();
 
-        foreach ($exception->getTrace() as $trace) {
+        foreach ($this->getTrace() as $trace) {
             if (isset($trace['file'])) {
                 $file = $trace['file'];
                 if (isset($trace['line'])) {
@@ -37,7 +37,7 @@ class MainException extends \Exception {
             }
         }
         
-        self::printError($message, $file, $line, $traceAsString);
+        $this->printError($message, $file, $line, $traceAsString);
     }
 
     /* @acces static
@@ -46,15 +46,7 @@ class MainException extends \Exception {
      * 
      */
 
-    public static function errorCallback($errno, $message, $file, $line) {
-        echo $message;
-        if ($errno == E_WARNING)
-            return;
-
-        self::outputError($message, $file, $line);
-    }
-
-    public static function printError($message = null, $file = false, $line = false, $trace = false) {
+    public function printError($message = null, $file = false, $line = false, $trace = false) {
         // Message for log
         $errorMessage = 'Error ' . $message . ' in ' . $file . ' line: ' . $line;
 
