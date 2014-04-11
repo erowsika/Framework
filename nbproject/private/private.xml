@@ -6,14 +6,10 @@
             <file>file:/D:/xampp/htdocs/framework/sby/db/DbFactory.php</file>
             <file>file:/D:/xampp/htdocs/framework/app/models/User.php</file>
             <file>file:/D:/xampp/htdocs/framework/app/controllers/welcome.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/db/Monggodb.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/db/DbAbstract.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/db/SqlProvider.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/core/Router.php</file>
             <file>file:/D:/xampp/htdocs/framework/sby/db/Mysql.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/db/Pdodb.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/db/Oracle.php</file>
-            <file>file:/D:/xampp/htdocs/framework/sby/core/MainException.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/core/BaseController.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/Db.php</file>
+            <file>file:/D:/xampp/htdocs/framework/sby/db/SqlProvider.php</file>
             <file>file:/D:/xampp/htdocs/framework/sby/core/Base.php</file>
             <file>file:/D:/xampp/htdocs/framework/app/config/application.php</file>
         </group>

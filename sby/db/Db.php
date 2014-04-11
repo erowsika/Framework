@@ -15,14 +15,17 @@
 
 namespace db;
 
-abstract class DbAbstract {
+abstract class Db {
 
     protected $host;
     protected $user;
     protected $pass;
     protected $dbname;
     protected $conn;
+    protected $port;
     protected $persistent;
+    protected $autoinit;
+    protected $resultid;
 
     /**
      * 

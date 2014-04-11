@@ -10,10 +10,13 @@
 namespace core;
 
 class BaseController {
-    
-    
+
     public function __construct() {
         
     }
-    
+
+    public function initModules() {
+        
+    }
+
 }

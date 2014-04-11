@@ -23,11 +23,7 @@ class User {
 
     public function __construct() {
         $this->db = db\SqlProvider::getDBConnection('db');
-        $hasil = $this->db->query('select * from santri');
-        $data = $hasil->fetchArray();
-        foreach ($data as $value) {
-            print_r($value);
-        }
+        
     }
 
 }
