@@ -13,20 +13,21 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace models;
+namespace app\models;
 
-use db;
+use system\core as core;
 
 class User {
 
     private $db;
 
     public function __construct() {
-        $this->db = db\SqlProvider::getDBConnection('db');
-        $hasil = $this->db->query('select * from santri');
+        $db = \Sby::instance()->db->createDb();
+        echo $db->countAll("santri");
+        $hasil = $db->query('select * from santri');
         $data = $hasil->fetchArray();
         foreach ($data as $value) {
-            print_r($value);
+            //   print_r($value);
         }
     }
 

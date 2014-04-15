@@ -2,7 +2,7 @@
 
 return array(
     'base_path' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'ti' => 'Aplikasi n Teknologi Web',
+    'title' => 'Framework baru',
     /*
      * base url for domain and path 
      */
@@ -19,8 +19,8 @@ return array(
      * modules is an autoload mechanism
      */
     'modules' => array('Config' => 'core\Config',
-                    'Router' => 'core\Router',
-                    'Logger' => 'core\Logger'),
+        'Router' => 'core\Router',
+        'Logger' => 'core\Logger'),
     /*
      * database configuration
      * we can use multiple database connection at same time
@@ -36,9 +36,8 @@ return array(
             'username' => 'root',
             'password' => '1234',
             'port' => '3306',
-            'autoinit' => true,
-            'charset' => 'utf8',
-            'prefix' => '',
+            'persistent' => false,
+            'autoinit' => FALSE,
         ),
     /* second database
      * 

@@ -10,7 +10,9 @@
             }
             body{
                 font-family: 'Audiowide', cursive, arial, helvetica, sans-serif;
-                color:black;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAUElEQVQYV2NkYGAwBuKzQAwDID4IoIgxIikAMZE1oRiArBDdZBSNMIXoJiFbDZYDKcSmCOYimDuNSVKIzRNYrUYOFuQgweoZbIoxgoeoAAcAEckW11HVTfcAAAAASUVORK5CYII=) repeat;
+                background-color:#212121;
+                color:white;
                 font-size: 18px;
                 padding-bottom:20px;
             }
@@ -39,6 +41,7 @@
                 clear:both;
             }
             .content{
+                text-align:center;
                 line-height: 30px;
             }
             input[type=text]{
@@ -62,24 +65,25 @@
     </head>
     <body>
 
-        
-        <div class="clear"></div>
-        <div class="content">
-            <div style="border: 1px solid;
-                 margin: 10px 0px;
-                 padding:15px 10px;
-                 background-repeat: no-repeat;
-                 background-position: 10px center;-moz-border-radius:.5em;
-                 -webkit-border-radius:.5em;
-                 color: #D8000C;
-                 border-radius:.5em;">
-                <h4>A PHP Error was encountered</h4>
-                <?php
-                echo('<h1>' . $code . '</h1>');
+        <p class="error-code">
+        <h4>A PHP Error was encountered</h4>
+    </p>
+    <div class="clear"></div>
+    <div class="content">
+        <div style="border: 1px solid;
+             margin: 10px 0px;
+             padding:15px 10px;
+             background-repeat: no-repeat;
+             background-position: 10px center;-moz-border-radius:.5em;
+             -webkit-border-radius:.5em;
+             color: #D8000C;
+             border-radius:.5em;">
 
-                echo('<p>' . $message . '</p>');
-                ?>
-            </div>
-        </div>
-    </body>
+            <p>Message:  <?php echo $message ?></p>
+            <p>Filename: <?php echo $file ?></p>
+            <p>Line Number: <?php echo $line ?></p>
+            <p>Position : <br> <?php echo $code ?></p>    
+        </div>";
+    </div>
+</body>
 </html>

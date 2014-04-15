@@ -1,5 +1,7 @@
 <?php
 
+namespace app\controllers;
+
 /**
  * Description of welcome
  * @package name
@@ -7,21 +9,25 @@
  * @copyright (c) 2014, Masfu Hisyam
  */
 
-namespace controllers;
+use app\core as app;
+use app\models as model;
 
-use core;
-use models;
-
-class welcome extends core\BaseController {
+class welcome extends app\Controller {
 
     private $muser;
 
     public function __construct() {
-        $this->muser = new \models\User;
+        $this->muser = new model\User;
     }
 
     public function index() {
-        echo 'masfu hisyam';
+        $coba = \Sby::instance()->input->get('id',true);
+        $this->coba = $coba;
+        $this->display("welcome\isi.php");
+    }
+
+    public function beforeExecute() {
+       
     }
 
 }

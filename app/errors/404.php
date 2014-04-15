@@ -1,44 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Sapawarga</title>
-    
+        <meta charset="utf-8">
+
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                font-family: 'Audiowide', cursive, arial, helvetica, sans-serif;
+                color:black;
+                font-size: 18px;
+                padding-bottom:20px;
+            }
+            .error-code{
+                font-family: 'Creepster', cursive, arial, helvetica, sans-serif;
+                font-size: 200px;
+                color: white;
+                color: rgba(255, 255, 255, 0.98);
+                width: 50%;
+                text-align: right;
+                margin-top: 5%;
+                text-shadow: 5px 5px hsl(0, 0%, 25%);
+                float: left;
+            }
+            .not-found{
+                width: 47%;
+                float: right;
+                margin-top: 5%;
+                font-size: 50px;
+                color: white;
+                text-shadow: 2px 2px 5px hsl(0, 0%, 61%);
+                padding-top: 70px;
+            }
+            .clear{
+                float:none;
+                clear:both;
+            }
+            .content{
+                line-height: 30px;
+            }
+            input[type=text]{
+                border: hsl(247, 89%, 72%) solid 1px;
+                outline: none;
+                padding: 5px 3px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+            a{
+                text-decoration: none;
+                color: #9ECDFF;
+                text-shadow: 0px 0px 2px white;
+            }
+            a:hover{
+                color:white;
+            }
+
+        </style>
+        <title></title>
     </head>
     <body>
-        <style>
-            body{
-                background: none repeat scroll 0 0 #FFFFFF !important;
-            }
-        </style>
-        <nav role="navigation" class="navbar  navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-lg-offset-0">
 
-                        <div class="navbar-header">
-                            <button data-target="#bs-example-navbar-collapse-5" data-toggle="collapse" class="navbar-toggle" type="button">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a href="" class="navbar-brand">Sapawarga</a>
-                        </div>
-                        <div id="bs-example-navbar-collapse-5" class="collapse navbar-collapse">
-                            <p class="navbar-text pull-right"> <a class="navbar-link" href="">Kembali</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        
+        <div class="clear"></div>
+        <div class="content">
+            <div style="border: 1px solid;
+                 margin: 10px 0px;
+                 padding:15px 10px;
+                 background-repeat: no-repeat;
+                 background-position: 10px center;-moz-border-radius:.5em;
+                 -webkit-border-radius:.5em;
+                 color: #D8000C;
+                 border-radius:.5em;">
+                <h4>A PHP Error was encountered</h4>
+                <?php
+                echo('<h1>' . $code . '</h1>');
 
-        <div class="jumbotron" style="height: 400px">
-            <div class="col-lg-8 col-lg-offset-4">
-                <h1>Oops!, 404</h1>
-                <p>Halaman yang anda cari tidak ditemukan</p>
+                echo('<p>' . $message . '</p>');
+                ?>
             </div>
         </div>
-        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     </body>
 </html>

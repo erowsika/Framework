@@ -62,7 +62,7 @@
     </head>
     <body>
 
-        
+
         <div class="clear"></div>
         <div class="content">
             <div style="border: 1px solid;
@@ -73,12 +73,8 @@
                  -webkit-border-radius:.5em;
                  color: #D8000C;
                  border-radius:.5em;">
-                <h4>A PHP Error was encountered</h4>
-                <?php
-                echo('<h1>' . $code . '</h1>');
-
-                echo('<p>' . $message . '</p>');
-                ?>
+                <h4>Database error</h4>
+                <?php echo $message ?>
             </div>
         </div>
     </body>

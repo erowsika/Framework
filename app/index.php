@@ -1,6 +1,11 @@
 <?php
 
-define('BASE_APP', 'app');
+define('APP_NAME','app');
 
-require_once '../sby/Bootstraper.php';
+define('DIR_APP', __DIR__);
+
+require_once '../system/Bootstraper.php';
+
+Sby::instance()->run();
+
 ?>
