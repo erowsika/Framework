@@ -65,11 +65,11 @@ class Input {
             if (is_array($value)) {
                 $arrdata = array();
                 foreach ($value as $key => $str) {
-                    $arrdata[$key] = $this->escapeStr($str, $xss_filter);
+                    $arrdata[$key] = $this->escapeStr($str, $xss_clean);
                 }
                 return $arrdata;
             }
-            return $value;
+            return $this->escapeStr($value, $xss_clean);
         }
     }
 
@@ -81,7 +81,7 @@ class Input {
      * 
      */
     public function escapeStr($str, $xss_filter = false) {
-        $str = remove_invisible_characters($str);
+       // $str = remove_invisible_characters($str);
         $str = addslashes($str);
         return ($xss_filter) ? $this->xssClean($str) : $str;
     }

@@ -19,6 +19,19 @@ use system\core as core;
 
 class Mysql extends Db {
 
+    protected $column = array();
+    protected $criteria = array();
+    protected $tables = array();
+    protected $join;
+    protected $joinType;
+    protected $distinct;
+    protected $limit;
+    protected $offset;
+    protected $having;
+    protected $order;
+    protected $orderType;
+    protected $group = array();
+
     /**
      * constructor
      * @access public
@@ -170,9 +183,9 @@ class Mysql extends Db {
             if (!($status = @mysql_query($sql, $this->conn))) {
                 $message = "Query:  " . $sql;
                 $message .= "<p> Message: " . mysql_error() . "<p>";
-                throw new \core\DbException($message, mysql_errno());
+                throw new core\DbException($message, mysql_errno());
             }
-        } catch (\core\DbException $e) {
+        } catch (core\DbException $e) {
             $e->printError();
         }
         return $status;
@@ -237,15 +250,15 @@ class Mysql extends Db {
         return $row['NUM_ROWS'];
     }
 
-    public function delete($table, $criteria) {
-        
-    }
-
     public function findAll($criteria, $fill) {
         
     }
 
     public function findByPk($pk) {
+        
+    }
+
+    public function save() {
         
     }
 
@@ -258,6 +271,22 @@ class Mysql extends Db {
         return $this->query("INSERT INTO `$table` (`" . implode('`,`', $fields) . "`) VALUES ('" . implode("','", $data) . "')");
     }
 
+    public function delete($table, $criteria) {
+
+        if (is_array($criteria)) {
+
+            foreach ($criteria as $c => $v) {
+                $wheres[] = "$c = '" . $this->escapeStr($v) . "'";
+            }
+
+            $criteria = implode(' AND ', $wheres);
+        } else {
+            return false;
+        }
+
+        return $this->query("DELETE `$table` WHERE $criteria");
+    }
+
     public function lastData() {
         
     }
@@ -266,8 +295,35 @@ class Mysql extends Db {
         
     }
 
-    public function select() {
+    public function from($table) {
+        $this->tables = explode(', ', $table);
+        return $this;
+    }
+
+    public function select($column) {
+        $column = explode(', ', $column);
+
+        if (!empty($column)) {
+            $this->column = $column;
+        }
+        return $this;
+    }
+
+    public function join($table, $type) {
+        $this->joins = $table;
+        $this->joinsType = $type;
+    }
+
+    public function where() {
         
+    }
+
+    public function groupBy($column){
+        $this->group = explode(',', $column);
+    }
+    public function distinct($val = TRUE) {
+        $this->distinct = (is_bool($val)) ? $val : TRUE;
+        return $this;
     }
 
     public function update($table, $data, $where = null) {

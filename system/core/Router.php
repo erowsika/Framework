@@ -61,9 +61,8 @@ class Router {
         $this->uri = (isset($_SERVER['PATH_INFO'])) ? rtrim($_SERVER['PATH_INFO'], "\/") : '/';
         $this->config = new Config();
         $this->request = $this->config->get('router');
-        
+
         $this->execute();
-        
     }
 
     /*
@@ -71,12 +70,14 @@ class Router {
      * @return void
      * 
      */
+
     public function execute() {
 
         //if url is the root
         if ($this->uri != '/') {
-            if (!($this->segments = $this->parse())) {
-                $route = $this->defaultRoute();
+            $this->segments = $this->parse();
+            if (empty($this->segments)) {
+                $this->defaultRoute();
             }
         }
         $this->setRoute();
@@ -87,6 +88,7 @@ class Router {
      * @return void
      * 
      */
+
     public function defaultRoute() {
         foreach (explode("/", preg_replace("|/*(.+?)/*$|", "\\1", $this->uri)) as $val) {
             $val = trim($val);
@@ -103,11 +105,11 @@ class Router {
      */
 
     public function setRoute() {
-        
+
         $this->controller = isset($this->segments[0]) ? $this->segments[0] : $this->request['controller'];
-        
+
         $this->method = isset($this->segments[1]) ? $this->segments[1] : 'index';
-        
+
         $this->parameter = isset($this->segments[2]) ? array_slice($this->segments, 2) : array();
     }
 

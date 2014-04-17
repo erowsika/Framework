@@ -38,12 +38,20 @@ spl_autoload_extensions(".php");
 
 //this is a magical method to auto load php class without include file
 spl_autoload_register(function($class) {
-    $filename = $class . EXT_FILE;
-    if (file_exists(str_replace(SYS_NAME, '', __DIR__) . $filename)) {
-        $dir = str_replace(SYS_NAME, '', __DIR__);
-        require_once $dir . '\\' . $filename;
-    } else if (file_exists(DIR_APP . '\\' . $filename)) {
-        require_once DIR_APP . '\\' . $filename;
+
+    try {
+        $filename = DIRECTORY_SEPARATOR . str_ireplace('\\', '/', $class) . EXT_FILE;
+
+        if (file_exists(($file = str_replace(SYS_NAME, '', __DIR__) . $filename))) {
+            require_once $file;
+        } else if (file_exists(($file = file_exists(DIR_APP . $filename)))) {
+            require_once $file;
+        } else {
+            throw new \Exception("Unable to load $filename file not found");
+        }
+    } catch (\Exception $e) {
+       // echo $e->getMessage();
+       // die;
     }
 });
 

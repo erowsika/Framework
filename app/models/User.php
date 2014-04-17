@@ -15,19 +15,23 @@
 
 namespace app\models;
 
-use system\core as core;
+use \system\db as db;
 
-class User {
+
+class User extends db\ActiveRecord {
 
     private $db;
 
     public function __construct() {
+        
+    }
+
+    public function getSantri() {
         $db = \Sby::instance()->db->createDb();
-        echo $db->countAll("santri");
         $hasil = $db->query('select * from santri');
         $data = $hasil->fetchArray();
         foreach ($data as $value) {
-            //   print_r($value);
+            print_r($value);
         }
     }
 

@@ -49,7 +49,7 @@ class BaseView {
         $this->_set($name, $value);
     }
 
-    public function view($view_template_file, $vars = null) {
+    public function outputHtml($view_template_file, $vars = null) {
         if (array_key_exists('view_template_file', $this->vars)) {
             throw new MainException("Cannot bind variable called '$view_template_file'");
         }
@@ -58,11 +58,20 @@ class BaseView {
             $this->vars = $vars;
         }
 
-        extract($this->vars);
-        $file = DIR_APP . "\\views\\" . $view_template_file;
-        ob_start();
-        include($file);
-        return ob_get_clean();
+        try {
+            $file = DIR_APP . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . str_ireplace('\\', '/', $view_template_file);
+            
+            if (!file_exists($file)) {
+                throw new MainException("File {$file} not found");
+            }
+            
+            extract($this->vars);
+            ob_start();
+            include($file);
+            return ob_get_clean();
+        } catch (\system\core\MainException $e) {
+            $e->toString();
+        }
     }
 
 }

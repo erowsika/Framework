@@ -13,21 +13,51 @@ use app\core as app;
 use app\models as model;
 
 class welcome extends app\Controller {
-
-    private $muser;
-
+    
+    /**
+     * constructor
+     */
     public function __construct() {
-        $this->muser = new model\User;
+       
     }
-
+    
+    /**
+     * index page
+     * @access public
+     */
     public function index() {
-        $coba = \Sby::instance()->input->get('id',true);
-        $this->coba = $coba;
-        $this->display("welcome\isi.php");
+        $this->display("welcome\index.php");
     }
-
+    
+    
+    public function dokumentasi(){
+        $this->display("welcome\dokumentasi.php");
+    }
+    
+    
+    public function classReference(){
+        $this->display("welcome\classreference.php");
+    }
+    
+    public function tentang(){
+        $this->display("welcome\about.php");
+    }
+    
+    
+    /**
+     * method before execution
+     */
     public function beforeExecute() {
        
     }
 
+    
+    /**
+     * method after execution
+     */
+    
+    public function afterExcetion(){
+        
+        
+    }
 }

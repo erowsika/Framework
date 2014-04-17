@@ -10,22 +10,12 @@
             }
             body{
                 font-family: 'Audiowide', cursive, arial, helvetica, sans-serif;
-                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAUElEQVQYV2NkYGAwBuKzQAwDID4IoIgxIikAMZE1oRiArBDdZBSNMIXoJiFbDZYDKcSmCOYimDuNSVKIzRNYrUYOFuQgweoZbIoxgoeoAAcAEckW11HVTfcAAAAASUVORK5CYII=) repeat;
-                background-color:#212121;
-                color:white;
+                color:black;
                 font-size: 18px;
                 padding-bottom:20px;
             }
             .error-code{
-                font-family: 'Creepster', cursive, arial, helvetica, sans-serif;
-                font-size: 200px;
-                color: white;
-                color: rgba(255, 255, 255, 0.98);
-                width: 50%;
-                text-align: right;
-                margin-top: 5%;
-                text-shadow: 5px 5px hsl(0, 0%, 25%);
-                float: left;
+                font-family: 'Audiowide', cursive, arial, helvetica, sans-serif;
             }
             .not-found{
                 width: 47%;
@@ -41,7 +31,6 @@
                 clear:both;
             }
             .content{
-                text-align:center;
                 line-height: 30px;
             }
             input[type=text]{
@@ -53,7 +42,6 @@
             }
             a{
                 text-decoration: none;
-                color: #9ECDFF;
                 text-shadow: 0px 0px 2px white;
             }
             a:hover{
@@ -65,25 +53,22 @@
     </head>
     <body>
 
-        <p class="error-code">
-        <h4>A PHP Error was encountered</h4>
-    </p>
-    <div class="clear"></div>
-    <div class="content">
-        <div style="border: 1px solid;
-             margin: 10px 0px;
-             padding:15px 10px;
-             background-repeat: no-repeat;
-             background-position: 10px center;-moz-border-radius:.5em;
-             -webkit-border-radius:.5em;
-             color: #D8000C;
-             border-radius:.5em;">
+        <h2 style="color: #D8000C;">A PHP Error was encountered</h2>
+        <div class="clear"></div>
+        <div class="content">
+            <div style="border: 1px solid;
+                 margin: 10px 0px;
+                 padding:15px 10px;
+                 background-repeat: no-repeat;
+                 background-position: 10px center;-moz-border-radius:.5em;
+                 -webkit-border-radius:.5em;
+                 border-radius:.5em;">
 
-            <p>Message:  <?php echo $message ?></p>
-            <p>Filename: <?php echo $file ?></p>
-            <p>Line Number: <?php echo $line ?></p>
-            <p>Position : <br> <?php echo $code ?></p>    
-        </div>";
-    </div>
-</body>
+                <p style="color: #D8000C;">Message:  <?php echo $message ?></p>
+                <p style="color: #D8000C;">Filename: <?php echo $file ?></p>
+                <p style="color: #D8000C;">Line Number: <?php echo $line ?></p>
+                <p class="error-code">Position : <br> <?php echo $code ?></p>    
+            </div>";
+        </div>
+    </body>
 </html>

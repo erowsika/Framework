@@ -37,7 +37,7 @@ return array(
             'password' => '1234',
             'port' => '3306',
             'persistent' => false,
-            'autoinit' => FALSE,
+            'autoinit' => true,
         ),
     /* second database
      * 

@@ -24,8 +24,8 @@ class Controller extends base\BaseController {
     }
 
     public function display($file) {
-        $this->content = $this->View($file);
-        echo $this->View($this->layout);
+        $this->content = $this->outputHtml($file);
+        echo $this->outputHtml($this->layout);
     }
 
 }

@@ -44,7 +44,7 @@ class SqlProvider {
         } else {
             $db = $dbconfig[$dbname];
         }
-
+        
         if (!isset(self::$dbconn[$dbname])) {
             extract($db);
 

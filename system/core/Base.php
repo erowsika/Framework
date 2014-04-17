@@ -81,7 +81,7 @@ class Base {
      * @return void
      */
     private function dispatch($class, $method, $parameters = array()) {
-        if (in_array($method, get_class_methods($class))) {
+        if (method_exists($class, $method)) {
             call_user_func_array(array(&$class, $method), $parameters);
         }
     }
@@ -98,7 +98,7 @@ class Base {
         $parameters = $this->router->getParameter();
 
         try {
-            if (isset($method) and class_exists($controller)) {
+            if (isset($method) and class_exists($controller, true)) {
 
                 $class = new $controller();
 
