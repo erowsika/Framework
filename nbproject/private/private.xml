@@ -2,20 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/framework/app/views/welcome/about.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/core/Controller.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/models/User.php</file>
-            <file>file:/D:/xampp/htdocs/framework/system/core/BaseView.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/views/welcome/dokumentasi.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/controllers/welcome.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/.htaccess</file>
-            <file>file:/D:/xampp/htdocs/framework/app/views/welcome/index.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/errors/error.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/views/layout/main.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/views/layout/menu.php</file>
-            <file>file:/D:/xampp/htdocs/framework/app/config/application.php</file>
-            <file>file:/D:/xampp/htdocs/framework/docs/index.html</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -18,9 +18,7 @@ return array(
     /*
      * modules is an autoload mechanism
      */
-    'modules' => array('Config' => 'core\Config',
-        'Router' => 'core\Router',
-        'Logger' => 'core\Logger'),
+    'modules' => array(),
     /*
      * database configuration
      * we can use multiple database connection at same time
@@ -34,7 +32,7 @@ return array(
             'host' => 'localhost',
             'database' => 'mydb',
             'username' => 'root',
-            'password' => '1234',
+            'password' => '',
             'port' => '3306',
             'persistent' => false,
             'autoinit' => true,
