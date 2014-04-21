@@ -18,7 +18,8 @@ return array(
     /*
      * modules is an autoload mechanism
      */
-    'modules' => array(),
+    'moduls' => array('upload' => 'app\moduls\Upload',
+        'session' => 'system\auth\Session'),
     /*
      * database configuration
      * we can use multiple database connection at same time
@@ -37,12 +38,34 @@ return array(
             'persistent' => false,
             'autoinit' => true,
         ),
-    /* second database
-     * 
-     */
-//"db" => array()
+        'oci' => array(
+            'driver' => 'oracle',
+            'connstring' => 'orcl',
+            'username' => 'hr',
+            'password' => 'hr',
+            'port' => '1521',
+            'persistent' => false,
+            'autoinit' => true,
+        )
     ),
     'encoding' => 'UTF-8',
-    'timezone' => 'UTC'
+    /**
+     * set time zone
+     */
+    'timezone' => 'UTC',
+    /**
+     * set session name
+     */
+    'session' => array(
+        'login_url' => '',
+        /**
+         * set session name
+         */
+        'session_name' => 'framework',
+        /**
+         * session time expiration
+         * default 2 weeks
+         */
+        'session_expire' => 3600 * 24 * 14)
 );
 

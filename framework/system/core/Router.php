@@ -59,7 +59,7 @@ class Router {
 
     public function __construct() {
         $this->uri = (isset($_SERVER['PATH_INFO'])) ? rtrim($_SERVER['PATH_INFO'], "\/") : '/';
-        $this->config = new Config();
+        $this->config = Config::getInstance();
         $this->request = $this->config->get('router');
 
         $this->execute();
@@ -183,6 +183,12 @@ class Router {
 
     public function getParameter() {
         return $this->parameter;
+    }
+
+    public function redirect($url) {
+        if ($url and strpos($url, "://") == false)
+            $url = Base::instance()->base_url . $url;
+        header("Location:" . $url);
     }
 
 }

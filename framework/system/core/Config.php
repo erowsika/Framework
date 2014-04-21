@@ -14,19 +14,26 @@ class Config {
      * @var registry
      */
 
-    private $_registry;
+    private $vars;
+    private static $_instance;
 
     /*
      * constructor
      */
 
     public function __construct($conf = null) {
-
+        $property = array();
         if ($conf == null) {
-            $conf = include(CONFIG_PATH . '/application.php');
+            $property = include(CONFIG_PATH . '/application.php');
         }
+        $this->vars = $property;
+    }
 
-        $this->_registry = Registry::getInstance($conf);
+    public static function getInstance() {
+        if (self::$_instance === null) {
+            self::$_instance = new Config();
+        }
+        return self::$_instance;
     }
 
     /*
@@ -36,7 +43,7 @@ class Config {
      */
 
     public function get($key = null) {
-        $value = $this->_registry->get($key);
+        $value = isset($this->vars[$key]) ? $this->vars[$key] : false;
         return $value;
     }
 
@@ -46,7 +53,10 @@ class Config {
      */
 
     public function set($key, $value) {
-        $this->_registry->set($key, $value);
+        $this->vars[$key] = $value;
     }
 
+    public function getProperty(){
+        return $this->vars;
+    }
 }

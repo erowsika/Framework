@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/xampp/htdocs/framework/framework/system/db/Oci8.php</file>
+            <file>file:/E:/xampp/htdocs/framework/posyandu/app/controllers/Login.php</file>
+            <file>file:/E:/xampp/htdocs/framework/posyandu/app/views/beranda/index.php</file>
+            <file>file:/E:/xampp/htdocs/framework/posyandu/app/controllers/Beranda.php</file>
+            <file>file:/E:/xampp/htdocs/framework/framework/system/helper/Html.php</file>
+            <file>file:/E:/xampp/htdocs/framework/framework/system/core/BaseView.php</file>
+            <file>file:/E:/xampp/htdocs/framework/posyandu/app/views/layout/main.php</file>
+            <file>file:/E:/xampp/htdocs/framework/posyandu/app/views/layout/menu.php</file>
+            <file>file:/E:/xampp/htdocs/framework/framework/system/core/Router.php</file>
+            <file>file:/E:/xampp/htdocs/framework/posyandu/app/views/login/index.php</file>
+        </group>
     </open-files>
 </project-private>

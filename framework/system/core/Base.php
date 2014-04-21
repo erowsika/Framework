@@ -18,13 +18,14 @@ class Base {
 
     private static $_instance;
 
-    /*
+    /**
      * load these automatically class at runtime
      */
-    private $classes = array('config' => 'system\core\Config',
+    private $classes = array(
         'router' => 'system\core\Router',
         'input' => 'system\core\Input',
-        'db' => 'system\db\SqlProvider');
+        'db' => 'system\db\Database',
+        'html' => 'system\helper\Html');
 
     /* this is a constructor
      * @access public
@@ -32,8 +33,24 @@ class Base {
      */
 
     public function __construct() {
-        $this->initClass();
-        $this->initConfig();
+
+        // assign config string to this member
+        $conf = Config::getInstance()->getProperty();
+        foreach ($conf as $key => $value) {
+            if (!is_array($value)) {
+                $this->$key = $value;
+            }
+        }
+
+        //merge core class with moduls class
+        $moduls = Config::getInstance()->get('moduls');
+        $diff = array_intersect_key($moduls, $this->classes);
+        if (!empty($diff)) {
+            $sameclass = implode(', ', array_keys($diff));
+            throw new MainException("please use the different alias for moduls  $sameclass");
+        }
+        $this->classes = array_merge($this->classes, $moduls);
+        register_shutdown_function(array($this, 'shutDown'));
     }
 
     /**
@@ -47,32 +64,30 @@ class Base {
         return self::$_instance;
     }
 
-    /*
-     * initialization config file
+    /**
+     * for lazy loader mechanism
+     * @param type $name
+     * @return type
+     * @throws MainException
      */
-
-    private function initConfig() {
-        $conf = $this->config->get();
-        foreach ($conf as $key => $value) {
-            if (!is_array($value)) {
-                $this->$key = $value;
-            }
+    public function __get($name) {
+        $registry = Registry::getInstance();
+        if (!$registry->get($name)) {
+            if (isset($this->classes[$name])) {
+                $object = new $this->classes[$name]();
+                $registry->set($name, $object);
+            } else
+                throw new MainException("undefined property $name");
         }
+        return $registry->get($name);
     }
 
-    /*
-     * load all classes that predifined before
-     * @access private
-     * @param void
-     * @return void
-     */
-
-    private function initClass() {
-
-        foreach ($this->classes as $className => $class) {
-
-            $className = strtolower($className);
-            $this->$className = new $class();
+    public function shutDown() {
+        $objects = Registry::getInstance()->getProperty();
+        foreach ($objects as $key => $object) {
+            if (is_object($object) and method_exists($object, '__destruct')) {
+                $object->__destruct();
+            }
         }
     }
 
@@ -100,15 +115,15 @@ class Base {
         try {
             if (isset($method) and class_exists($controller, true)) {
 
-                $class = new $controller();
+                $this->$controller = new $controller();
 
-                if (in_array($method, get_class_methods($class))) {
+                if (in_array($method, get_class_methods($this->$controller))) {
 
-                    $this->dispatch($class, "beforeExecute");
+                    $this->dispatch($this->$controller, "beforeExecute");
 
-                    $this->dispatch($class, $method, $parameters);
+                    $this->dispatch($this->$controller, $method, $parameters);
 
-                    $this->dispatch($class, "afterExecute");
+                    $this->dispatch($this->$controller, "afterExecute");
                 } else {
                     throw new HttpException('Halaman tidak ditemukan', 404);
                 }

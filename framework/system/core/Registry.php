@@ -27,21 +27,37 @@ class Registry {
      * constructor
      */
 
-    private function __construct($properti) {
-        $this->registry = $properti;
+    public function __construct($properti = array()) {
+        if (!empty($properti))
+            $this->registry = $properti;
     }
 
- 
-    /* get the instance of this class without create an object 
+    /**
+     * get the instance of this class without create an object 
      * @access static
      * @return Registry
      */
-
-    public static function getInstance($properti) {
+    public static function getInstance() {
         if (self::$instance === null) {
-            self::$instance = new Registry($properti);
+            self::$instance = new Registry();
         }
         return self::$instance;
+    }
+
+    /**
+     * set this property
+     * @param array $properti
+     */
+    public function setProperty($properti = array()) {
+        $this->registry = $properti;
+    }
+
+    /**
+     * ger property
+     * @return array
+     */
+    public function getProperty() {
+        return $this->registry;
     }
 
     /*
@@ -50,9 +66,9 @@ class Registry {
      * @param object
      */
 
-    public function set($key, $value) {
-        if (!isset($this->registry[$key])) {
-            $this->registry[$key] = $value;
+    public function set($name, $value) {
+        if (!isset($this->registry[$name])) {
+            $this->registry[$name] = $value;
         }
     }
 
@@ -62,13 +78,8 @@ class Registry {
      * @return object
      */
 
-    public function get($key = null) {
-
-        if (!isset($this->registry[$key])) {
-            return $this->registry;
-        }
-
-        return $this->registry[$key];
+    public function get($key) {
+        return (isset($this->registry[$key])) ? $this->registry[$key] : false;
     }
 
 }

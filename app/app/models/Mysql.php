@@ -13,14 +13,14 @@ namespace app\models;
  *
  * @author masfu
  */
-use system\db\SqlProvider;
+use system\db\Database;
 
 class Mysql {
 
     private $db;
 
     public function __construct() {
-        $this->db = SqlProvider::getDBConnection();
+        $this->db = Database::getDBConnection();
     }
 
     public function showTableTest() {
@@ -59,8 +59,7 @@ class Mysql {
         return $this->db->select("*")
                         ->from("santri", "ustad")
                         ->limit(4, 10)
-                        ->orderBy("tahun_masuk","DESC")
-                        //->where("santri_id = 60")
+                        ->orderBy("tahun_masuk", "DESC")
                         ->result()
                         ->fetchArray();
     }

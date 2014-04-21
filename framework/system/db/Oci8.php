@@ -15,9 +15,11 @@
 
 namespace system\db;
 
-use system\core as core;
+use system\core\DbException;
 
 class Oci8 extends Db {
+
+    protected $_commit = OCI_COMMIT_ON_SUCCESS;
 
     /**
      * constructor
@@ -59,9 +61,9 @@ class Oci8 extends Db {
         try {
             if (!($this->conn = ocilogon($this->user, $this->pass, $this->connString))) {
                 $e = oci_error();
-                throw new core\DbException($e['message']);
+                throw new DbException($e['message']);
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
     }
@@ -76,9 +78,9 @@ class Oci8 extends Db {
         try {
             if (!($this->conn = @ociplogon($this->user, $this->pass, $this->connString))) {
                 $e = oci_error();
-                throw new core\DbException($e['message']);
+                throw new DbException($e['message']);
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
     }
@@ -95,15 +97,22 @@ class Oci8 extends Db {
                 $data[$key] = $this->escapeStr($value);
             }
         }
-
-        if (function_exists('mysql_real_escape_string') AND is_resource($this->conn)) {
-            $data = mysql_real_escape_string($data, $this->conn);
-        } elseif (function_exists('mysql_escape_string')) {
-            $data = mysql_escape_string($data);
-        } else {
-            $data = addslashes($data);
-        }
         return $data;
+    }
+
+    public function bindParameter(&$data = array()) {
+        try {
+            foreach ($data as $key => $value) {
+                $name = ":" . $key;
+
+                if (!oci_bind_by_name($this->stmt, $name, $data[$key])) {
+                    $e = oci_error();
+                    throw new DbException($e['message']);
+                }
+            }
+        } catch (DbException $e) {
+            
+        }
     }
 
     /**
@@ -123,7 +132,7 @@ class Oci8 extends Db {
      * 
      */
     public function affectedRows() {
-        return @mysql_affected_rows($this->conn);
+        return @oci_num_rows($this->stmt);
     }
 
     /**
@@ -142,24 +151,37 @@ class Oci8 extends Db {
      * @param string $name Description
      * @return type Description
      * */
-    public function _exec($sql) {
+    public function _exec($sql, $data) {
 
+        if (!$this->autoinit) {
+            $this->initDb();
+        }
         try {
-
-            $status = false;
-            if (!$this->autoinit) {
-                $this->initDb();
+            $this->stmt = ociparse($this->conn, $sql);
+            if (!$this->stmt) {
+                $e = oci_error($this->stmt);
+                $str = htmlentities("error " . $e['message']);
+                throw new DbException($str);
             }
 
-            if (!($status = @mysql_query($sql, $this->conn))) {
-                $message = "Query:  " . $sql;
-                $message .= "<p> Message: " . mysql_error() . "<p>";
-                throw new core\DbException($message, mysql_errno());
+            $this->bindParameter($data);
+
+            if (!($result = @oci_execute($this->stmt, $this->_commit))) {
+                $e = oci_error($this->stmt);
+                $str = htmlentities($e['message']);
+                $str .= "<pre>";
+                $str .= htmlentities($e['sqltext']) . "<br>";
+                for ($i = 0; $i < $e['offset']; $i++) {
+                    $str .= " ";
+                }
+                $str .= "^";
+                $str .= "</pre>";
+                throw new DbException($str);
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
-        return $status;
+        return $result;
     }
 
     /**
@@ -168,8 +190,8 @@ class Oci8 extends Db {
      * @param string $name Description
      * @return type Description
      * */
-    public function query($sql) {
-        $this->resultid = $this->_exec($sql);
+    public function query($sql, $data = array()) {
+        $this->_exec($sql, $data);
         return $this;
     }
 
@@ -179,7 +201,7 @@ class Oci8 extends Db {
      * */
     public function fetchArray() {
         $result = array();
-        while ($row = mysql_fetch_assoc($this->resultid)) {
+        while ($row = @oci_fetch_assoc($this->stmt)) {
             $result[] = $row;
         }
         return $result;
@@ -191,7 +213,7 @@ class Oci8 extends Db {
      * */
     public function fetchObject() {
         $result = array();
-        while ($row = @mysql_fetch_object($this->resultid)) {
+        while ($row = @oci_fetch_object($this->stmt)) {
             $result[] = $row;
         }
         return $result;
@@ -203,13 +225,22 @@ class Oci8 extends Db {
      * @return void
      */
     public function freeResult() {
-        @mysql_free_result($this->resultid);
+        @oci_free_statement($this->stmt);
     }
 
+    /**
+     * get number rows
+     * @return int
+     */
     public function numRows() {
-        return @mysql_num_rows($this->resultid);
+        return @oci_num_rows($this->stmt);
     }
 
+    /**
+     * get count row
+     * @param string $table
+     * @return int
+     */
     public function countAll($table) {
         if ($table == '')
             return 0;
@@ -219,35 +250,92 @@ class Oci8 extends Db {
         return $row['NUM_ROWS'];
     }
 
+    /**
+     * insert data to table
+     * @param string $table
+     * @param array $data
+     * @return Oci8
+     */
     public function insert($table, $data = array()) {
         $fields = array_keys($data);
+        $bind = array();
 
-        foreach ($data as $key => $val)
+        foreach ($data as $key => $val) {
             $data[$key] = $this->escapeStr($val);
+            $bind[] = ':' . $key;
+        }
 
-        return $this->query("INSERT INTO `$table` (`" . implode('`,`', $fields) . "`) VALUES ('" . implode("','", $data) . "')");
+        return $this->query("INSERT INTO $table (" . implode(',', $fields) . ") VALUES (" . implode(',', $bind) . ")", $data);
     }
 
+    /**
+     * update table
+     * @param string $table
+     * @param array $data
+     * @param array $where
+     * @return \system\db\Oci8
+     */
+    public function update($table, $data, $where = null) {
+        $wheres = array();
+        $bind_data = array();
+        foreach ($data as $key => $val) {
+            $data[$key] = $this->escapeStr($val);
+            $bind_data[] = "$key = :$key";
+        }
+
+        if (is_array($where)) {
+            foreach ($where as $col => $val) {
+                $data[$col] = $this->escapeStr($val);
+                $wheres[] = "$col = :$col";
+            }
+            $where = implode(' AND ', $wheres);
+        }
+        return $this->query("UPDATE $table SET " . implode(', ', $bind_data) . ' WHERE ' . $where, $data);
+    }
+
+    
+    
+    
+    /**
+     * delete row
+     * @param string $table
+     * @param string $where
+     * @return boolean
+     */
     public function delete($table, $where = array()) {
 
         if (is_array($where)) {
 
             foreach ($where as $col => $val) {
-                $wheres[] = "$col = '" . $this->escapeStr($val) . "'";
+                $where[$col] = $this->escapeStr($val);
+                $wheres[] = "$col = :$col";
             }
-            $where = implode(' AND ', $wheres);
+            $criteria = implode(' AND ', $wheres);
         } else {
             return false;
         }
-        return $this->query("DELETE FROM `$table` WHERE $where");
+        return $this->query("DELETE FROM $table WHERE $criteria", $where);
     }
 
+    
+    
+    /**
+     * limit select statment
+     * @param type $limit
+     * @param type $offset
+     * @return \system\db\Oci8
+     */
     public function limit($limit = 0, $offset = 0) {
         $this->limit = $limit;
         $this->offset = $offset;
         return $this;
     }
 
+    
+    /**
+     * 
+     * @return \system\db\Oci8
+     */
     public function from() {
         $table = func_get_args();
         if (!empty($table)) {
@@ -256,6 +344,12 @@ class Oci8 extends Db {
         return $this;
     }
 
+    
+    /**
+     *  
+     * @param string $where
+     * @return \system\db\Oci8
+     */
     public function where($where) {
 
         if (is_array($where)) {
@@ -271,6 +365,11 @@ class Oci8 extends Db {
         return $this;
     }
 
+    
+    /**
+     * 
+     * @return \system\db\Oci8
+     */
     public function select() {
         $column = func_get_args();
         if (!empty($column)) {
@@ -279,18 +378,36 @@ class Oci8 extends Db {
         return $this;
     }
 
-    public function join($table, $type) {
-        $this->joins = $table;
-        $this->joinsType = $type;
+    
+    
+    /**
+     * 
+     * @param type $join
+     * @return \system\db\Oci8
+     */
+    public function join($join) {
+        $this->joins = $join;
         return $this;
     }
 
+    
+    /**
+     * 
+     * @param type $column
+     * @param type $type
+     * @return \system\db\Oci8
+     */
     public function orderBy($column, $type = 'ASC') {
         $this->order = $column;
         $this->orderType = $type;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $column
+     * @return \system\db\Oci8
+     */
     public function groupBy($column) {
         $column = func_get_args();
         if (!empty($column)) {
@@ -299,42 +416,51 @@ class Oci8 extends Db {
         return $this;
     }
 
+    
+    /**
+     * 
+     * @param type $having
+     * @return \system\db\Oci8
+     */
+    public function having($having) {
+        $this->having = $having;
+        return $this;
+    }
+
+    
+    /**
+     * 
+     * @param type $val
+     * @return \system\db\Oci8
+     */
     public function distinct($val = TRUE) {
         $this->distinct = (is_bool($val)) ? $val : TRUE;
         return $this;
     }
 
-    public function update($table, $data, $where = null) {
-
-        $datas = array();
-        $wheres = array();
-
-        foreach ($data as $key => $val) {
-            $datas[] = "`$key` = '{$this->escapeStr($val)}'";
-        }
-
-        if (is_array($where)) {
-            foreach ($where as $col => $val) {
-                $wheres[] = "$col = '" . $this->escapeStr($val) . "'";
-            }
-            $where = implode(' AND ', $wheres);
-        }
-        $this->query("UPDATE `$table` SET " . implode(', ', $datas) . ' WHERE ' . $where);
-        return $this;
-    }
-
+    
+    /**
+     * 
+     * @param type $like
+     * @return \system\db\Oci8
+     */
     public function listTable($like = null) {
         $criteria = "";
-        $tables = array();
-
         if (is_string($like)) {
             $like = $this->escapeStr($like);
-            $criteria = " LIKE '{$like}%'";
+            $criteria = "WHERE TNAME LIKE '{$like}%'";
         }
-        $this->query("SHOW TABLES {$criteria}");
+        $this->query("SELECT * FROM TAB {$criteria}");
         return $this;
     }
 
+    
+    /**
+     * 
+     * @param type $table
+     * @param type $like
+     * @return \system\db\Oci8
+     */
     public function listColumn($table, $like = NULL) {
         $tables = array();
         $criteria = "";
@@ -343,26 +469,35 @@ class Oci8 extends Db {
             $like = $this->escapeStr($like);
             $criteria = " LIKE '{$like}%'";
         }
-        $this->query("SHOW FULL COLUMNS FROM $table");
+        $this->query("DESC EMPLOYEES $table");
         return $this;
     }
 
+    /**
+     * 
+     * @return \system\db\Oci8
+     */
     public function result() {
-        $sql = "SELECT ";
-        $sql .= (empty($this->column)) ? " * " : implode(', ', $this->column);
-        $sql .= " FROM " . implode(', ', $this->tables);
-        $sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
-        $sql .= (empty($this->group)) ? "" : " GROUP BY " . implode(', ', $this->group);
-        $sql .= ($this->order) ? " ORDER BY " . $this->order . " " . $this->orderType : "";
-        $sql .= ($this->limit) ? " LIMIT " . $this->limit : "";
-        $sql .= ($this->offset) ? ", " . $this->offset : "";
+        $this->sql = "SELECT ";
+        $this->sql .= (empty($this->column)) ? " * " : implode(', ', $this->column);
+        $this->sql .= " FROM " . implode(', ', $this->tables);
+        $this->sql .=($this->join) ? $this->join : "";
+        $this->sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
+        $this->sql .= (!empty($this->group)) ? " GROUP BY " . implode(', ', $this->group) : "";
+        $this->sql .= ($this->having) ? " HAVING " . $this->having : "";
+        $this->sql .= ($this->order) ? " ORDER BY " . $this->order . " " . $this->orderType : "";
+        $this->sql .= ($this->limit) ? " LIMIT " . $this->limit : "";
+        $this->sql .= ($this->offset) ? ", " . $this->offset : "";
 
-        $this->query($sql);
+        $this->query($this->sql);
         return $this;
     }
 
+    /**
+     * 
+     */
     public function dbClose() {
-        @mysql_close($this->conn);
+        @oci_close($this->conn);
     }
 
 }

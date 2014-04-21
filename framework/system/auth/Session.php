@@ -6,42 +6,97 @@
  * and open the template in the editor.
  */
 
-namespace system\core;
+namespace system\auth;
 
 /**
  * Description of Session inspiration from code igniter
  *
  * @author masfu
  */
+use system\core\Config;
+
 class Session {
 
+    /**
+     * store config
+     * @var array 
+     */
+    private $config = array();
+
+    /**
+     * constructor
+     */
     public function __construct() {
+        $this->config = Config::getInstance()->get('session');
+        session_name($this->config['session_name']);
         session_start();
     }
 
-    public function get($key){
-        
-    }
-    
-    public function setUserData($newdata = array(), $newvalue = '') {
-        if (is_array($newdata)) {
-            foreach ($newdata as $key => $val) {
-                $this->setSession($key, $val);
-            }
-        } else
-            $this->set($newdata, $newvalue);
+    /**
+     * magical method to get session data
+     * @param string $key
+     * @return string
+     */
+    public function __get($key) {
+        return (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
     }
 
-    public function set() {
-        
+    /**
+     * magical method to set session data
+     * @param string $name
+     * @param data $value
+     */
+    public function __set($name, $value) {
+        $this->setTimeExpire();
+        $_SESSION[$name] = $value;
     }
-    
-    public function unsetSess(){
-        
+
+    /**
+     * unset session data
+     * @param string $name
+     */
+    public function unsetSess($name) {
+        unset($_SESSION[$name]);
     }
-    
-    public function destroy(){
-        
+
+    /**
+     * set message flash message that will unset on the next request
+     * @param string $name
+     * @param sting $value
+     */
+    public function setFlashData($name, $value) {
+        $_SESSION['flash_data'][$name] = $value;
+    }
+
+    /**
+     * get flash message data
+     * @param string $name
+     * @return string
+     */
+    public function flashData($name) {
+        unset($_SESSION['flash_data'][$name]);
+        return (isset($_SESSION['flash_data'])) ? $_SESSION['flash_data'][$name] : false;
+    }
+
+    /**
+     * set session expiration time
+     */
+    public function setTimeExpire() {
+        $_SESSION['sess_expiration'] = time() + $this->config['session_expire'];
+    }
+
+    /**
+     * destructor
+     */
+    public function __destruct() {
+        $this->destroy();
+    }
+
+    /**
+     * destroy session
+     */
+    public function destroy() {
+        @session_destroy();
     }
 
 }

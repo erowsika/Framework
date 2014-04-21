@@ -6,17 +6,21 @@
  * and open the template in the editor.
  */
 
-namespace system\auth;
+namespace app\moduls;
 
 /**
- * Description of AuthManager
+ * Description of Upload
  *
  * @author masfu
  */
-class AuthManager extends Session {
-    
-    
+class Upload {
+
     public function __construct() {
         
     }
+
+    public function coba() {
+        echo "dsdsd";
+    }
+
 }

@@ -33,8 +33,7 @@ abstract class Db {
     protected $column = array();
     protected $criteria = '';
     protected $tables = array();
-    protected $join;
-    protected $joinType;
+    protected $join = '';
     protected $distinct = FALSE;
     protected $limit = '';
     protected $offset = '';
@@ -42,6 +41,7 @@ abstract class Db {
     protected $order;
     protected $orderType;
     protected $group = array();
+    protected $sql = '';
 
     /**
      * 

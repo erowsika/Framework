@@ -8,18 +8,24 @@ namespace app\controllers;
  * @author masfu
  * @copyright (c) 2014, Masfu Hisyam
  */
+use app\core\Controller;
 
-use app\core as app;
+class Welcome extends Controller {
 
-class Welcome extends app\Controller {
-    
     /**
      * constructor
      */
     public function __construct() {
-       
+        
     }
-    
+
+    public function permission() {
+        return array(
+            'index' => array('cache' => false, 'allowed_user' => 'guest', 'admin'),
+            'dokumentasi' => array('cache' => false, 'allowed_user' => 'guest', 'admin'),
+            'classReference' => array('cache' => false, 'allowed_user' => 'guest', 'admin'));
+    }
+
     /**
      * index page
      * @access public
@@ -27,36 +33,17 @@ class Welcome extends app\Controller {
     public function index() {
         $this->display("welcome\index.php");
     }
-    
-    
-    public function dokumentasi(){
+
+    public function dokumentasi() {
         $this->display("welcome\dokumentasi.php");
     }
-    
-    
-    public function classReference(){
+
+    public function classReference() {
         $this->display("welcome\classreference.php");
     }
-    
-    public function tentang(){
+
+    public function tentang() {
         $this->display("welcome\about.php");
     }
-    
-    
-    /**
-     * method before execution
-     */
-    public function beforeExecute() {
-       
-    }
 
-    
-    /**
-     * method after execution
-     */
-    
-    public function afterExcetion(){
-        
-        
-    }
 }

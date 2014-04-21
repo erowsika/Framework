@@ -1,5 +1,7 @@
 <?php
 
+namespace system\db;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,25 +14,9 @@
  * @author masfu
  * @copyright (c) 2014, Masfu Hisyam
  */
-
-namespace system\db;
-
-use system\core as core;
+use system\core\DbException;
 
 class Mysql extends Db {
-
-    protected $column = array();
-    protected $criteria = '';
-    protected $tables = array();
-    protected $join;
-    protected $joinType;
-    protected $distinct = FALSE;
-    protected $limit = '';
-    protected $offset = '';
-    protected $having;
-    protected $order;
-    protected $orderType;
-    protected $group = array();
 
     /**
      * constructor
@@ -73,9 +59,9 @@ class Mysql extends Db {
     public function dbConnect() {
         try {
             if (!($this->conn = @mysql_connect($this->host, $this->user, $this->pass))) {
-                throw new core\DbException(mysql_error(), mysql_errno());
+                throw new DbException(mysql_error(), mysql_errno());
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
     }
@@ -89,9 +75,9 @@ class Mysql extends Db {
     public function dbPconnect() {
         try {
             if (!($this->conn = @mysql_pconnect($this->host, $this->user, $this->pass))) {
-                throw new core\DbException(mysql_error(), mysql_errno());
+                throw new DbException(mysql_error(), mysql_errno());
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
     }
@@ -105,9 +91,9 @@ class Mysql extends Db {
     private function dbSelect() {
         try {
             if (!@mysql_select_db($this->database, $this->conn)) {
-                throw new core\DbException(mysql_error(), mysql_errno());
+                throw new DbException(mysql_error(), mysql_errno());
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
         return true;
@@ -184,9 +170,9 @@ class Mysql extends Db {
             if (!($status = @mysql_query($sql, $this->conn))) {
                 $message = "Query:  " . $sql;
                 $message .= "<p> Message: " . mysql_error() . "<p>";
-                throw new core\DbException($message, mysql_errno());
+                throw new DbException($message, mysql_errno());
             }
-        } catch (core\DbException $e) {
+        } catch (DbException $e) {
             $e->printError();
         }
         return $status;
@@ -280,8 +266,14 @@ class Mysql extends Db {
 
     public function from() {
         $table = func_get_args();
-        if (!empty($table)) {
-            $this->tables = array_merge($this->tables, $table);
+        try {
+            if (!empty($table)) {
+                $this->tables = array_merge($this->tables, $table);
+            } else {
+                throw new DbException("please select at least one table");
+            }
+        } catch (DbException $e) {
+            echo $e->printError();
         }
         return $this;
     }
@@ -309,12 +301,11 @@ class Mysql extends Db {
         return $this;
     }
 
-    public function join($table, $type) {
-        $this->joins = $table;
-        $this->joinsType = $type;
+    public function join($join) {
+        $this->joins = $join;
         return $this;
     }
-    
+
     public function orderBy($column, $type = 'ASC') {
         $this->order = $column;
         $this->orderType = $type;
@@ -331,6 +322,11 @@ class Mysql extends Db {
 
     public function distinct($val = TRUE) {
         $this->distinct = (is_bool($val)) ? $val : TRUE;
+        return $this;
+    }
+
+    public function having($having) {
+        $this->having = $having;
         return $this;
     }
 
@@ -378,16 +374,18 @@ class Mysql extends Db {
     }
 
     public function result() {
-        $sql = "SELECT ";
-        $sql .= (empty($this->column)) ? " * " : implode(', ', $this->column);
-        $sql .= " FROM " . implode(', ', $this->tables);
-        $sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
-        $sql .= (empty($this->group)) ? "" : " GROUP BY " . implode(', ', $this->group);
-        $sql .= ($this->order) ? " ORDER BY " . $this->order . " " . $this->orderType : "";
-        $sql .= ($this->limit) ? " LIMIT " . $this->limit : "";
-        $sql .= ($this->offset) ? ", ".$this->offset : "";
-        
-        $this->query($sql);
+        $this->sql = "SELECT ";
+        $this->sql .= (empty($this->column)) ? " * " : implode(', ', $this->column);
+        $this->sql .= " FROM " . implode(', ', $this->tables);
+        $this->sql .=($this->join) ? $this->join : "";
+        $this->sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
+        $this->sql .= (!empty($this->group)) ? " GROUP BY " . implode(', ', $this->group) : "";
+        $this->sql .= (!empty($this->having)) ? " HAVING " . $this->having : "";
+        $this->sql .= ($this->order) ? " ORDER BY " . $this->order . " " . $this->orderType : "";
+        $this->sql .= ($this->limit) ? " LIMIT " . $this->limit : "";
+        $this->sql .= ($this->offset) ? ", " . $this->offset : "";
+
+        $this->query($this->sql);
         return $this;
     }
 

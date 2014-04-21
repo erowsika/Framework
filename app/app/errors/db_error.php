@@ -11,7 +11,7 @@
             body{
                 font-family: 'Audiowide', cursive, arial, helvetica, sans-serif;
                 color:black;
-                font-size: 18px;
+                font-size: 14px;
                 padding-bottom:20px;
             }
             .error-code{

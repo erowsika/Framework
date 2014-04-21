@@ -6,21 +6,13 @@
  * and open the template in the editor.
  */
 
+namespace system\helper;
+
 /**
- * Description of Model
- * @package name
+ * Description of Menu
+ *
  * @author masfu
- * @copyright (c) 2014, Masfu Hisyam
  */
-
-namespace system\core;
-
-use db;
-
-class Model {
-
-    public function __construct() {
-        
-    }
-
+class Menu {
+    //put your code here
 }

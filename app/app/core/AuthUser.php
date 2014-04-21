@@ -9,23 +9,19 @@
 namespace app\core;
 
 /**
- * Description of Controller
+ * Description of AuthUser
  *
  * @author masfu
  */
-use system\core as base;
+use system\auth\BaseAuthManager;
 
-class Controller extends base\BaseController {
-
-    protected $layout = "layout\main.php";
+class AuthUser extends BaseAuthManager {
 
     public function __construct() {
         parent::__construct();
     }
 
-    public function display($file) {
-        $this->content = $this->outputHtml($file);
-        echo $this->outputHtml($this->layout);
+    public function authenticate(){
+        
     }
-
 }

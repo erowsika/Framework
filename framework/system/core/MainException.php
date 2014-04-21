@@ -90,9 +90,10 @@ class MainException extends \Exception {
                 $code .= $html . "<br>";
             }
         }
+        ob_clean();
         header("HTTP/1.1 500 Internal Server Error", true, 500);
 
-        $fileError = APP_PATH . '/errors/error' . EXT_FILE;
+        $fileError = ERROR_PATH.'/error' . EXT_FILE;
 
         if (file_exists($fileError)) {
             include $fileError;

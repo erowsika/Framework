@@ -30,8 +30,9 @@ class DbException extends \Exception {
         $message = $this->message;
         $line = $this->line;
         $code = $this->code;
+        ob_clean();
         header("HTTP/1.1 500 Internal Server Error", true, 500);
-        $fileError = SYS_PATH . '/errors/db_error' . EXT_FILE;
+        $fileError = ERROR_PATH . '/db_error' . EXT_FILE;
         if (file_exists($fileError)) {
             include $fileError;
         } else {

@@ -15,22 +15,22 @@
 
 namespace system\db;
 
-use system\core as core;
-
-class SqlProvider {
+use system\core\Base;
+use \system\core\Config;
+class Database {
 
     private static $_instance = null;
     private static $dbconn = array();
     private $config;
 
     public function __construct() {
-        $this->config = new core\Config();
+        $this->config = Config::getInstance();
     }
 
     public static function getDBConnection($dbname = '') {
 
         if (self::$_instance === null) {
-            self::$_instance = new SqlProvider();
+            self::$_instance = new Database();
         }
         return self::$_instance->createDb($dbname);
     }
@@ -44,10 +44,9 @@ class SqlProvider {
         } else {
             $db = $dbconfig[$dbname];
         }
-        
+
         if (!isset(self::$dbconn[$dbname])) {
             extract($db);
-
             switch ($driver) {
                 case 'mysql':
                     self::$dbconn[$dbname] = new Mysql($host, $username, $password, $database, $port, $persistent, $autoinit);
@@ -55,6 +54,7 @@ class SqlProvider {
                 case 'pgsql':
                     break;
                 case 'oracle':
+                    self::$dbconn[$dbname] = new Oci8($connstring, $username, $password, $port, $persistent, $autoinit);
                     break;
                 case 'monggodb':
                     break;

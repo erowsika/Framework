@@ -23,6 +23,11 @@ class BaseView {
      * @var array
      */
     private $vars = array();
+    private $outputBuffer;
+
+    public function __construct() {
+        ob_start();
+    }
 
     /**
      * get store value
@@ -31,7 +36,7 @@ class BaseView {
      * 
      */
     public function __get($name) {
-        return isset($this->vars[$name]) ? $this->vars[$name] : false;
+        return isset($this->vars[$name]) ? $this->vars[$name] : null;
     }
 
     /**
@@ -64,6 +69,7 @@ class BaseView {
      * @throws MainException
      */
     public function outputHtml($file, $vars = null) {
+        $html = $this->html;
         if (array_key_exists('view_template_file', $this->vars)) {
             throw new MainException("Cannot bind variable called '$file'");
         }
@@ -78,7 +84,6 @@ class BaseView {
             if (!file_exists($file)) {
                 throw new MainException("File {$file} not found");
             }
-
             extract($this->vars);
             ob_start();
             include($file);
@@ -86,6 +91,19 @@ class BaseView {
         } catch (MainException $e) {
             $e->toString();
         }
+    }
+
+    public function setLayout() {
+        echo $this->outputHtml($this->layout);
+    }
+
+    public function display($file) {
+        $this->content = $this->outputHtml($file);
+        $this->setLayout();
+    }
+
+    public function __destruct() {
+        echo ob_get_clean();
     }
 
     /**

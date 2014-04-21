@@ -32,7 +32,7 @@ class HttpException extends \Exception {
         parent::__construct($message, $code);
     }
 
-    public  function printError() {
+    public function printError() {
         $message = $this->message;
         $code = $this->code;
         $title = $message;
@@ -42,8 +42,8 @@ class HttpException extends \Exception {
             $title = "Unknown Error";
             $message = "An unknown error has occurred.";
         }
-        
-        $fileError = SYS_PATH . '/errors/' . $code . EXT_FILE;
+        ob_clean();
+        $fileError = ERROR_PATH . $code . EXT_FILE;
         header("HTTP/1.1 {$this->codes[$code][1]}", true, $code);
         if (file_exists($fileError)) {
             include $fileError;
