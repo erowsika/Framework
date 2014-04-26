@@ -185,10 +185,22 @@ class Router {
         return $this->parameter;
     }
 
+    /**
+     * redirect to url
+     * @param string $url
+     */
     public function redirect($url) {
         if ($url and strpos($url, "://") == false)
             $url = Base::instance()->base_url . $url;
         header("Location:" . $url);
+    }
+
+    /**
+     * get uri request
+     * @return string
+     */
+    public function getUri() {
+        return $this->uri;
     }
 
 }

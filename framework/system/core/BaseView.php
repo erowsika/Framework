@@ -150,4 +150,7 @@ class BaseView {
         return $element;
     }
 
+    public function redirect($url) {
+        Base::instance()->router->redirect($url);
+    }
 }

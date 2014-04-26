@@ -28,7 +28,7 @@ return array(
         /*
          * the first database configuration
          */
-        'db' => array(
+        'mysql' => array(
             'driver' => 'mysql',
             'host' => 'localhost',
             'database' => 'mydb',
@@ -36,6 +36,22 @@ return array(
             'password' => '',
             'port' => '3306',
             'persistent' => false,
+            'autoinit' => true,
+        ),
+        'pgsql' => array(
+            'driver' => 'pgsql',
+            'host' => 'localhost',
+            'database' => 'hr',
+            'username' => 'postgres',
+            'password' => '1234',
+            'persistent' => false,
+            'autoinit' => true,
+        ),
+        'pdo' => array(
+            'driver' => 'pdo',
+            'dsn' => 'mysql:host=localhost;dbname=mydb',
+            'username' => 'root',
+            'password' => '',
             'autoinit' => true,
         ),
         'oci' => array(

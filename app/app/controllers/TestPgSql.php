@@ -9,10 +9,9 @@ namespace app\controllers;
  * @copyright (c) 2014, Masfu Hisyam
  */
 use app\core as app;
-use app\models\Mysql;
-use app\models\Oracle;
+use app\models\PgSql;
 
-class TestOci extends app\Controller {
+class TestPgSql extends app\Controller {
 
     /**
      * constructor
@@ -26,15 +25,15 @@ class TestOci extends app\Controller {
      * @access public
      */
     public function index() {
-        $mysql = new Oracle();
-        $tb = $mysql->showTableTest()->fetchArray();
+        $mysql = new PgSql();
+        $tb = $mysql->showTableTest();
         foreach ($tb as $value) {
-            echo $value['TNAME'] . "<br>";
+            echo $value . "<br>";
         }
     }
 
     public function column() {
-        $mysql = new Oracle();
+        $mysql = new PgSql();
         $tb = $mysql->showColumnTest()->fetchArray();
         foreach ($tb as $value) {
             echo $value['Field']."  ".$value['Key']."<br>";
@@ -42,29 +41,28 @@ class TestOci extends app\Controller {
     }
 
     public function insert() {
-        $mysql = new Oracle();
+        $mysql = new PgSql();
         $tb = $mysql->insert();
        
     }
     
     public function update() {
-        $mysql = new Oracle();
+        $mysql = new PgSql();
         $tb = $mysql->update();
        
     }
     
     public function delete() {
-        $mysql = new Oracle();
+        $mysql = new PgSql();
         $tb = $mysql->delete();
        
     }
     
     public function select() {
-        $mysql = new Oracle();
+        $mysql = new PgSql();
         $tb = $mysql->select();
         foreach ($tb as $value) {
             print_r($value);
-           // echo $value['ROWNUM'];
             echo "<br>";
         }
     }

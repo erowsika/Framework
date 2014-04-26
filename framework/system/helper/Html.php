@@ -16,7 +16,7 @@ namespace system\helper;
 use system\core\Base;
 
 class Html {
-    
+
     public static function formOpen($action = null, $method = 'post', $param = '') {
 
         if ($action and strpos($action, '://') === false) {
@@ -51,7 +51,7 @@ class Html {
         return "<textarea name=\"$name\" cols=$col rows=$row $extra>$value</textarea>";
     }
 
-    public static function dropDownList($name = '', $options = array(), $selected = array(), $extra = '', $multiple='') {
+    public static function dropDownList($name = '', $options = array(), $selected = array(), $extra = '', $multiple = '') {
         if (!is_array($selected)) {
             $selected = array($selected);
         }
@@ -141,7 +141,7 @@ class Html {
     }
 
     public static function link($uri = '', $title = '', $attributes = '') {
-        
+        return "<a href=\"$uri\" $attributes>$title</a>";
     }
 
     public static function linkPopUp($uri = '', $title = '', $attributes = FALSE) {
@@ -165,7 +165,45 @@ class Html {
     }
 
     public static function ul($list, $attributes = '') {
-        
+        if (!is_array($list)) {
+            return $list;
+        }
+        $out = str_repeat(" ", $depth);
+        if (is_array($attributes)) {
+            $atts = '';
+            foreach ($attributes as $key => $val) {
+                $atts .= ' ' . $key . '="' . $val . '"';
+            }
+            $attributes = $atts;
+        } elseif (is_string($attributes) AND strlen($attributes) > 0) {
+            $attributes = ' ' . $attributes;
+        }
+        $out .= "<" . $type . $attributes . ">\n";
+        static $_last_list_item = '';
+        foreach ($list as $key => $val) {
+            $_last_list_item = $key;
+
+            $out .= str_repeat(" ", $depth + 2);
+            $out .= "<li>";
+
+            if (!is_array($val)) {
+                $out .= $val;
+            } else {
+                $out .= $_last_list_item . "\n";
+                $out .= _list($type, $val, '', $depth + 4);
+                $out .= str_repeat(" ", $depth + 2);
+            }
+
+            $out .= "</li>\n";
+        }
+
+        // Set the indentation for the closing tag
+        $out .= str_repeat(" ", $depth);
+
+        // Write the closing list tag
+        $out .= "</" . $type . ">\n";
+
+        return $out;
     }
 
     public static function ol($list, $attributes = '') {

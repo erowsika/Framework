@@ -71,6 +71,7 @@ class Oracle {
     public function select() {
         return $this->db->select("*")
                         ->from("employees")
+                        ->limit(1, 10)
                         ->result()
                         ->fetchArray();
     }
