@@ -5,12 +5,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace system\cache;
+namespace system\cache\driver;
 /**
  * Description of MemCached
  *
  * @author masfu
  */
-class MemCached implements BaseCache{
+
+use system\cache\Cache;
+
+class MemCached implements Cache{
     //put your code here
 }

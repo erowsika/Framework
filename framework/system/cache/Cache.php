@@ -7,10 +7,11 @@
  */
 namespace system\cache;
 /**
- * Description of ApcCache
+ * Description of Cachee
  *
  * @author masfu
  */
-class ApcCache implements BaseCache{
+
+class Cache {
     //put your code here
 }
