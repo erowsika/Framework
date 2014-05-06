@@ -27,17 +27,13 @@ class TestPgSql extends app\Controller {
     public function index() {
         $mysql = new PgSql();
         $tb = $mysql->showTableTest();
-        foreach ($tb as $value) {
-            echo $value . "<br>";
-        }
+        print_r($tb);
     }
 
     public function column() {
         $mysql = new PgSql();
-        $tb = $mysql->showColumnTest()->fetchArray();
-        foreach ($tb as $value) {
-            echo $value['Field']."  ".$value['Key']."<br>";
-        }
+        $tb = $mysql->showColumnTest();
+        print_r($tb);
     }
 
     public function insert() {

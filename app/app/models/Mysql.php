@@ -20,15 +20,15 @@ class Mysql {
     private $db;
 
     public function __construct() {
-        $this->db = Database::getDBConnection();
+        $this->db = Database::getConnection();
     }
 
     public function showTableTest() {
-        return $this->db->listTable();
+        return $this->db->tables();
     }
 
     public function showColumnTest() {
-        return $this->db->listColumn("santri");
+        return $this->db->columns("santri");
     }
 
     public function insert() {
@@ -48,7 +48,7 @@ class Mysql {
             'tmp_lahir_santri' => 'sby',
             'tahun_masuk' => '1995');
 
-        return $this->db->update("santri", $data, array('santri_id' => 63));
+        return $this->db->update("santri", $data, array('santri_id' => 70));
     }
 
     public function delete() {
@@ -57,11 +57,11 @@ class Mysql {
 
     public function select() {
         return $this->db->select("*")
-                        ->from("santri", "ustad")
-                        ->limit(4, 10)
+                        ->from("santri")
+                      //  ->limit(4, 10)
                         ->orderBy("tahun_masuk", "DESC")
-                        ->result()
-                        ->fetchArray();
+                        ->get()
+                        ->fetchAssoc();
     }
 
 }

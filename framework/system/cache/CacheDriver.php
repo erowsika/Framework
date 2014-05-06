@@ -15,7 +15,6 @@ namespace system\cache;
  */
 interface CacheDriver {
 
-    
     public function __construct($config = array());
 
     public function _set($key, $value = "", $time = 600, $isOverwrite = true);
@@ -25,4 +24,8 @@ interface CacheDriver {
     public function _delete($key);
 
     public function _flush();
+
+    public function _increment($key, $offset = 1);
+
+    public function _decrement($key, $offset = 1);
 }

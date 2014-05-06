@@ -27,9 +27,7 @@ class TestPdo extends app\Controller {
     public function index() {
         $mysql = new Pdo();
         $tb = $mysql->showTableTest();
-        foreach ($tb as $value) {
-            echo $value . "<br>";
-        }
+        print_r($tb);
     }
 
     public function column() {

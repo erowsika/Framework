@@ -28,7 +28,6 @@ class ApcCache extends BaseCache implements CacheDriver {
         if (!(extension_loaded('apc') and ini_get('apc.enabled'))) {
             throw new MainException("Apc is not enabled");
         }
-
         $this->config = $config;
     }
 
@@ -76,6 +75,26 @@ class ApcCache extends BaseCache implements CacheDriver {
         } else {
             return apc_store($key, $value, $time);
         }
+    }
+
+    /**
+     * 
+     * @param type $key
+     * @param type $offset
+     * @return type
+     */
+    public function _decrement($key, $offset = 1) {
+        return apc_dec($key, $offset);
+    }
+
+    /**
+     * 
+     * @param type $key
+     * @param type $offset
+     * @return type
+     */
+    public function _increment($key, $offset = 1) {
+        return apc_inc($key, $offset);
     }
 
 //put your code here

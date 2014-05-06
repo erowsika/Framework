@@ -6,15 +6,21 @@
  * and open the template in the editor.
  */
 
-/**
- * Description of ActiveRecord
- * @package name
- * @author masfu
- * @copyright (c) 2014, Masfu Hisyam
- */
-
 namespace system\db;
 
-class ActiveRecord {
-    
+/**
+ *
+ * @author masfu
+ */
+interface Connection {
+
+    public function initialize();
+
+    public function connect();
+
+    public function pconnect();
+
+    public function dbSelect();
+
+    public function disconnect();
 }

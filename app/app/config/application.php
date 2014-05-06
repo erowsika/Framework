@@ -52,11 +52,12 @@ return array(
             'dsn' => 'mysql:host=localhost;dbname=mydb',
             'username' => 'root',
             'password' => '',
+            'persistent' => false,
             'autoinit' => true,
         ),
         'oci' => array(
-            'driver' => 'oracle',
-            'connstring' => 'orcl',
+            'driver' => 'oci',
+            'dsn' => 'orcl',
             'username' => 'hr',
             'password' => 'hr',
             'port' => '1521',
@@ -82,6 +83,8 @@ return array(
          * session time expiration
          * default 2 weeks
          */
-        'session_expire' => 3600 * 24 * 14)
+        'session_expire' => 3600 * 24 * 14),
+    
+    'cache' => array('driver' => 'file')
 );
 

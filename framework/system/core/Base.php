@@ -25,6 +25,7 @@ class Base {
         'router' => 'system\core\Router',
         'input' => 'system\core\Input',
         'db' => 'system\db\Database',
+        'cache' => 'system\cache\Cache',
         'html' => 'system\helper\Html');
 
     /* this is a constructor

@@ -28,12 +28,7 @@ class BaseCache {
      * @param type $option
      */
     public function set($key, $value, $time = 600, $isOverwrite = true) {
-        $data = array(
-            'value' => $value,
-            'create_time' => date("U"),
-            'expired_time' => date("U") + (int) $time,
-        );
-        $this->_set($key, $data, $time, $isOverwrite);
+        $this->_set($key, $value, $time, $isOverwrite);
     }
 
     /**

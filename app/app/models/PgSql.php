@@ -20,15 +20,15 @@ class PgSql {
     private $db;
 
     public function __construct() {
-        $this->db = Database::getDBConnection('pgsql');
+        $this->db = Database::getConnection('pgsql');
     }
 
     public function showTableTest() {
-        return $this->db->listTable();
+        return $this->db->tables();
     }
 
     public function showColumnTest() {
-        return $this->db->listColumn("account");
+        return $this->db->columns("account");
     }
 
     public function insert() {
@@ -56,8 +56,8 @@ class PgSql {
     public function select() {
         return $this->db->select("*")
                         ->from("account")
-                        ->result()
-                        ->fetchArray();
+                        ->get()
+                        ->fetchAssoc();
     }
 
 }

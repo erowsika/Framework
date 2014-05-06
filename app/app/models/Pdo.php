@@ -20,15 +20,15 @@ class Pdo {
     private $db;
 
     public function __construct() {
-        $this->db = Database::getDBConnection('pdo');
+        $this->db = Database::getConnection('pdo');
     }
 
     public function showTableTest() {
-        return $this->db->listTable();
+        return $this->db->tables();
     }
 
     public function showColumnTest() {
-        return $this->db->listColumn("santri");
+        return $this->db->column("santri");
     }
 
     public function insert() {
@@ -60,8 +60,8 @@ class Pdo {
                         ->from("santri", "ustad")
                         ->limit(4, 10)
                         ->orderBy("tahun_masuk", "DESC")
-                        ->result()
-                        ->fetchArray();
+                        ->get()
+                        ->fetchAssoc();
     }
 
 }

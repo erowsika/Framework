@@ -20,15 +20,15 @@ class Oracle {
     private $db;
 
     public function __construct() {
-        $this->db = Database::getDBConnection('oci');
+        $this->db = Database::getConnection('oci');
     }
 
     public function showTableTest() {
-        return $this->db->listTable();
+        return $this->db->tables();
     }
 
     public function showColumnTest() {
-        return $this->db->listColumn("employees");
+        return $this->db->columns("employees");
     }
 
     public function insert() {
@@ -72,8 +72,8 @@ class Oracle {
         return $this->db->select("*")
                         ->from("employees")
                         ->limit(1, 10)
-                        ->result()
-                        ->fetchArray();
+                        ->get()
+                        ->fetchAssoc();
     }
 
 }

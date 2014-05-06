@@ -13,14 +13,14 @@ namespace system\cache\driver;
  *  inspiring from http://evertpot.com/107/
  * @author masfu
  */
-use \Memcached;
+use \Memcache;
 use system\cache\BaseCache;
 use system\cache\CacheDriver;
 use system\core\MainException;
 
-class MemCached extends BaseCache implements CacheDriver {
+class MemCache extends BaseCache implements CacheDriver {
 
-    public $memcached = null;
+    public $memcache = null;
 
     /**
      * 
@@ -28,11 +28,12 @@ class MemCached extends BaseCache implements CacheDriver {
      * @throws MainException
      */
     public function __construct($config = array()) {
+
         if (!extension_loaded('memcache'))
             throw new MainException('Memcache extension is not installed');
 
-        $this->memcached = new Memcached();
-        if ($this->memcached->connect($config['host'], $config['port'])) {
+        $this->memcache = new Memcache();
+        if ($this->memcache->connect($config['host'], $config['port'])) {
             throw new MainException('Could not connect memcache server');
         }
     }
@@ -42,14 +43,14 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param type $key
      */
     public function _delete($key) {
-        $this->memcached->delete($key);
+        $this->memcache->delete($key);
     }
 
     /**
      * 
      */
     public function _flush() {
-        $this->memcached->flush();
+        $this->memcache->flush();
     }
 
     /**
@@ -58,7 +59,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @return type
      */
     public function _get($key) {
-        $value = $this->memcached->get($key);
+        $value = $this->memcache->get($key);
         return ($value == null) ? null : $value;
     }
 
@@ -68,9 +69,10 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param type $value
      * @param type $time
      * @param type $isOverwrite
+     * @return type
      */
     public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
-        $this->memcached->set($key, $value, $time);
+        return $this->memcache->set($key, $value, $time);
     }
 
     /**
@@ -79,7 +81,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param type $offset
      */
     public function _decrement($key, $offset = 1) {
-        $this->memcached->decrement($key, $offset);
+        $this->memcache->decrement($key, $offset);
     }
 
     /**
@@ -88,7 +90,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param type $offset
      */
     public function _increment($key, $offset = 1) {
-        $this->memcached->increment($key, $offset);
+        $this->memcache->increment($key, $offset);
     }
 
 //put your code here

@@ -16,6 +16,9 @@ define('DIR_APP', __DIR__);
 define('APP_PATH', DIR_APP .DIRECTORY_SEPARATOR. APP_NAME);
 
 //config folder
+define('CACHE_PATH', APP_PATH . '/cache/');
+
+//config folder
 define('CONFIG_PATH', APP_PATH . '/config/');
 
 /**
