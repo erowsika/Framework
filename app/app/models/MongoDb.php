@@ -15,30 +15,31 @@ namespace app\models;
  */
 use system\db\Database;
 
-class Pdo {
+class MongoDb {
 
     private $db;
 
     public function __construct() {
-        $this->db = Database::getConnection('pdo');
+        $this->db = Database::getConnection('mongo');
+        $this->db->collection("people");
     }
 
     public function showTableTest() {
-        return $this->db->tables();
+        return $this->db->selectDB('test');
     }
 
     public function showColumnTest() {
-        return $this->db->column("santri");
+        return $this->db->columns("santri");
     }
 
     public function insert() {
         $data = array(
-            'nama_santri' => 'masfu',
+            'nama_santri' => 'arin',
             'alamat_santri' => 'rumah',
             'tmp_lahir_santri' => 'sby',
             'tahun_masuk' => '1994');
 
-        return $this->db->insert("santri", $data);
+        return $this->db->insert($data);
     }
 
     public function update() {
@@ -48,20 +49,16 @@ class Pdo {
             'tmp_lahir_santri' => 'sby',
             'tahun_masuk' => '1995');
 
-        return $this->db->update("santri", $data, array('santri_id' => 63));
+        return $this->db->update("people", $data, array('santri_id' => 70));
     }
 
     public function delete() {
-        return $this->db->delete("santri", array('santri_id' => 67));
+        return $this->db->delete("people", array('santri_id' => 67));
     }
 
     public function select() {
-        return $this->db->select("*")
-                        ->from("account")
-                        ->limit(10,2)
-                        //->orderBy("tahun_masuk", "DESC")
-                        ->get()
-                        ->fetchAssoc();
+        //$qry = array("nama_santri" => "masfu");
+        return $this->db->findOne();
     }
 
 }

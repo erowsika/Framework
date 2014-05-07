@@ -49,9 +49,9 @@ return array(
         ),
         'pdo' => array(
             'driver' => 'pdo',
-            'dsn' => 'mysql:host=localhost;dbname=mydb',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'sqlite:/mydb.sq3',
+            'username' => 'postgres',
+            'password' => '1234',
             'persistent' => false,
             'autoinit' => true,
         ),
@@ -63,7 +63,15 @@ return array(
             'port' => '1521',
             'persistent' => false,
             'autoinit' => true,
-        )
+        ),
+        'mongo' => array(
+            'driver' => 'mongodb',
+            'document' => 'test',
+            'host' => 'localhost',
+            'username' => '',
+            'password' => '',
+            'autoinit' => true,
+        ),
     ),
     'encoding' => 'UTF-8',
     /**
@@ -84,7 +92,6 @@ return array(
          * default 2 weeks
          */
         'session_expire' => 3600 * 24 * 14),
-    
     'cache' => array('driver' => 'file')
 );
 

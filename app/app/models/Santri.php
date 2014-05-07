@@ -15,24 +15,11 @@
 
 namespace app\models;
 
-use \system\db as db;
+use system\db\Model;
 
-
-class User extends db\ActiveRecord {
-
-    private $db;
+class Santri extends Model {
 
     public function __construct() {
-        
+        parent::__construct();
     }
-
-    public function getSantri() {
-        $db = \Sby::instance()->db->createDb();
-        $hasil = $db->query('select * from santri');
-        $data = $hasil->fetchArray();
-        foreach ($data as $value) {
-            print_r($value);
-        }
-    }
-
 }
