@@ -149,6 +149,12 @@ class Router {
             return "(?<" . $matches['key'] . ">" . "([^/]+)" . ")";
     }
 
+    /**
+     * 
+     * @param type $ini_array
+     * @param type $uri
+     * @return type
+     */
     private function reportRulle($ini_array, $uri) {
         if (is_array($ini_array) and $uri) {
             if (preg_match("#^" . $ini_array['request'] . "$#", $uri, $match)) {
@@ -192,7 +198,8 @@ class Router {
     public function redirect($url) {
         if ($url and strpos($url, "://") == false)
             $url = Base::instance()->base_url . $url;
-        header("Location:" . $url);
+       
+        header("Location: " . $url);
     }
 
     /**

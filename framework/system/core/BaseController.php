@@ -11,7 +11,7 @@ namespace system\core;
 class BaseController extends BaseView {
 
     public function __construct() {
-        
+        parent::__construct();
     }
 
     /**
@@ -38,17 +38,20 @@ class BaseController extends BaseView {
     }
 
     public function __call($name, $arguments) {
-        echo $name . ' dsds ' . $arguments;
-    }
-
-    private function checkPermision() {
-        
+        // echo $name . ' dsds ' . $arguments;
     }
 
     private function isCaching() {
         if (method_exists($this, 'permission')) {
             
         }
+    }
+
+    public function redirect($url) {
+        if ($url and strpos($url, "://") == false)
+            $url = Base::instance()->base_url . $url;
+
+        header("Location: " . $url);
     }
 
     public function beforeExecute() {

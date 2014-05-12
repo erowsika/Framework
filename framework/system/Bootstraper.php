@@ -19,7 +19,6 @@ spl_autoload_register(function($class) {
 
     try {
         $filename = DIRECTORY_SEPARATOR . str_ireplace('\\', '/', $class) . EXT_FILE;
-        $file = DIR_APP . $filename."<br>";
         if (file_exists(($file = str_replace(SYS_NAME, '', __DIR__) . $filename))) {
             require_once $file;
         } else if (file_exists(($file = DIR_APP . $filename))) {

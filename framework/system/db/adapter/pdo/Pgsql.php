@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace system\db\adapter;
+namespace system\db\adapter\pdo;
 
 /**
  * Description of Mysql
@@ -14,84 +14,22 @@ namespace system\db\adapter;
  * @author masfu
  */
 use system\db\DbAdapter;
-use system\db\Connection;
-use system\core\DbException;
 
-class Pgsql extends DbAdapter implements Connection {
-
-    static $DEFAULT_PORT = 5432;
+class Pgsql extends DbAdapter {
 
     /**
      * 
      * @param type $config
      */
     public function __construct($config = array()) {
-        $this->host = $config['host'];
         $this->username = $config['username'];
         $this->password = $config['password'];
-        $this->database = $config['database'];
-        $this->port = isset($config['port']) ? $config['port'] : self::$DEFAULT_PORT;
+        $this->dsn = $config['dsn'];
         $this->autoinit = $config['autoinit'];
         $this->persistent = $config['persistent'];
 
         if ($this->autoinit) {
             $this->initialize();
-        }
-    }
-
-    /**
-     * 
-     */
-    public function initialize() {
-        if (!$this->persistent) {
-            $this->connect();
-        } else {
-            $this->pconnect();
-        }
-    }
-
-    /**
-     * 
-     * @throws DbException
-     */
-    public function connect() {
-        try {
-            if (!($this->conn = pg_connect("host={$this->host} dbname={$this->database} user={$this->username} password={$this->password}"))) {
-                throw new DbException(mysql_error(), mysql_errno());
-            }
-        } catch (DbException $e) {
-            $e->printError();
-        }
-    }
-
-    /**
-     * 
-     * @return boolean
-     * @throws DbException
-     */
-    public function dbSelect() {
-
-        return true;
-    }
-
-    /**
-     * 
-     */
-    public function disconnect() {
-        pg_close($this->conn);
-    }
-
-    /**
-     * 
-     * @throws DbException
-     */
-    public function pconnect() {
-        try {
-            if (!($this->conn = pg_pconnect("host={$this->host} dbname={$this->database} user={$this->username} password={$this->password}"))) {
-                throw new DbException(mysql_error(), mysql_errno());
-            }
-        } catch (DbException $e) {
-            $e->printError();
         }
     }
 
@@ -158,111 +96,13 @@ ORDER BY a.attnum");
 
     /**
      * 
-     * @param type $str
-     * @return type
-     */
-    public function escape($str) {
-        if (is_array($str)) {
-            foreach ($str as $key => $value) {
-                $data[$key] = $this->escape($value);
-            }
-        } else {
-            $str = addslashes(pg_escape_string($this->conn, $str));
-        }
-        return $str;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function fetchAssoc() {
-        $result = array();
-        while ($row = pg_fetch_assoc($this->resultid)) {
-            $result[] = $row;
-        }
-        return $result;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function fetchObject() {
-        $result = array();
-        while ($row = pg_fetch_object($this->resultid)) {
-            $result[] = $row;
-        }
-        return $result;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function insertId() {
-        return false;
-    }
-
-    /**
-     * 
-     * @param type $sql
-     * @param type $value
-     * @return \system\db\adapter\Mysql
-     * @throws DbException
-     */
-    public function query($sql, &$value = array()) {
-        try {
-            if (!$this->autoinit) {
-                $this->initialize();
-            }
-
-            if (!($this->resultid = pg_query($this->conn, $sql))) {
-                $message = "Query:  " . $sql;
-                $message .= "<p> Message: " . pg_last_error() . "<p>";
-                throw new DbException($message);
-            }
-        } catch (DbException $e) {
-            $e->printError();
-        }
-        return $this;
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function rollback() {
-        return @pg_exec($this->conn, "rollback");
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function transaction() {
-        return @pg_exec($this->conn, "begin");
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function commit() {
-        return @pg_exec($this->conn, "commit");
-        return true;
-    }
-
-    /**
-     * 
      * @param type $sql
      * @param type $limit
      * @param type $offset
      * @return type
      */
     public function _limit($sql, $limit, $offset) {
-        $sql .= ($limit) ? " LIMIT " . $this->limit : "";
-        $sql .= ($offset) ? ", " . $this->offset : "";
+        $sql .= ' LIMIT ' . intval($limit) . ' OFFSET ' . intval($offset);
         return $sql;
     }
 

@@ -32,19 +32,19 @@ class Html {
     }
 
     public static function formHidden($name, $value = '', $extra = '') {
-        return "<input type=\"hidden\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"hidden\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function textField($name, $value = '', $extra = '') {
-        return "<input type=\"text\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"text\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function passwordField($name, $value = '', $extra = '') {
-        return "<input type=\"password\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"password\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function fileField($name, $value = '', $extra = '') {
-        return "<input type=\"file\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"file\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function textArea($name, $col, $row, $value = '', $extra = '') {
@@ -77,23 +77,24 @@ class Html {
     }
 
     public static function checkBox($name, $value = '', $extra = '') {
-        return "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function radioButton($name, $value = '', $extra = '') {
-        return "<input type=\"radio\" name=\"$name\" value=\"$value\" $extra";
+        $extra = ($value == $extra) ? 'checked' : '';
+        return "<input type=\"radio\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function submitButton($name, $value = '', $extra = '') {
-        return "<input type=\"submit\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"submit\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function resetButton($name, $value = '', $extra = '') {
-        return "<input type=\"reset\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"reset\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function button($name, $value = '', $extra = '') {
-        return "<input type=\"button\" name=\"$name\" value=\"$value\" $extra";
+        return "<input type=\"button\" name=\"$name\" value=\"$value\" $extra>";
     }
 
     public static function label($label, $for, $param) {
@@ -133,11 +134,17 @@ class Html {
     }
 
     public static function formError($field = '', $prefix = '', $suffix = '') {
-        
+        $error = Base::instance()->session->flashData('error');
+        if (isset($error[$field])) {
+            $error = $error[$field];
+        } else {
+            $error = '';
+        }
+        return '<small style="color:red;">' . $error . '</small>';
     }
 
     public static function validationErrors($prefix = '', $suffix = '') {
-        
+        $error = Base::instance()->session->flashData('error');
     }
 
     public static function link($uri = '', $title = '', $attributes = '') {

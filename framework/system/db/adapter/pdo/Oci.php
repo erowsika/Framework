@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace system\db\adapter;
+namespace system\db\adapter\pdo;
 
 /**
  * Description of Mysql
@@ -14,10 +14,8 @@ namespace system\db\adapter;
  * @author masfu
  */
 use system\db\DbAdapter;
-use system\db\Connection;
-use system\core\DbException;
 
-class Oci8 extends DbAdapter implements Connection {
+class Oci extends DbAdapter {
 
     protected $_commit = OCI_COMMIT_ON_SUCCESS;
 
@@ -29,71 +27,12 @@ class Oci8 extends DbAdapter implements Connection {
         $this->username = $config['username'];
         $this->password = $config['password'];
         $this->dsn = $config['dsn'];
-        $this->port = $config['port'];
         $this->autoinit = $config['autoinit'];
         $this->persistent = $config['persistent'];
 
 
         if ($this->autoinit) {
             $this->initialize();
-        }
-    }
-
-    /**
-     * 
-     */
-    public function initialize() {
-        if (!$this->persistent) {
-            $this->connect();
-        } else {
-            $this->pconnect();
-        }
-        $this->dbSelect();
-    }
-
-    /**
-     * 
-     * @throws DbException
-     */
-    public function connect() {
-        try {
-            if (!($this->conn = ocilogon($this->username, $this->password, $this->dsn))) {
-                $e = oci_error();
-                throw new DbException($e['message']);
-            }
-        } catch (DbException $e) {
-            $e->printError();
-        }
-    }
-
-    /**
-     * 
-     * @return boolean
-     * @throws DbException
-     */
-    public function dbSelect() {
-        return true;
-    }
-
-    /**
-     * 
-     */
-    public function disconnect() {
-        @oci_close($this->conn);
-    }
-
-    /**
-     * 
-     * @throws DbException
-     */
-    public function pconnect() {
-        try {
-            if (!($this->conn = @ociplogon($this->username, $this->password, $this->dsn))) {
-                $e = oci_error();
-                throw new DbException($e['message']);
-            }
-        } catch (DbException $e) {
-            $e->printError();
         }
     }
 
@@ -148,141 +87,12 @@ class Oci8 extends DbAdapter implements Connection {
         return $colomnInfo;
     }
 
-    /**
-     * 
-     * @param type $str
-     * @return type
-     */
-    public function escape($str) {
-        if (is_array($str)) {
-            foreach ($str as $key => $value) {
-                $data[$key] = $this->escape($value);
-            }
-        }
-        $str = addslashes($data);
-        return $str;
-    }
-
-    /**
-     * 
-     * @return type
-     */
     public function fetchAssoc() {
         $result = array();
-        while ($row = @oci_fetch_assoc($this->stmt)) {
-            $result[] = $row;
+        while ($row = $this->stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $result[] = array_change_key_case($row, CASE_LOWER);
         }
         return $result;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function fetchObject() {
-        $result = array();
-        while ($row = @oci_fetch_object($this->stmt)) {
-            $result[] = $row;
-        }
-        return $result;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function insertId() {
-        return 0;
-    }
-    
-    /**
-     * 
-     * @param type $data
-     * @throws DbException
-     */
-    public function bindParam(&$data = array()) {
-        try {
-            foreach ($data as $key => $value) {
-                $name = ":" . $key;
-
-                if (!oci_bind_by_name($this->stmt, $name, $data[$key])) {
-                    $e = oci_error();
-                    throw new DbException($e['message']);
-                }
-            }
-        } catch (DbException $e) {
-            
-        }
-    }
-
-    /**
-     * 
-     * @param type $sql
-     * @param type $value
-     * @return \system\db\adapter\Mysql
-     * @throws DbException
-     */
-    public function query($sql, &$value = array()) {
-        try {
-            if (!$this->autoinit) {
-                $this->initialize();
-            }
-
-            $this->stmt = ociparse($this->conn, $sql);
-            if (!$this->stmt) {
-                $e = oci_error($this->stmt);
-                $str = htmlentities("error " . $e['message']);
-                throw new DbException($str);
-            }
-
-            $this->bindParam($value);
-
-            if (!($result = @oci_execute($this->stmt, $this->_commit))) {
-                $e = oci_error($this->stmt);
-                $str = htmlentities($e['message']);
-                $str .= "<pre>";
-                $str .= htmlentities($e['sqltext']) . "<br>";
-                for ($i = 0; $i < $e['offset']; $i++) {
-                    $str .= " ";
-                }
-                $str .= "^";
-                $str .= "</pre>";
-                throw new DbException($str);
-            }
-        } catch (DbException $e) {
-            $e->printError();
-        }
-        return $this;
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function rollback() {
-        $this->query('ROLLBACK');
-        $this->query('SET AUTOCOMMIT=1');
-        return true;
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function transaction() {
-        $this->query('SET AUTOCOMMIT=0');
-        $this->query('START TRANSACTION');
-        return true;
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function commit() {
-        $this->query('COMMIT');
-        $this->query('SET AUTOCOMMIT=1');
-        return true;
     }
 
     /**

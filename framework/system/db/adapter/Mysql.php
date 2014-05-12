@@ -256,8 +256,8 @@ class Mysql extends DbAdapter implements Connection {
      * @return type
      */
     public function _limit($sql, $limit, $offset) {
-        $sql .= ($limit) ? " LIMIT " . $this->limit : "";
-        $sql .= ($offset) ? ", " . $this->offset : "";
+        $sql .= " LIMIT " . $limit;
+        $sql .= ($offset) ? ", " . $offset : "";
         return $sql;
     }
 

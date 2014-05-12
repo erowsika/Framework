@@ -202,6 +202,7 @@ abstract class DbAdapter {
             }
             $this->criteria = implode(' AND ', $wheres);
         }
+
         if (is_string($where)) {
             $this->criteria = $where;
         }
@@ -246,6 +247,22 @@ abstract class DbAdapter {
         return $this;
     }
 
+    public function countAll($table, $where = null) {
+        if (is_array($where)) {
+            foreach ($where as $col => $val) {
+                $wheres[] = "$col = '" . $this->escape($val) . "'";
+            }
+            $where = implode(' AND ', $wheres);
+        }
+        
+        if (!empty($where)) {
+            $where = " WHERE " . $where;
+        }
+
+        $result = $this->query("SELECT COUNT(*) AS num_rows FROM $table $where")->fetchAssoc();
+        return reset($result)['num_rows'];
+    }
+
     public function buildSelect() {
 
         $sql = "SELECT ";
@@ -288,10 +305,16 @@ abstract class DbAdapter {
                 throw new DbException($message, $errorCode);
             }
             $this->bindParam($value);
-            $this->stmt->execute($value);
+
+            if (!($this->stmt->execute($value))) {
+                $message = $this->conn->errorInfo();
+                $errorCode = $this->conn->errorCode();
+                throw new DbException($message, $errorCode);
+            }
         } catch (DbException $e) {
             $e->printError();
         }
+        return $this;
     }
 
     public function fetchObject() {
@@ -311,9 +334,6 @@ abstract class DbAdapter {
     }
 
     public function escape($str) {
-        $p = new \PDO;
-        $p->
-                $s = $p->query($statement);
 
         return $this->stmt->quote($str);
     }

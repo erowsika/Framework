@@ -140,9 +140,9 @@ class Oci8 extends DbAdapter implements Connection {
      * @return type
      */
     public function _columnInfo($column) {
-        $colomnInfo = array('name' => $column['COLUMN_NAME'],
-            'nullable' => ($column['NULLABLE'] === 'Y' ? true : false),
-            'pk' => ($column['PK'] === 'P' ? true : false),
+        $colomnInfo = array('name' => $column['column_name'],
+            'nullable' => ($column['nullable'] === 'Y' ? true : false),
+            'pk' => ($column['pk'] === 'P' ? true : false),
             'auto_increment' => false);
 
         return $colomnInfo;
@@ -172,7 +172,7 @@ class Oci8 extends DbAdapter implements Connection {
         while ($row = @oci_fetch_assoc($this->stmt)) {
             $result[] = $row;
         }
-        return $result;
+        return array_change_key_case($result, CASE_LOWER);
     }
 
     /**
@@ -184,7 +184,7 @@ class Oci8 extends DbAdapter implements Connection {
         while ($row = @oci_fetch_object($this->stmt)) {
             $result[] = $row;
         }
-        return $result;
+        return array_change_key_case($result, CASE_LOWER);
     }
 
     /**
@@ -194,7 +194,7 @@ class Oci8 extends DbAdapter implements Connection {
     public function insertId() {
         return 0;
     }
-    
+
     /**
      * 
      * @param type $data

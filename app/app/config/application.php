@@ -6,7 +6,7 @@ return array(
     /*
      * base url for domain and path 
      */
-    'base_url' => 'http://localhost/framework/app/',
+    'base_url' => 'https://112.140.160.15/app/',
     /* default router where the default class and action should be called
      * controller is a class name
      * action is a function name
@@ -18,8 +18,7 @@ return array(
     /*
      * modules is an autoload mechanism
      */
-    'moduls' => array('upload' => 'app\moduls\Upload',
-        'session' => 'system\auth\Session'),
+    'moduls' => array('upload' => 'app\moduls\Upload'),
     /*
      * database configuration
      * we can use multiple database connection at same time

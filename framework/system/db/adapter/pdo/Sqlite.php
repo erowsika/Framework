@@ -14,9 +14,8 @@ namespace system\db\adapter\pdo;
  * @author masfu
  */
 use system\db\DbAdapter;
-use system\core\DbException;
 
-class Mysql extends DbAdapter {
+class Sqlite extends DbAdapter {
 
     protected $drivername;
 
@@ -48,7 +47,7 @@ class Mysql extends DbAdapter {
             $like = $this->escape($like);
             $criteria = " LIKE '{$like}%'";
         }
-        $this->query("SHOW TABLES {$criteria}");
+        $this->query("SELECT name FROM sqlite_master {$criteria}");
         return $this;
     }
 
@@ -58,7 +57,7 @@ class Mysql extends DbAdapter {
      * @return \system\db\adapter\Mysql
      */
     public function _column($column) {
-        $this->query("SHOW FULL COLUMNS FROM $column");
+        $this->query("pragma table_info( $column");
         return $this;
     }
 
@@ -68,10 +67,12 @@ class Mysql extends DbAdapter {
      * @return type
      */
     public function _columnInfo($column) {
-        $colomnInfo = array('name' => $column['Field'],
-            'nullable' => ($column['Null'] === 'YES' ? true : false),
-            'pk' => ($column['Key'] === 'PRI' ? true : false),
-            'auto_increment' => ($column['Extra'] === 'auto_increment' ? true : false));
+        $colomnInfo = array('name' => $column['name'],
+            'nullable' => ($column['notnull'] === 'YES' ? true : false),
+            'pk' => ($column['pk'] ? true : false),
+            'auto_increment' => in_array(
+                    strtoupper($column['type']), array('INT', 'INTEGER')
+            ) && $column['pk']);
 
         return $colomnInfo;
     }

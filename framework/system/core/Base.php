@@ -26,6 +26,8 @@ class Base {
         'input' => 'system\core\Input',
         'db' => 'system\db\Database',
         'cache' => 'system\cache\Cache',
+        'session' => 'system\helper\Session',
+        'cookie' => 'system\helper\Cookie',
         'html' => 'system\helper\Html');
 
     /* this is a constructor
@@ -96,7 +98,7 @@ class Base {
      * run execution
      * @return void
      */
-    private function dispatch($class, $method, $parameters = array()) {
+    public static function invoke($class, $method, $parameters = array()) {
         if (method_exists($class, $method)) {
             call_user_func_array(array(&$class, $method), $parameters);
         }
@@ -120,16 +122,16 @@ class Base {
 
                 if (in_array($method, get_class_methods($this->$controller))) {
 
-                    $this->dispatch($this->$controller, "beforeExecute");
+                    self::invoke($this->$controller, "before");
 
-                    $this->dispatch($this->$controller, $method, $parameters);
+                    self::invoke($this->$controller, $method, $parameters);
 
-                    $this->dispatch($this->$controller, "afterExecute");
+                    self::invoke($this->$controller, "after");
                 } else {
-                    throw new HttpException('Halaman tidak ditemukan', 404);
+                    throw new HttpException('Page not found', 404);
                 }
             } else {
-                throw new HttpException('Halaman tidak ditemukan', 404);
+                throw new HttpException('Page not found', 404);
             }
         } catch (HttpException $e) {
             $e->printError();

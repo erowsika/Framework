@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace system\auth;
+namespace system\helper;
 
 /**
  * Description of Session inspiration from code igniter
@@ -30,6 +30,10 @@ class Session {
         $this->config = Config::getInstance()->get('session');
         session_name($this->config['session_name']);
         session_start();
+    }
+
+    public function getUniqueId() {
+        return session_id();
     }
 
     /**
@@ -74,8 +78,8 @@ class Session {
      * @return string
      */
     public function flashData($name) {
-        unset($_SESSION['flash_data'][$name]);
-        return (isset($_SESSION['flash_data'])) ? $_SESSION['flash_data'][$name] : false;
+       // unset($_SESSION['flash_data'][$name]);
+       return (isset($_SESSION['flash_data'][$name])) ? $_SESSION['flash_data'][$name] : false;
     }
 
     /**

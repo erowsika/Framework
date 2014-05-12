@@ -69,13 +69,9 @@ class BaseView {
      * @throws MainException
      */
     public function outputHtml($file, $vars = null) {
-        $html = $this->html;
-        if (array_key_exists('view_template_file', $this->vars)) {
-            throw new MainException("Cannot bind variable called '$file'");
-        }
 
         if (is_array($vars)) {
-            $this->vars = $vars;
+            $this->vars = array_merge($this->vars, $vars);
         }
 
         try {
@@ -97,8 +93,8 @@ class BaseView {
         echo $this->outputHtml($this->layout);
     }
 
-    public function display($file) {
-        $this->content = $this->outputHtml($file);
+    public function display($file, $data = array()) {
+        $this->content = $this->outputHtml($file, $data);
         $this->setLayout();
     }
 
@@ -153,4 +149,5 @@ class BaseView {
     public function redirect($url) {
         Base::instance()->router->redirect($url);
     }
+
 }
