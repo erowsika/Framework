@@ -6,7 +6,7 @@ return array(
     /*
      * base url for domain and path 
      */
-    'base_url' => 'http://localhost/framework/app/',
+    'base_url' => 'http://localhost/framework/app/index.php/',
     /* default router where the default class and action should be called
      * controller is a class name
      * action is a function name
