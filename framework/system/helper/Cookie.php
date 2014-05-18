@@ -27,7 +27,7 @@ class Cookie {
     }
 
     public function __get($name) {
-        return Base::instance()->input->cookie($name);
+        return Base::instance()->input->getCookie($name);
     }
 
 }

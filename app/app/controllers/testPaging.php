@@ -14,7 +14,7 @@ namespace app\controllers;
  * @author masfu
  * @copyright (c) 2014, Masfu Hisyam
  */
-use \Sby;
+use \App;
 use app\core\Controller;
 use system\helper\Pagination;
 
@@ -28,7 +28,7 @@ class testPaging extends Controller{
     
     public function index(){
         $paging = new Pagination();
-        $paging->baseUrl = Sby::instance()->base_url."testPaging";
+        $paging->baseUrl = App::instance()->base_url."testPaging";
         $paging->total = 100;
         $paging->current = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
         $paging->limit = 10;

@@ -15,7 +15,6 @@ namespace system\core;
  */
 class Input {
 
-    
     /**
      * check is ajax request
      * @return type
@@ -39,9 +38,22 @@ class Input {
      * @param type $xss_clean
      * @return type
      */
-    public function cookie($key = null, $xss_clean = false) {
+    public function getCookie($key = null, $xss_clean = false) {
         $value = $_COOKIE;
         return $this->filter($value, $key, $xss_clean);
+    }
+
+    /**
+     * set cookie 
+     * @param string $name
+     * @param string $value
+     * @param int $expire 60*60*24*30
+     * @param string $path default null
+     * @param string $domain
+     * @param string $secure
+     */
+    public function setCookie($name, $value, $expire = 2592000, $path = '', $domain = '', $secure = '') {
+        setcookie($name, $value, $expire, $path, $domain, $secure);
     }
 
     /**

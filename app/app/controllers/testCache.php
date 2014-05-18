@@ -14,7 +14,7 @@ namespace app\controllers;
  * @author masfu
  * @copyright (c) 2014, Masfu Hisyam
  */
-use \Sby;
+use \App;
 use app\core\Controller;
 
 class TestCache extends Controller {
@@ -26,11 +26,11 @@ class TestCache extends Controller {
     }
 
     public function index() {
-        $data = Sby::instance()->cache->get('index');
+        $data = App::instance()->cache->get('index');
         echo $data;
         if (!$data) {
             echo "buat";
-            Sby::instance()->cache->set('index', 'aakfakfahfhfafhakf', 5);
+            App::instance()->cache->set('index', 'aakfakfahfhfafhakf', 5);
         }
     }
 

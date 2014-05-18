@@ -29,15 +29,18 @@ class Validator {
         7 => ' is an invalid number',
         8 => ' is not a valid URL',
         9 => ' is not a valid email address',
-        10 => ' is not set'
+        10 => ' is not set',
+        11 => ' this value must be unique'
     );
 
     /**
      * 
      * @param type $attributes
+     * @param type $model
      */
-    public function __construct($attributes = array()) {
+    public function __construct($attributes = array(), $model = null) {
         $this->attributes = $attributes;
+        $this->model = $model;
     }
 
     /**
@@ -81,6 +84,10 @@ class Validator {
                 $this->attributes[$key] = trim($this->attributes[$key]);
             }
 
+            if (array_key_exists('unique', $opt)) {
+                $this->validateUnique($this->attributes[$key], $key);
+            }
+
             if (!isset($opt['min'])) {
                 $opt['min'] = 0;
             }
@@ -88,7 +95,7 @@ class Validator {
             if (!isset($opt['max'])) {
                 $opt['max'] = 255;
             }
-            
+
             switch ($opt['type']) {
                 case 'email':
                     $this->validateEmail($key, $opt['required']);
@@ -161,6 +168,20 @@ class Validator {
             $result[$type] = $value;
         }
         return $result;
+    }
+
+    /**
+     * 
+     * @param type $var
+     * @param type $column
+     * @return boolean
+     */
+    private function validateUnique($var, $column) {
+        if (!empty($this->model->find(array('where' => "$column = '$var'")))) {
+            $this->errors[$var] = $var . $this->error_message[8];
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -300,8 +321,7 @@ class Validator {
         if ($required == false && strlen($this->attributes[$var]) == 0) {
             return true;
         }
-        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN);
-        {
+        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN); {
             $this->errors[$var] = $var . $this->error_message[6];
         }
     }

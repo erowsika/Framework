@@ -43,6 +43,10 @@ abstract class DbAdapter {
     protected $group = array();
     protected $sql = '';
 
+    /**
+     * connect database
+     * @throws DbException
+     */
     public function connect() {
         try {
             if (!($this->conn = new \PDO($this->dsn, $this->username, $this->password))) {
@@ -56,6 +60,10 @@ abstract class DbAdapter {
         }
     }
 
+    /**
+     * connect database with persistent connection
+     * @throws DbException
+     */
     public function pconnect() {
         try {
 
@@ -76,6 +84,9 @@ abstract class DbAdapter {
         
     }
 
+    /**
+     * initialize database according from config file
+     */
     public function initialize() {
         if (!$this->persistent) {
             $this->connect();
@@ -98,16 +109,18 @@ abstract class DbAdapter {
         return $column;
     }
 
-    /*
-     * 
+    /**
+     * get list table
+     * @param string $like
+     * @return array
      */
-
     public function tables($like = null) {
         return $this->_tables($like)->fetchAssoc();
     }
 
     /**
-     * 
+     * begin transaction
+     * @throws DbException
      */
     public function transaction() {
         if (!$this->conn->beginTransaction()) {
@@ -116,7 +129,8 @@ abstract class DbAdapter {
     }
 
     /**
-     * 
+     * commit transaction
+     * @throws DbException
      */
     public function commit() {
         if (!$this->conn->commit()) {
@@ -125,7 +139,8 @@ abstract class DbAdapter {
     }
 
     /**
-     * 
+     * roolback transaction
+     * @throws DbException
      */
     public function rollback() {
         if (!$this->connection->rollback()) {
@@ -133,14 +148,27 @@ abstract class DbAdapter {
         }
     }
 
+    /**
+     * insert data to database
+     * @param string $table table name
+     * @param array $data   data
+     * @return database
+     */
     public function insert($table, $data = array()) {
         $fields = array_keys($data);
-        foreach ($data as $key => $val)
+        foreach ($data as $key => $val) {
             $data[$key] = $this->escape($val);
-
+        }
         return $this->query("INSERT INTO $table (" . implode(', ', $fields) . ") VALUES ('" . implode("','", $data) . "')");
     }
 
+    /**
+     * update table
+     * @param string $table
+     * @param array $data
+     * @param string $where
+     * @return \system\db\DbAdapter
+     */
     public function update($table, $data, $where = null) {
 
         $datas = array();
@@ -160,6 +188,12 @@ abstract class DbAdapter {
         return $this;
     }
 
+    /**
+     * delete data
+     * @param string $table
+     * @param string $where
+     * @return boolean
+     */
     public function delete($table, $where = array()) {
 
         if (is_array($where)) {
@@ -174,12 +208,24 @@ abstract class DbAdapter {
         return $this->query("DELETE FROM $table WHERE $where");
     }
 
+    
+    /**
+     * limiting data
+     * @param int $limit
+     * @param int $offset
+     * @return \system\db\DbAdapter
+     */
     public function limit($limit = 0, $offset = 0) {
         $this->limit = $limit;
         $this->offset = $offset;
         return $this;
     }
 
+    /**
+     * select table
+     * @return \system\db\DbAdapter
+     * @throws DbException
+     */
     public function from() {
         $table = func_get_args();
         try {
@@ -194,6 +240,11 @@ abstract class DbAdapter {
         return $this;
     }
 
+    /**
+     * add criteria
+     * @param string $where
+     * @return \system\db\DbAdapter
+     */
     public function where($where) {
 
         if (is_array($where)) {
@@ -210,6 +261,10 @@ abstract class DbAdapter {
         return $this;
     }
 
+    /**
+     * select data
+     * @return \system\db\DbAdapter
+     */
     public function select() {
         $column = func_get_args();
         if (!empty($column)) {
@@ -218,17 +273,33 @@ abstract class DbAdapter {
         return $this;
     }
 
+    /**
+     * join table
+     * @param type $join
+     * @return \system\db\DbAdapter
+     */
     public function join($join) {
         $this->joins = $join;
         return $this;
     }
 
+    /**
+     * order data
+     * @param string $column
+     * @param string $type
+     * @return \system\db\DbAdapter
+     */
     public function orderBy($column, $type = 'ASC') {
         $this->order = $column;
         $this->orderType = $type;
         return $this;
     }
 
+    /**
+     * group by
+     * @param string $column
+     * @return \system\db\DbAdapter
+     */
     public function groupBy($column) {
         $column = func_get_args();
         if (!empty($column)) {
@@ -237,16 +308,32 @@ abstract class DbAdapter {
         return $this;
     }
 
+    /**
+     * 
+     * @param string $val
+     * @return \system\db\DbAdapter
+     */
     public function distinct($val = TRUE) {
         $this->distinct = (is_bool($val)) ? $val : TRUE;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $having
+     * @return \system\db\DbAdapter
+     */
     public function having($having) {
         $this->having = $having;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $table
+     * @param type $where
+     * @return type
+     */
     public function countAll($table, $where = null) {
         if (is_array($where)) {
             foreach ($where as $col => $val) {
@@ -254,7 +341,7 @@ abstract class DbAdapter {
             }
             $where = implode(' AND ', $wheres);
         }
-        
+
         if (!empty($where)) {
             $where = " WHERE " . $where;
         }
@@ -263,6 +350,10 @@ abstract class DbAdapter {
         return reset($result)['num_rows'];
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function buildSelect() {
 
         $sql = "SELECT ";

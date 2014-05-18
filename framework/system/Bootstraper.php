@@ -36,7 +36,7 @@ spl_autoload_register(function($class) {
 
 use system\core as core;
 
-class Sby extends core\Base {
+class App extends core\Base {
     
 }
 

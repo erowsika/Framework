@@ -111,7 +111,7 @@ class Base {
 
     public function run() {
 
-        $controller = APP_NAME . '\\controllers\\' . $this->router->getController();
+        $controller = APP_NAME . '\\controllers\\' . ucwords($this->router->getController());
         $method = $this->router->getMethod();
         $parameters = $this->router->getParameter();
 

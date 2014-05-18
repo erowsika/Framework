@@ -16,13 +16,13 @@
                     <a href="https://github.com/masfu/framework">Github</a>
                 </li>
                 <li>
-                    <a href="<?php echo Sby::instance()->base_url?>welcome/dokumentasi">Dokumentasi</a>
+                    <a href="<?php echo App::instance()->base_url?>welcome/dokumentasi">Dokumentasi</a>
                 </li>
                 <li>
-                    <a href="<?php echo Sby::instance()->base_url?>welcome/classReference">Class Reference</a>
+                    <a href="<?php echo App::instance()->base_url?>welcome/classReference">Class Reference</a>
                 </li>
                 <li>
-                    <a href="<?php echo Sby::instance()->base_url?>welcome/tentang">Tentang</a>
+                    <a href="<?php echo App::instance()->base_url?>welcome/tentang">Tentang</a>
                 </li>
             </ul>
         </nav>

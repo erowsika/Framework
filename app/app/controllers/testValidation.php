@@ -14,7 +14,7 @@ namespace app\controllers;
  * @author masfu
  * @copyright (c) 2014, Masfu Hisyam
  */
-use \Sby;
+use \App;
 use system\helper\Validator;
 use app\core\Controller;
 

@@ -52,5 +52,5 @@ require_once '../framework/system/Bootstraper.php';
 /**
  * run the application
  */
-Sby::instance()->run();
+App::instance()->run();
 ?>

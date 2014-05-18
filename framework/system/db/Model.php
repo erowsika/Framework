@@ -25,8 +25,9 @@ abstract class Model {
     private $connection;
     private $validator;
 
-    public function __construct($table = __CLASS__, $db = '') {
-        $this->table = end(explode('\\', get_called_class()));
+    public function __construct($table = '', $db = '') {
+
+        $this->table = ($table) ? $table : end(explode('\\', get_called_class()));
         $this->connection = Database::getConnection($db);
         $this->getColumn();
     }
