@@ -1,19 +1,22 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
-    </open-files>
-</project-private>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/xampp/htdocs/framework/framework/system/helper/Html.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/crudgen/layout/base/index.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/core/BaseController.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/auth/BaseAuthManager.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/Bootstraper.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/crudgen/layout/main.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/crudgen/AuthGen.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/helper/Session.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/core/AssetManager.php</file>
+            <file>file://HISYAM-PC/public/html/framework/app/index.php</file>
+            <file>file://HISYAM-PC/public/html/framework/app/app/controllers/TestPgSql.php</file>
+            <file>file://HISYAM-PC/public/html/framework/app/app/controllers/Crud.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/crudgen/ControllerGen.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/crudgen/BaseGen.php</file>
+            <file>file://HISYAM-PC/public/html/framework/framework/system/core/BaseView.php</file>
         </group>
     </open-files>
 </project-private>
->>>>>>> b712582a47ecad6b4a21913d50954f94eea2aac0

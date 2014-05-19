@@ -17,7 +17,7 @@ use system\db\DbAdapter;
 use system\db\Connection;
 use system\core\DbException;
 
-class Mysql extends DbAdapter implements Connection {
+class Mysqli extends DbAdapter implements Connection {
 
     /**
      * 
@@ -54,36 +54,21 @@ class Mysql extends DbAdapter implements Connection {
      * @throws DbException
      */
     public function connect() {
-        try {
-            if (!($this->conn = @mysql_connect($this->host, $this->username, $this->password))) {
-                throw new DbException(mysql_error(), mysql_errno());
-            }
-        } catch (DbException $e) {
-            $e->printError();
-        }
-    }
 
-    /**
-     * 
-     * @return boolean
-     * @throws DbException
-     */
-    public function dbSelect() {
         try {
-            if (!@mysql_select_db($this->database, $this->conn)) {
-                throw new DbException(mysql_error(), mysql_errno());
+            if (!($this->conn = new \mysqli($this->host, $this->username, $this->password, $this->database))) {
+                throw new DbException($conn->connect_error);
             }
         } catch (DbException $e) {
-            $e->printError();
+            echo $e->printError();
         }
-        return true;
     }
 
     /**
      * 
      */
     public function disconnect() {
-        @mysql_close($this->conn);
+        $this->conn->close();
     }
 
     /**
@@ -92,8 +77,8 @@ class Mysql extends DbAdapter implements Connection {
      */
     public function pconnect() {
         try {
-            if (!($this->conn = @mysql_pconnect($this->host, $this->username, $this->password))) {
-                throw new DbException(mysql_error(), mysql_errno());
+            if (!($this->conn = @mysqli_pconnect($this->host, $this->username, $this->password))) {
+                throw new DbException(mysqli_error(), mysqli_errno());
             }
         } catch (DbException $e) {
             $e->printError();
@@ -148,17 +133,10 @@ class Mysql extends DbAdapter implements Connection {
     public function escape($str) {
         if (is_array($str)) {
             foreach ($str as $key => $value) {
-                $data[$key] = $this->escape($value);
+                $str[$key] = $this->escape($value);
             }
         }
-
-        if (function_exists('mysql_real_escape_string') AND is_resource($this->conn)) {
-            $str = mysql_real_escape_string($str, $this->conn);
-        } elseif (function_exists('mysql_escape_string')) {
-            $str = mysql_escape_string($data);
-        } else {
-            $str = addslashes($data);
-        }
+        $this->conn->real_escape_string($str);
         return $str;
     }
 
@@ -167,11 +145,27 @@ class Mysql extends DbAdapter implements Connection {
      * @return type
      */
     public function fetchAssoc() {
-        $result = array();
-        while ($row = mysql_fetch_assoc($this->resultid)) {
-            $result[] = $row;
+        $parameters = array();
+        $results = array();
+
+        $meta = $this->stmt->result_metadata();
+
+        $row = array();
+        while ($field = $meta->fetch_field()) {
+            $row[$field->name] = null;
+            $parameters[] = & $row[$field->name];
         }
-        return $result;
+
+        call_user_func_array(array($this->stmt, 'bind_result'), $parameters);
+
+        while ($this->stmt->fetch()) {
+            $result = array();
+            foreach ($row as $key => $val) {
+                $result[$key] = $val;
+            }
+            array_push($results, $result);
+        }
+        return $results;
     }
 
     /**
@@ -179,22 +173,46 @@ class Mysql extends DbAdapter implements Connection {
      * @return type
      */
     public function fetchObject() {
-        $result = array();
-        while ($row = mysql_fetch_object($this->resultid)) {
-            $result[] = $row;
+        $parameters = array();
+        $results = array();
+
+        $meta = $this->stmt->result_metadata();
+
+        $row = array();
+        while ($field = $meta->fetch_field()) {
+            $row[$field->name] = null;
+            $parameters[] = & $row[$field->name];
         }
-        return $result;
+
+        call_user_func_array(array($this->stmt, 'bind_result'), $parameters);
+
+        while ($this->stmt->fetch()) {
+            $result = new \stdClass();
+            foreach ($row as $key => $val) {
+                $result->{$key} =(object) $val;
+            }
+            array_push($results, $result);
+        }
+        return $results;
     }
 
     /**
      * 
      * @param type $data
      */
-    public function bindParam($data = array()) {
-        foreach ($data as $key => $value) {
-            $name = ":" . $key;
-            $value = "'" . $this->escape($value) . "'";
-            $this->sql = str_replace($name, $value, $this->sql);
+    public function bindParam(&$data = array()) {
+        if (is_array($data) and count($data) > 0) {
+            $params = array('');
+            $type = array('NULL' => '', 'string' => 's', 'integer' => 'i', 'blob' => 'b', 'double' => 'd');
+            foreach ($data as $prop => $val) {
+                $params[0] .= $type[gettype($val)];
+                array_push($params, $data[$prop]);
+            }
+            $refs = array();
+            foreach ($params as $key => $value) {
+                $refs[$key] = & $params[$key];
+            }
+            call_user_func_array(array($this->stmt, 'bind_param'), $refs);
         }
     }
 
@@ -203,7 +221,7 @@ class Mysql extends DbAdapter implements Connection {
      * @return type
      */
     public function insertId() {
-        return @mysql_insert_id($this->conn);
+        return $this->conn->insert_id;
     }
 
     /**
@@ -215,14 +233,21 @@ class Mysql extends DbAdapter implements Connection {
      */
     public function query($sql, &$value = array()) {
         try {
-            if (!$this->autoinit) {
-                $this->initialize();
+            if ($this->autoinit) {
+                $this->connect();
             }
 
-            if (!($this->resultid = @mysql_query($sql, $this->conn))) {
+            if (!($this->stmt = $this->conn->prepare($sql))) {
                 $message = "Query:  " . $sql;
-                $message .= "<p> Message: " . mysql_error() . "<p>";
-                throw new DbException($message, mysql_errno());
+                $message .= "<p> Message: " . $this->conn->error . "<p>";
+                throw new DbException($message, $this->conn->errno);
+            }
+            $this->bindParam($value);
+
+            if (!($this->stmt->execute())) {
+                $message = $this->conn->error;
+                $errorCode = $this->conn->errno;
+                throw new DbException($message, $errorCode);
             }
         } catch (DbException $e) {
             $e->printError();
@@ -281,6 +306,10 @@ class Mysql extends DbAdapter implements Connection {
     public function setEncoding($charset) {
         $this->query("SET NAMES $charset");
         return $this;
+    }
+
+    public function dbSelect() {
+        
     }
 
 }

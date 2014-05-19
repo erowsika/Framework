@@ -23,6 +23,7 @@ class BaseView {
      * @var array
      */
     private $vars = array();
+    private $view_path = VIEWS_PATH;
     private $outputBuffer;
 
     public function __construct() {
@@ -75,8 +76,8 @@ class BaseView {
         }
 
         try {
-            $file = VIEWS_PATH . str_ireplace('\\', '/', $file);
-
+            $file = $this->view_path . str_ireplace('\\', '/', $file);
+            
             if (!file_exists($file)) {
                 throw new MainException("File {$file} not found");
             }
@@ -89,10 +90,26 @@ class BaseView {
         }
     }
 
+    /**
+     * 
+     * @param type $path
+     */
+    public function setViewDir($path) {
+        $this->view_path = $path;
+    }
+
+    /**
+     * 
+     */
     public function setLayout() {
         echo $this->outputHtml($this->layout);
     }
 
+    /**
+     * 
+     * @param type $file
+     * @param type $data
+     */
     public function display($file, $data = array()) {
         $this->content = $this->outputHtml($file, $data);
         $this->setLayout();

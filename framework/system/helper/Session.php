@@ -64,6 +64,29 @@ class Session {
     }
 
     /**
+     * get user data
+     * @param string $key
+     * @return string
+     */
+    public function getData($key) {
+        return (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
+    }
+
+    /**
+     * 
+     * @param type $name
+     * @param type $value
+     */
+    public function setData($name, $value) {
+        $this->setTimeExpire();
+        if (is_array($name)) {
+            $_SESSION = $name;
+        } else {
+            $_SESSION[$name] = $value;
+        }
+    }
+
+    /**
      * set message flash message that will unset on the next request
      * @param string $name
      * @param sting $value
@@ -78,8 +101,9 @@ class Session {
      * @return string
      */
     public function flashData($name) {
+ $data = (isset($_SESSION['flash_data'][$name])) ? $_SESSION['flash_data'][$name] : false;
        // unset($_SESSION['flash_data'][$name]);
-       return (isset($_SESSION['flash_data'][$name])) ? $_SESSION['flash_data'][$name] : false;
+        return $data;
     }
 
     /**

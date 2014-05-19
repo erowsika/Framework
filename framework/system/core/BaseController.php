@@ -41,12 +41,25 @@ class BaseController extends BaseView {
         // echo $name . ' dsds ' . $arguments;
     }
 
+    public function permission(){
+        if(method_exists($this, 'access')){
+            
+        }
+    }
+    
+    /**
+     * 
+     */
     private function isCaching() {
         if (method_exists($this, 'permission')) {
             
         }
     }
 
+    /**
+     * 
+     * @param string $url
+     */
     public function redirect($url) {
         if ($url and strpos($url, "://") == false)
             $url = Base::instance()->base_url . $url;
@@ -54,10 +67,16 @@ class BaseController extends BaseView {
         header("Location: " . $url);
     }
 
+    /**
+     * 
+     */
     public function beforeExecute() {
         
     }
 
+    /**
+     * 
+     */
     public function afterExecute() {
         
     }
