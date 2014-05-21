@@ -30,7 +30,7 @@ class Validator {
         8 => ' is not a valid URL',
         9 => ' is not a valid email address',
         10 => ' is not set',
-        11 => ' this value must be unique'
+        11 => ' has already been taken'
     );
 
     /**
@@ -74,18 +74,20 @@ class Validator {
 
     public function validate() {
         foreach ($this->rules as $key => $value) {
-            $opt = $this->parseRules($value);
+            $opt = $this->parseRules($value['rules']);
+
+            $field = $value['field'];
 
             if (array_key_exists('trim', $opt) and $opt['required'] == true) {
-                $this->is_set($key);
+                $this->is_set($field);
             }
 
-            if (array_key_exists('trim', $opt) and $opt['trim'] == true and array_key_exists($key, $this->attributes)) {
-                $this->attributes[$key] = trim($this->attributes[$key]);
+            if (array_key_exists('trim', $opt) and $opt['trim'] == true and array_key_exists($field, $this->attributes)) {
+                $this->attributes[$field] = trim($this->attributes[$field]);
             }
 
             if (array_key_exists('unique', $opt)) {
-                $this->validateUnique($this->attributes[$key], $key);
+                $this->validateUnique($field, $value['label']);
             }
 
             if (!isset($opt['min'])) {
@@ -98,58 +100,58 @@ class Validator {
 
             switch ($opt['type']) {
                 case 'email':
-                    $this->validateEmail($key, $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeEmail($key);
+                    $this->validateEmail($field, $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeEmail($field);
                     }
                     break;
 
                 case 'url':
-                    $this->validateUrl($key);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeUrl($key);
+                    $this->validateUrl($field);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeUrl($field);
                     }
                     break;
 
                 case 'numeric':
-                    $this->validateNumeric($key, $opt['min'], $opt['max'], $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeNumeric($key);
+                    $this->validateNumeric($field, $opt['min'], $opt['max'], $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeNumeric($field);
                     }
                     break;
 
                 case 'string':
-                    $this->validateString($key, $opt['min'], $opt['max'], $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeString($key);
+                    $this->validateString($field, $opt['min'], $opt['max'], $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeString($field);
                     }
                     break;
 
                 case 'float':
-                    $this->validateFloat($key, $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeFloat($key);
+                    $this->validateFloat($field, $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeFloat($field);
                     }
                     break;
 
                 case 'ipv4':
-                    $this->validateIpv4($key, $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeIpv4($key);
+                    $this->validateIpv4($field, $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeIpv4($field);
                     }
                     break;
 
                 case 'ipv6':
-                    $this->validateIpv6($key, $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitizeIpv6($key);
+                    $this->validateIpv6($field, $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitizeIpv6($field);
                     }
                     break;
 
                 case 'bool':
-                    $this->validateBool($key, $opt['required']);
-                    if (!array_key_exists($key, $this->errors)) {
-                        $this->sanitized[$key] = (bool) $this->attributes[$key];
+                    $this->validateBool($field, $opt['required']);
+                    if (!array_key_exists($field, $this->errors)) {
+                        $this->sanitized[$field] = (bool) $this->attributes[$field];
                     }
                     break;
             }
@@ -176,9 +178,11 @@ class Validator {
      * @param type $column
      * @return boolean
      */
-    private function validateUnique($var, $column) {
-        if (!empty($this->model->find(array('where' => "$column = '$var'")))) {
-            $this->errors[$var] = $var . $this->error_message[8];
+    private function validateUnique($var, $label) {
+        $val = $this->attributes[$var];
+        $is_exist = $this->model->find()->where("$var = '$val'")->All();
+        if (count($is_exist) > 0) {
+            $this->errors[$var] = $label . $this->error_message[11];
         } else {
             return true;
         }
@@ -321,7 +325,8 @@ class Validator {
         if ($required == false && strlen($this->attributes[$var]) == 0) {
             return true;
         }
-        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN); {
+        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN);
+        {
             $this->errors[$var] = $var . $this->error_message[6];
         }
     }

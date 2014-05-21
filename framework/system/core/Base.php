@@ -94,6 +94,14 @@ class Base {
         }
     }
 
+    public static function import($class) {
+        if (file_exists($class)) {
+            require_once $class;
+        } else {
+            throw new MainException("file $class not found");
+        }
+    }
+
     /**
      * run execution
      * @return void

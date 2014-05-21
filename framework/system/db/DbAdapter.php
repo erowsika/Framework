@@ -380,14 +380,42 @@ abstract class DbAdapter {
         return $sql;
     }
 
+    public function reset() {
+        $this->column = array();
+        $this->criteria = '';
+        $this->tables = array();
+        $this->join = '';
+        $this->distinct = FALSE;
+        $this->limit = '';
+        $this->offset = '';
+        $this->having;
+        $this->order;
+        $this->orderType;
+        $this->group = array();
+        $this->sql = '';
+    }
+
     /**
      * 
      * @return \system\db\DbAdapter
      */
     public function get() {
-        $this->sql = $this->buildSelect();
-        $this->query($this->sql, $this->param);
+
+        if (count($this->tables) > 0) {
+            $this->sql = $this->buildSelect();
+            $this->query($this->sql, $this->param);
+        }
         return $this;
+    }
+
+    /**
+     * fetch all data
+     * @param type $mode
+     * @return type
+     */
+    public function All($mode = 'Assoc') {
+        return ($mode == 'Assoc') ?
+                $this->get()->fetchAssoc() : $this->get()->fetchObject();
     }
 
     /**
@@ -395,9 +423,9 @@ abstract class DbAdapter {
      * @param type $mode
      * @return type
      */
-    public function All($mode = 'Assoc') {
-        return ($mode == 'Assoc') ? 
-                    $this->get()->fetchAssoc() : $this->get()->fetchObject();
+    public function One($mode = 'Assoc') {
+        $data = $this->All($mode);
+        return ($data != false) ? reset($data) : false;
     }
 
     /**
