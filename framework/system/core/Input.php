@@ -15,6 +15,15 @@ namespace system\core;
  */
 class Input {
 
+    const HEAD = 'HEAD';
+    const GET = 'GET';
+    const POST = 'POST';
+    const PUT = 'PUT';
+    const PATCH = 'PATCH';
+    const DELETE = 'DELETE';
+    const OPTIONS = 'OPTIONS';
+    const OVERRIDE = '_METHOD';
+
     /**
      * check is ajax request
      * @return type
@@ -28,8 +37,64 @@ class Input {
      * get method request
      * @return string
      */
-    public function method() {
-        return $_SERVER ['REQUEST_METHOD'];
+    public function getMethod() {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
+    /**
+     * check if request is get
+     * @return boolean
+     */
+    public function isGet() {
+        return $this->getMethod() == self::GET;
+    }
+
+    /**
+     * check if request is post
+     * @return boolean
+     */
+    public function isPost() {
+        return $this->getMethod() == self::POST;
+    }
+
+    /**
+     * check if request is put
+     * @return booloan
+     */
+    public function isPut() {
+        return $this->getMethod() == self::PUT;
+    }
+
+    /**
+     * check if request is pacth
+     * @return booloan
+     */
+    public function isPatch() {
+        return $this->getMethod() == self::PATCH;
+    }
+
+    /**
+     * check if request is delete
+     * @return booloan
+     */
+    public function isDelete() {
+        return $this->getMethod() == self::DELETE;
+    }
+
+    /**
+     * check if request is head
+     * @return booloan
+     */
+    public function isHead() {
+        return $this->getMethod() == self::HEAD;
+    }
+
+    /**
+     * check if request is option
+     * @return booloan
+     */
+    public function isOptions() {
+        return $this->getMethod() == self::OPTIONS;
     }
 
     /**
@@ -62,9 +127,16 @@ class Input {
      * @param boolean $xss_clean
      * @return string
      */
-    public function post($key = null, $xss_clean = false) {
-        $value = $_POST;
-        return $this->filter($value, $key, $xss_clean);
+    public function post($key = null, $default = null) {
+
+        if ($key == null) {
+            return $_POST;
+        }
+
+        if (isset($_POST[$key])) {
+            return $_POST[$key];
+        }
+        return $default;
     }
 
     /**
@@ -74,57 +146,47 @@ class Input {
      * @return string
      * 
      */
-    public function get($key = "", $xss_clean = false) {
-        $value = $_GET;
-        return $this->filter($value, $key, $xss_clean);
-    }
-
-    /**
-     * filter data
-     * @param array $data
-     * @param type $xss_clean
-     * @return string
-     * 
-     */
-    public function filter($data, $key, $xss_clean) {
-        if (!empty($key) and isset($data[$key])) {
-
-            $value = $data[$key];
-
-            if (is_array($value)) {
-                $arrdata = array();
-                foreach ($value as $key => $str) {
-                    $arrdata[$key] = $this->escapeStr($str, $xss_clean);
-                }
-                return $arrdata;
-            }
-            return $this->escapeStr($value, $xss_clean);
+    public function get($key = null, $default = null) {
+        if ($key == null) {
+            return $_GET;
         }
+
+        if (isset($_GET[$key])) {
+            return $_GET[$key];
+        }
+        return $default;
     }
 
     /**
-     * escape string data
-     * @param string $str
-     * @param boolean $xss_filter
+     * get put data
+     * @param stirng $key
+     * @param string $default
      * @return string
-     * 
      */
-    public function escapeStr($str, $xss_filter = false) {
-        // $str = remove_invisible_characters($str);
-        $str = addslashes($str);
-        return ($xss_filter) ? $this->xssClean($str) : $str;
+    public function put($key = null, $default = null) {
+        return $this->post($key, $default);
     }
 
     /**
-     * remove dangerous string
-     * @param string $val
+     * get pacth data
+     * @param stirng $key
+     * @param string $default
      * @return string
      */
-    public function xssClean($val) {
-        $val = htmlentities($val);
-        $val = strip_tags($val);
-        $val = filter_var($val, FILTER_SANITIZE_STRING);
-        return $val;
+    public function pacth($key = null, $default = null) {
+        return $this->post($key, $default);
     }
+
+    /**
+     * get delete data
+     * @param stirng $key
+     * @param string $default
+     * @return string
+     */
+    public function delete($key = null, $default = null) {
+        return $this->post($key, $default);
+    }
+
+    
 
 }
