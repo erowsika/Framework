@@ -85,6 +85,10 @@ class Base {
         return $registry->get($name);
     }
 
+    
+    /**
+     * 
+     */
     public function shutDown() {
         $objects = Registry::getInstance()->getProperty();
         foreach ($objects as $key => $object) {
@@ -94,6 +98,11 @@ class Base {
         }
     }
 
+    /**
+     * 
+     * @param type $class
+     * @throws MainException
+     */
     public static function import($class) {
         if (file_exists($class)) {
             require_once $class;

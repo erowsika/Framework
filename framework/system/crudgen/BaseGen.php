@@ -30,8 +30,9 @@ class BaseGen extends BaseView {
     }
 
     public function init() {
-        $assets = DIR_APP . "/assets/";
-    //    $this->xcopy("./assets/bootstap/", $assets);
+        $assets_dest = DIR_APP . "/assets";
+        $assets = __DIR__."/assets/";
+        $this->xcopy($assets, $assets_dest);
     }
 
     /**
@@ -56,7 +57,7 @@ class BaseGen extends BaseView {
         if (!is_dir($dest)) {
             mkdir($dest, $permissions);
         }
-
+       // chmod($dest, $permissions);
         // Loop through the folder
         $dir = dir($source);
         while (false !== $entry = $dir->read()) {

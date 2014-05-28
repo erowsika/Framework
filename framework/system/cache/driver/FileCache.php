@@ -97,6 +97,7 @@ class FileCache extends BaseCache implements CacheDriver {
     public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
         $filename = $this->getFileName($key);
 
+        
         if (!($handle = fopen($filename, 'w'))) {
             throw new MainException("could not open file");
         }

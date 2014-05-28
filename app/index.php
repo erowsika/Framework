@@ -11,6 +11,8 @@ define('APP_NAME', 'app');
  */
 define('DIR_APP', __DIR__);
 
+//environment
+define('ENVIRONMENT', 'development');
 
 //base path
 define('APP_PATH', DIR_APP .DIRECTORY_SEPARATOR. APP_NAME);

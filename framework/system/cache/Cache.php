@@ -43,9 +43,19 @@ class Cache {
         }
     }
 
+    /**
+     * 
+     * @param type $name
+     * @param type $parameter
+     * @return type
+     * @throws MainException
+     */
     public function __call($name, $parameter) {
-        
-        return call_user_func_array(array(&$this->cache, $name), $parameter);
+        if (method_exists($this->cache, $name)) {
+            return call_user_func_array(array(&$this->cache, $name), $parameter);
+        } else {
+            throw new MainException("method {$name} doesn't exist");
+        }
     }
 
 }

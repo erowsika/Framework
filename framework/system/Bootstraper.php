@@ -12,6 +12,20 @@ define('EXT_FILE', '.php');
 
 define('SYS_NAME', 'system');
 
+switch (ENVIRONMENT) {
+    case 'development':
+        error_reporting(E_ALL);
+        break;
+
+    case 'testing':
+    case 'production':
+        error_reporting(0);
+        break;
+
+    default:
+        exit('The application environment is not set correctly.');
+}
+
 spl_autoload_extensions(".php");
 
 //this is a magical method to auto load php class without include file
@@ -27,6 +41,7 @@ spl_autoload_register(function($class) {
             throw new \Exception("Unable to load $filename file not found");
         }
     } catch (\Exception $e) {
+        
     }
 });
 

@@ -220,7 +220,7 @@ class Mysqli extends DbAdapter implements Connection {
      * 
      * @return type
      */
-    public function insertId() {
+    public function insertId($sequence = NULL) {
         return $this->conn->insert_id;
     }
 

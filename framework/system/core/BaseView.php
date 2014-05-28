@@ -23,10 +23,13 @@ class BaseView {
      * @var array
      */
     private $vars = array();
-    private $view_path = VIEWS_PATH;
-    private $outputBuffer;
+    private $viewPath = VIEWS_PATH;
+    private $buffer;
+    private $_isCache;
+    private $cacheName;
 
     public function __construct() {
+        $this->_isCache = false;
         ob_start();
     }
 
@@ -76,8 +79,8 @@ class BaseView {
         }
 
         try {
-            $file = $this->view_path . str_ireplace('\\', '/', $file);
-            
+            $file = $this->viewPath . str_ireplace('\\', '/', $file);
+
             if (!file_exists($file)) {
                 throw new MainException("File {$file} not found");
             }
@@ -95,7 +98,7 @@ class BaseView {
      * @param type $path
      */
     public function setViewDir($path) {
-        $this->view_path = $path;
+        $this->viewPath = $path;
     }
 
     /**
@@ -115,8 +118,36 @@ class BaseView {
         $this->setLayout();
     }
 
+    /**
+     * start cache
+     */
+    public function startCache() {
+        $this->_isCache = true;
+        $this->cacheName = $this->router->getController() . '_' . Base::instance()->router->getMethod();
+        if (($output = Base::instance()->cache->get($this->cacheName))) {
+            echo $output;
+            exit();
+        }
+    }
+
+    /**
+     * get the output buffer
+     * @return string
+     */
+    public function getOutputBuffer() {
+        return ob_get_clean();
+    }
+
+    /**
+     * 
+     */
     public function __destruct() {
-        echo ob_get_clean();
+        $this->buffer = $this->getOutputBuffer();
+
+        if ($this->_isCache) {
+            Base::instance()->cache->set($this->cacheName, $this->buffer);
+        }
+        echo $this->buffer;
     }
 
     /**

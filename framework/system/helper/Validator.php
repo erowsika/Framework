@@ -78,8 +78,11 @@ class Validator {
 
             $field = $value['field'];
 
-            if (array_key_exists('trim', $opt) and $opt['required'] == true) {
+            if (array_key_exists('required', $opt) and $opt['required'] == true) {
                 $this->is_set($field);
+            } else if (!isset($this->attributes[$var])) {
+                $this->is_set($field);
+                continue;
             }
 
             if (array_key_exists('trim', $opt) and $opt['trim'] == true and array_key_exists($field, $this->attributes)) {

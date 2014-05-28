@@ -21,38 +21,44 @@ class Session {
      * store config
      * @var array 
      */
+    private static $_instance;
     private $config = array();
+    protected $messages;
+
+    const FLASH = 'flash';
 
     /**
      * constructor
      */
     public function __construct() {
         $this->config = Config::getInstance()->get('session');
-        session_name($this->config['session_name']);
+        $name = $this->config['session_name'];
+        session_name($name);
         session_start();
+
+        $this->messages = array(
+            'prev' => array(),
+            'next' => array(),
+            'now' => array()
+        );
+
+        $this->loadMessages();
+        $this->save();
     }
 
+    public static function instance() {
+        if (self::$_instance === null) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * 
+     * @return type
+     */
     public function getUniqueId() {
         return session_id();
-    }
-
-    /**
-     * magical method to get session data
-     * @param string $key
-     * @return string
-     */
-    public function __get($key) {
-        return (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
-    }
-
-    /**
-     * magical method to set session data
-     * @param string $name
-     * @param data $value
-     */
-    public function __set($name, $value) {
-        $this->setTimeExpire();
-        $_SESSION[$name] = $value;
     }
 
     /**
@@ -91,8 +97,32 @@ class Session {
      * @param string $name
      * @param sting $value
      */
-    public function setFlashData($name, $value) {
-        $_SESSION['flash_data'][$name] = $value;
+    public function setFlashData($key, $value) {
+        $this->messages['next'][$key] = $value;
+        $this->save();
+        $this->keepFlashData($key);
+    }
+
+    /**
+     * 
+     */
+    public function keepFlashData($key) {
+        foreach ($this->messages['prev'] as $key => $val) {
+            $this->messages['next'][$key] = $val;
+        }
+    }
+
+    public function save() {
+        $_SESSION[self::FLASH] = $this->messages['next'];
+    }
+
+    /**
+     * Load messages from previous request if available
+     */
+    public function loadMessages() {
+        if (isset($_SESSION[self::FLASH])) {
+            $this->messages['prev'] = $_SESSION[self::FLASH];
+        }
     }
 
     /**
@@ -100,9 +130,8 @@ class Session {
      * @param string $name
      * @return string
      */
-    public function flashData($name) {
- $data = (isset($_SESSION['flash_data'][$name])) ? $_SESSION['flash_data'][$name] : false;
-       // unset($_SESSION['flash_data'][$name]);
+    public function flashData($key) {
+        $data = isset($this->messages['next'][$key]) ? $this->messages['next'][$key] : '';
         return $data;
     }
 
@@ -112,14 +141,7 @@ class Session {
     public function setTimeExpire() {
         $_SESSION['sess_expiration'] = time() + $this->config['session_expire'];
     }
-
-    /**
-     * destructor
-     */
-    public function __destruct() {
-        $this->destroy();
-    }
-
+    
     /**
      * destroy session
      */

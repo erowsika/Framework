@@ -50,13 +50,13 @@ class Model {
         return self::$instance;
     }
 
-    public function __callStatic($name, $arguments) {
+    public static function __callStatic($name, $arguments) {
         $model = self::model();
         if (method_exists($model, $name)) {
             return call_user_func_array(array($model, $name), $arguments);
         }else
         {
-           // throw new \system\core\MainException("function $name not found");
+            throw new \system\core\MainException("function $name not found");
         }
     }
 

@@ -15,7 +15,7 @@ namespace system\auth;
  */
 use system\core\Base;
 
-abstract class BaseAuthManager {
+abstract class BaseAuth {
 
     /**
      *
@@ -23,27 +23,17 @@ abstract class BaseAuthManager {
      */
     public $remember;
     public $login_url;
-    public $user_role;
-    public $user;
     public $permission = array();
-    private $session = null;
-    private $_roles = array();
-    public $error_message = array('1' => 'username not found',
-        '2' => 'password did not match');
+
+    const USERNAME_ERROR = "username not found";
+    const PASSWORD_ERROR = "password did not match";
 
     /**
-     * 
-     */
-    public function __construct() {
-        $this->session = Base::instance()->session;
-    }
-
-    /**
-     * 
+     * check is user has logged in
      * @return type
      */
     public function isGuest() {
-        return $this->session->is_logged_id ? true : false;
+        return Base::instance()->session->getData('is_logged_id') ? true : false;
     }
 
     /**
@@ -55,16 +45,16 @@ abstract class BaseAuthManager {
         return false;
     }
 
+    public function setUser($username) {
+        Base::instance()->session->setData('username', $username);
+    }
+
     /**
      * 
      * @return null
      */
     public function getUser() {
-        if (!is_null($this->user)) {
-            return $this->user;
-        }
-
-        return null;
+        return Base::instance()->session->getData('username');
     }
 
     /**
@@ -96,19 +86,20 @@ abstract class BaseAuthManager {
      * 
      * @return type
      */
-    public function getUserRole() {
-        return $this->user_role;
+    public function getRole() {
+        return Base::instance()->session->getData('role');
     }
 
     /**
      * 
      * @param type $role
      */
-    public function setUserRole($role) {
-        $this->user_role = $role;
+    public function setRole($role) {
+        Base::instance()->session->setData('role', $role);
     }
 
     public function signOut() {
         
     }
+
 }

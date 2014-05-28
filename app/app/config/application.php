@@ -6,7 +6,7 @@ return array(
     /*
      * base url for domain and path 
      */
-    'base_url' => 'https://112.140.160.15/app/',
+    'base_url' => 'http://hisyam-pc/framework/app/',
     /* default router where the default class and action should be called
      * controller is a class name
      * action is a function name

@@ -13,9 +13,9 @@ namespace app\core;
  *
  * @author masfu
  */
-use system\auth\BaseAuthManager;
+use system\auth\BaseAuth;
 
-class AuthUser extends BaseAuthManager {
+class AuthUser extends BaseAuth {
 
     public function __construct() {
         parent::__construct();

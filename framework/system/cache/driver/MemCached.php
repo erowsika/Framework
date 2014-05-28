@@ -13,7 +13,6 @@ namespace system\cache\driver;
  *  inspiring from http://evertpot.com/107/
  * @author masfu
  */
-use \Memcached;
 use system\cache\BaseCache;
 use system\cache\CacheDriver;
 use system\core\MainException;
@@ -28,10 +27,10 @@ class MemCached extends BaseCache implements CacheDriver {
      * @throws MainException
      */
     public function __construct($config = array()) {
-        if (!extension_loaded('memcache'))
+        if (!extension_loaded('memcached'))
             throw new MainException('Memcache extension is not installed');
 
-        $this->memcached = new Memcached();
+        $this->memcached = new \Memcached();
         if ($this->memcached->connect($config['host'], $config['port'])) {
             throw new MainException('Could not connect memcache server');
         }

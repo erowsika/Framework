@@ -15,9 +15,28 @@ namespace system\cache;
  */
 class BaseCache {
 
+    /**
+     * config object
+     * @var string
+     */
     public $config = array();
+    
+    /**
+     *
+     * @var  
+     */
     public $storage = "";
+    
+    /**
+     * option
+     * @var array 
+     */
     public $option = array();
+    
+    /**
+     *
+     * @var string 
+     */
     public $path = "";
 
     /**
