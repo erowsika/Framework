@@ -126,7 +126,7 @@ class Html {
 
         foreach ($options as $key => $val) {
 
-            $sel = (in_array($key, $selected)) ? ' selected="selected"' : '';
+            $sel = (in_array($key, $selected)) ? ' selected' : '';
             $form .= '<option value="' . $key . '"' . $sel . '>' . $val . "</option>\n";
         }
 

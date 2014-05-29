@@ -28,11 +28,11 @@ return array(
          * the first database configuration
          */
         'mysql' => array(
-            'driver' => 'mysql',
+            'driver' => 'mysqli',
             'host' => 'localhost',
-            'database' => 'mydb',
+            'database' => 'posyandu',
             'username' => 'root',
-            'password' => '',
+            'password' => '1234',
             'port' => '3306',
             'persistent' => false,
             'autoinit' => true,

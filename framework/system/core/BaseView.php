@@ -84,6 +84,7 @@ class BaseView {
             if (!file_exists($file)) {
                 throw new MainException("File {$file} not found");
             }
+ 
             extract($this->vars);
             ob_start();
             include($file);

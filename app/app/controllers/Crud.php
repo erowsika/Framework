@@ -16,11 +16,14 @@ namespace app\controllers;
 use app\core as app;
 use system\crudgen\BaseGen;
 
-class Crud extends app\Controller{
-    
+class Crud extends app\Controller {
+
     public function __construct() {
         parent::__construct();
-        $gen = new BaseGen();
-        $gen->run();
     }
+
+    public function index() {
+        (new BaseGen())->run();
+    }
+
 }

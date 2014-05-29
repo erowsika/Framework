@@ -13,6 +13,25 @@ namespace system\crudgen;
  *
  * @author masfu
  */
-class ControllerGen {
-    //put your code here
+use system\core\Base;
+use system\core\BaseView;
+
+class ControllerGen extends BaseView {
+
+    private $table;
+    public $layout = 'main.php';
+
+    public function __construct() {
+        $this->table = Base::instance()->input->get('table');
+        $this->setViewDir(__DIR__ . '/layout/');
+    }
+
+    public function generate() {
+        
+    }
+
+    public function run() {
+        echo $this->display('controller/index.php');
+    }
+
 }

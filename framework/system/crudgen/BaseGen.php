@@ -29,9 +29,10 @@ class BaseGen extends BaseView {
         $this->init();
     }
 
+    
     public function init() {
         $assets_dest = DIR_APP . "/assets";
-        $assets = __DIR__."/assets/";
+        $assets = __DIR__ . "/assets/";
         $this->xcopy($assets, $assets_dest);
     }
 
@@ -57,7 +58,7 @@ class BaseGen extends BaseView {
         if (!is_dir($dest)) {
             mkdir($dest, $permissions);
         }
-       // chmod($dest, $permissions);
+        // chmod($dest, $permissions);
         // Loop through the folder
         $dir = dir($source);
         while (false !== $entry = $dir->read()) {
@@ -80,7 +81,9 @@ class BaseGen extends BaseView {
         $generator = null;
         switch ($mode) {
             case '':
-                echo $this->display('base\index.php');
+                $db = Base::instance()->db->getConnection();
+                $data['tables'] = $db->tables();
+                echo $this->display('base/index.php', $data);
                 exit();
             case 'auth';
                 $generator = new AuthGen();
