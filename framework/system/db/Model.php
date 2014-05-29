@@ -24,6 +24,7 @@ class Model {
     private $pk;
     protected $connection;
     private $validator;
+    
     private static $instance;
 
     /**
