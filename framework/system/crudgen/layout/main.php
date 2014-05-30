@@ -8,7 +8,8 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Code and CRUD Generator</title>
-        <link href="<?php echo \system\core\Base::instance()->base_url ?>assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo \system\core\Base::instance()->base_url ?>assets/bootsrap/css/bootstrap.min.css" rel="stylesheet">
+        <script src="<?php echo \system\core\Base::instance()->base_url ?>assets/bootsrap/js/jquery.min.js"></script>
         <style>
             /*
  * Base structure
@@ -145,6 +146,6 @@ and open the template in the editor.
         <?php echo $content ?>
     </body>
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo \system\core\Base::instance()->base_url ?>assests/js/bootstrap.min.js"></script>
+    <script src="<?php echo \system\core\Base::instance()->base_url ?>assets/bootsrap/js/bootstrap.min.js"></script>
 
 </html>

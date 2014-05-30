@@ -26,7 +26,7 @@ define('CONFIG_PATH', APP_PATH . '/config/');
 /**
  * controller path
  */
-define('CONTROLLER_PATH', APP_PATH . '/controller/');
+define('CONTROLLER_PATH', APP_PATH . '/controllers/');
 
 /*
  * models folder
