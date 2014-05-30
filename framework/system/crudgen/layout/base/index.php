@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <h2 class="sub-header">Section title</h2>
+            <h2 class="sub-header">Table</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-condensed">
                     <thead>

@@ -60,29 +60,9 @@ class ModelGen extends BaseView {
     }
 
     public function run() {
-
-        $template = $this->make();
-        $action = Base::instance()->input->get('action', '');
-        $filename = CONTROLLER_PATH . $this->controller . EXT_FILE;
-        switch ($action) {
-            case 'write_file':
-                $this->status = $filename;
-                file_put_contents($filename, $template);
-                break;
-            case 'download':
-                file_put_contents($filename, $template);
-                header('Content-Type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
-                header('Content-Length: ' . filesize($filename));
-                readfile($filename);
-                exit();
-                break;
-
-            default:
-                break;
-        }
-        $this->result = htmlentities($template);
-        echo $this->display('controller/index.php');
+        $db = Base::instance()->db->getConnection();
+        $this->columns = $db->columns($this->table);
+        echo $this->display('model/index.php');
     }
 
 }
