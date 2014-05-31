@@ -10,7 +10,7 @@ namespace app\controllers;
  */
 use \App;
 use app\core\Controller;
-use app\models\{model};
+use app\models\{model_class};
 
 class {controller} extends Controller {
 
@@ -65,7 +65,7 @@ class {controller} extends Controller {
                     $this->redirect('{controller}');
                 }
             }
-            $data = {controller}->findByPk($id)->All();
+            $data = ${model}->findByPk($id)->All();
             if (!empty($data)) {
                 $this->display("{view_dir}/edit.php", reset($data));
             } else {
