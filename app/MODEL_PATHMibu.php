@@ -9,17 +9,17 @@
 namespace app\models;
 
 /**
- * Description of Mbalita
+ * Description of Mibu
  *
  * @author masfu
  */
 use \App;
 use system\db\Model;
 
-class Mbalita extends Model {
+class Mibu extends Model {
 
     public function __construct() {
-        parent::__construct('balita');
+        parent::__construct('ibu');
     }
 
     public function rules() {
@@ -34,44 +34,44 @@ class Mbalita extends Model {
                             'field' => 'nama',
                             'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
                          array(
+                            'label' => 'username',
+                            'field' => 'username',
+                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
+                         array(
+                            'label' => 'password',
+                            'field' => 'password',
+                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
+                         array(
+                            'label' => 'salt',
+                            'field' => 'salt',
+                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
+                         array(
                             'label' => 'alamat',
                             'field' => 'alamat',
                             'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
                          array(
-                            'label' => 'ibu',
-                            'field' => 'ibu',
+                            'label' => 'rt',
+                            'field' => 'rt',
+                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
+                         array(
+                            'label' => 'rw',
+                            'field' => 'rw',
+                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
+                         array(
+                            'label' => 'kelurahan',
+                            'field' => 'kelurahan',
+                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
+                         array(
+                            'label' => 'kecamatan',
+                            'field' => 'kecamatan',
                             'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
                          array(
                             'label' => 'tgl_lahir',
                             'field' => 'tgl_lahir',
                             'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
                          array(
-                            'label' => 'berat_lahir',
-                            'field' => 'berat_lahir',
-                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
-                         array(
-                            'label' => 'tinggi_lahir',
-                            'field' => 'tinggi_lahir',
-                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
-                         array(
-                            'label' => 'cacat_lahir',
-                            'field' => 'cacat_lahir',
-                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
-                         array(
-                            'label' => 'gol_darah',
-                            'field' => 'gol_darah',
-                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
-                         array(
-                            'label' => 'ibu_id',
-                            'field' => 'ibu_id',
-                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
-                         array(
-                            'label' => 'anak_ke',
-                            'field' => 'anak_ke',
-                            'rules' => 'type:string|min:0|max:50|required:true|trim:true'),
-                         array(
-                            'label' => 'jenis_kelamin',
-                            'field' => 'jenis_kelamin',
+                            'label' => 'foto',
+                            'field' => 'foto',
                             'rules' => 'type:string|min:0|max:50|required:true|trim:true')
         );
     }

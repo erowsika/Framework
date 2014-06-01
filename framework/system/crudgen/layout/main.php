@@ -129,23 +129,12 @@ and open the template in the editor.
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Code Generator</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Auth</a></li>
-                        <li><a href="#">Controller</a></li>
-                        <li><a href="#">Model</a></li>
-                        <li><a href="#">View</a></li>
-                        <li><a href="#">CRUD</a></li>
-                    </ul>
+                    <a class="navbar-brand" href="<?php echo \system\core\Base::instance()->base_url. $_SERVER['PATH_INFO'] ?>">Code Generator</a>
                 </div>
             </div>
         </div>
-        <?php echo $content ?>
+        <?php echo $content;  ?>
     </body>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo \system\core\Base::instance()->base_url ?>assets/bootsrap/js/bootstrap.min.js"></script>
-
 </html>

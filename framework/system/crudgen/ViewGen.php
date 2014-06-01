@@ -15,41 +15,35 @@ namespace system\crudgen;
  */
 use system\core\Base;
 
-class ModelGen extends Generator {
+class ViewGen extends Generator {
 
     public function __construct() {
         parent::__construct();
     }
 
     public function make() {
-        $rules = "";
+        $field = "";
         foreach ($this->attributes as $key => $value) {
 
             $col = Base::instance()->input->post('col_' . $value);
 
             if ($col != "") {
                 $label = Base::instance()->input->post('label_' . $value);
-                $type = Base::instance()->input->post('type_' . $value);
-                $required = Base::instance()->input->post('required_' . $value) ? 'true' : 'false';
+                $typeform = Base::instance()->input->post('typeform_' . $value);
+                $required = Base::instance()->input->post('required_' . $value) ? 'required' : '';
                 $min = Base::instance()->input->post('min_' . $value);
                 $max = Base::instance()->input->post('max_' . $value);
-                $trim = Base::instance()->input->post('trim_' . $value) ? 'true' : 'false';
-
-                $rules .= "
-                         array(
-                            'label' => '$label',
-                            'field' => '$col',
-                            'rules' => 'type:$type|min:$min|max:$max|required:$required|trim:$trim'),";
+                $field .= "<div class=\"form-group\">
+    <label for=\"$col\" class=\"col-sm-2 control-label\">$label</label>
+    <div class=\"col-sm-10\">
+      <input type=\"$typeform\" class=\"form-control\" $required id=\"$col\" placeholder=\"$label\">
+    </div>
+  </div>";
             }
         }
-        $rules = substr($rules, 0, strlen($rules) - 1);
-
-        $filename = __DIR__ . '/layout/model/template.tpl';
+        $filename = __DIR__ . '/layout/view/template.tpl';
         $template = file_get_contents($filename);
-
-        $template = str_replace('{model_class}', $this->model_class, $template);
-        $template = str_replace('{table}', $this->table, $template);
-        $template = str_replace('{rules}', $rules, $template);
+        $template = str_replace('{field}', $field, $template);
 
         return $template;
     }
@@ -59,12 +53,19 @@ class ModelGen extends Generator {
         switch ($action) {
             case 'write_file':
                 $code = $this->make();
-                $filename = MODELS_PATH . $this->model_class . EXT_FILE;
-                $this->view->code = $this->write($filename, $code);
+                $filename = VIEWS_PATH . $this->table . '/form' . EXT_FILE;
+                $this->view->code = $code;
+                $this->write($filename, $code);
                 break;
             case 'download' :
                 $code = $this->make();
-                $filename = MODELS_PATH . $this->model_class . EXT_FILE;
+                $dir = VIEWS_PATH . $this->table;
+                echo $dir;
+                if (!is_dir($dir)) {
+                    
+                    mkdir($dir, 777);
+                }
+                $filename = $dir . '/form' . EXT_FILE;
                 $this->download($filename, $code);
                 exit();
             default:
@@ -72,7 +73,7 @@ class ModelGen extends Generator {
         }
         $db = Base::instance()->db->getConnection();
         $this->view->columns = $db->columns($this->table);
-        echo $this->view->display('model/index.php');
+        echo $this->view->display('view/index.php');
     }
 
 }
