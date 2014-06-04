@@ -22,7 +22,7 @@ class ControllerGen extends Generator {
         parent::__construct();
     }
 
-        public function make() {
+    public function make() {
         $filename = __DIR__ . '/layout/controller/template.tpl';
         $template = file_get_contents($filename);
 
@@ -37,7 +37,7 @@ class ControllerGen extends Generator {
 
     public function run() {
         $code = $this->make();
-        $action = Base::instance()->input->post('action');
+        $action = Base::instance()->input->get('action');
         switch ($action) {
             case 'write_file':
                 $filename = CONTROLLER_PATH . $this->controller . EXT_FILE;

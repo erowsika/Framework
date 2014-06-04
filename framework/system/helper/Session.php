@@ -86,7 +86,9 @@ class Session {
     public function setData($name, $value) {
         $this->setTimeExpire();
         if (is_array($name)) {
-            $_SESSION = $name;
+            foreach ($name as $key => $value) {
+                $_SESSION[$key] = $value;
+            }
         } else {
             $_SESSION[$name] = $value;
         }

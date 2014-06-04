@@ -53,17 +53,19 @@ class ViewGen extends Generator {
         switch ($action) {
             case 'write_file':
                 $code = $this->make();
-                $filename = VIEWS_PATH . $this->table . '/form' . EXT_FILE;
+                $dir = VIEWS_PATH . $this->table;
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0777);
+                }
+                $filename = $dir . '/form' . EXT_FILE;
                 $this->view->code = $code;
                 $this->write($filename, $code);
                 break;
             case 'download' :
                 $code = $this->make();
                 $dir = VIEWS_PATH . $this->table;
-                echo $dir;
                 if (!is_dir($dir)) {
-                    
-                    mkdir($dir, 777);
+                    mkdir($dir, 0777);
                 }
                 $filename = $dir . '/form' . EXT_FILE;
                 $this->download($filename, $code);

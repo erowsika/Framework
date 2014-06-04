@@ -18,9 +18,6 @@ use system\core\BaseView;
 
 class BaseGen extends BaseView {
 
-    private $model;
-    private $controller_name;
-    private $model_name;
     public $layout = 'main.php';
 
     public function __construct() {
@@ -96,6 +93,9 @@ class BaseGen extends BaseView {
                 break;
             case 'view';
                 $generator = new ViewGen();
+                break;
+            case 'crud';
+                $generator = new CrudGen();
                 break;
             default:
                 break;
