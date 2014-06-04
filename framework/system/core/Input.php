@@ -24,6 +24,55 @@ class Input {
     const OPTIONS = 'OPTIONS';
     const OVERRIDE = '_METHOD';
 
+    private $code = 200;
+    private $contentType = "application/json";
+
+    private function getStatusMessage() {
+        $status = array(
+            100 => 'Continue',
+            101 => 'Switching Protocols',
+            200 => 'OK',
+            201 => 'Created',
+            202 => 'Accepted',
+            203 => 'Non-Authoritative Information',
+            204 => 'No Content',
+            205 => 'Reset Content',
+            206 => 'Partial Content',
+            300 => 'Multiple Choices',
+            301 => 'Moved Permanently',
+            302 => 'Found',
+            303 => 'See Other',
+            304 => 'Not Modified',
+            305 => 'Use Proxy',
+            306 => '(Unused)',
+            307 => 'Temporary Redirect',
+            400 => 'Bad Request',
+            401 => 'Unauthorized',
+            402 => 'Payment Required',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            405 => 'Method Not Allowed',
+            406 => 'Not Acceptable',
+            407 => 'Proxy Authentication Required',
+            408 => 'Request Timeout',
+            409 => 'Conflict',
+            410 => 'Gone',
+            411 => 'Length Required',
+            412 => 'Precondition Failed',
+            413 => 'Request Entity Too Large',
+            414 => 'Request-URI Too Long',
+            415 => 'Unsupported Media Type',
+            416 => 'Requested Range Not Satisfiable',
+            417 => 'Expectation Failed',
+            500 => 'Internal Server Error',
+            501 => 'Not Implemented',
+            502 => 'Bad Gateway',
+            503 => 'Service Unavailable',
+            504 => 'Gateway Timeout',
+            505 => 'HTTP Version Not Supported');
+        return ($status[$this->code]) ? $status[$this->code] : $status[500];
+    }
+
     /**
      * check is ajax request
      * @return type
@@ -130,11 +179,11 @@ class Input {
     public function post($key = null, $default = null) {
 
         if ($key == null) {
-            return $_POST;
+            return $this->cleanInputs($_POST);
         }
 
         if (isset($_POST[$key])) {
-            return $_POST[$key];
+            return $this->cleanInputs($_POST[$key]);
         }
         return $default;
     }
@@ -148,11 +197,11 @@ class Input {
      */
     public function get($key = null, $default = null) {
         if ($key == null) {
-            return $_GET;
+            return $this->cleanInputs($_GET);
         }
 
-        if (isset($_GET[$key])) {
-            return $_GET[$key];
+        if (isset($_POST[$key])) {
+            return $this->cleanInputs($_GET[$key]);
         }
         return $default;
     }
@@ -164,7 +213,9 @@ class Input {
      * @return string
      */
     public function put($key = null, $default = null) {
-        return $this->post($key, $default);
+        $request = array();
+        parse_str(file_get_contents("php://input"), $request);
+        return $this->cleanInputs($request);
     }
 
     /**
@@ -187,6 +238,54 @@ class Input {
         return $this->post($key, $default);
     }
 
-    
+    /**
+     * 
+     * @param type $data
+     * @return type
+     */
+    public function cleanInputs($data) {
+        $clean_input = array();
+        if (is_array($data)) {
+            foreach ($data as $k => $v) {
+                $clean_input[$k] = $this->cleanInputs($v);
+            }
+        } else {
+            if (get_magic_quotes_gpc()) {
+                $data = trim(stripslashes($data));
+            }
+            $data = strip_tags($data);
+            $clean_input = trim($data);
+        }
+        return $clean_input;
+    }
+
+    /**
+     * get http referer
+     * @return string
+     */
+    public function getReferer() {
+        return $_SERVER['HTTP_REFERER'];
+    }
+
+    /**
+     * 
+     * @param type string
+     * @param type integer
+     */
+    public function response($data, $contentType, $status = 200) {
+        $this->code = $status;
+        $this->contentType = $contentType;
+        $this->setHeaders();
+        echo $data;
+        exit;
+    }
+
+    /**
+     * 
+     */
+    private function setHeaders() {
+        header("HTTP/1.1 " . $this->code . " " . $this->getStatusMessage());
+        header("Content-Type:" . $this->contentType);
+    }
 
 }

@@ -34,28 +34,19 @@ class BaseController extends BaseView {
         } else if (Base::instance()->$name) {
             return Base::instance()->$name;
         } else
-            return $value;
+            throw new MainException("$name doesnt exist");
     }
 
     public function __call($name, $arguments) {
         // echo $name . ' dsds ' . $arguments;
     }
 
-    public function permission(){
-        if(method_exists($this, 'access')){
+    public function permission() {
+        if (method_exists($this, 'access')) {
             
         }
     }
     
-    /**
-     * 
-     */
-    private function isCaching() {
-        if (method_exists($this, 'permission')) {
-            
-        }
-    }
-
     /**
      * 
      * @param string $url
@@ -63,7 +54,6 @@ class BaseController extends BaseView {
     public function redirect($url) {
         if ($url and strpos($url, "://") == false)
             $url = Base::instance()->base_url . $url;
-
         header("Location: " . $url);
     }
 

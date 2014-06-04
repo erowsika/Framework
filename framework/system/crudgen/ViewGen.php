@@ -21,7 +21,7 @@ class ViewGen extends Generator {
         parent::__construct();
     }
 
-    public function make() {
+    public function createForm($isEdit = false) {
         $field = "";
         foreach ($this->attributes as $key => $value) {
 
@@ -33,10 +33,16 @@ class ViewGen extends Generator {
                 $required = Base::instance()->input->post('required_' . $value) ? 'required' : '';
                 $min = Base::instance()->input->post('min_' . $value);
                 $max = Base::instance()->input->post('max_' . $value);
+                
+                $value = "";
+                if($isEdit){
+                    $value = '$'.$col;
+                }
+                
                 $field .= "<div class=\"form-group\">
     <label for=\"$col\" class=\"col-sm-2 control-label\">$label</label>
     <div class=\"col-sm-10\">
-      <input type=\"$typeform\" class=\"form-control\" $required id=\"$col\" placeholder=\"$label\">
+      <input type=\"$typeform\" class=\"form-control\" $required id=\"$col\" value=\"$value\" placeholder=\"$label\">
     </div>
   </div>";
             }
@@ -50,6 +56,7 @@ class ViewGen extends Generator {
 
     public function run() {
         $action = Base::instance()->input->post('action');
+        $viewType = Base::instance()->input->post('typ');
         switch ($action) {
             case 'write_file':
                 $code = $this->make();
