@@ -47,11 +47,11 @@ class Base {
 
         //merge core class with moduls class
         $moduls = Config::getInstance()->get('moduls');
-        $diff = array_intersect_key($moduls, $this->classes);
-        if (!empty($diff)) {
-            $sameclass = implode(', ', array_keys($diff));
-            throw new MainException("please use the different alias for moduls  $sameclass");
-        }
+        /*  $diff = array_intersect_key($moduls, $this->classes);
+          if (!empty($diff)) {
+          $sameclass = implode(', ', array_keys($diff));
+          throw new MainException("please use the different alias for moduls  $sameclass");
+          } */
         $this->classes = array_merge($this->classes, $moduls);
         register_shutdown_function(array($this, 'shutDown'));
     }
@@ -85,7 +85,6 @@ class Base {
         return $registry->get($name);
     }
 
-    
     /**
      * 
      */

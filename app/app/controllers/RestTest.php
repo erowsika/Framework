@@ -21,6 +21,17 @@ class RestTest extends RestController {
         parent::__construct();
     }
 
+    public function access() {
+        return array(
+            array('grant',
+                'executes' => array('login'),
+                'user' => array('admin', 'operator')),
+            array('revoke',
+                'executes' => array('login'),
+                'user' => array('guest'))
+        );
+    }
+
     public function login() {
         $data = array('nama' => 'masfu', 'tgl_lahir' => '19-08-1993');
         $this->outputJson($data);

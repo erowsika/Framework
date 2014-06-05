@@ -18,7 +18,7 @@ return array(
     /*
      * modules is an autoload mechanism
      */
-    'moduls' => array('upload' => 'app\moduls\Upload'),
+    'moduls' => array('auth' => 'app\core\Auth'),
     /*
      * database configuration
      * we can use multiple database connection at same time

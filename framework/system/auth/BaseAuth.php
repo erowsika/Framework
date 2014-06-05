@@ -24,6 +24,7 @@ abstract class BaseAuth {
     public $remember;
     public $login_url;
     public $permission = array();
+    private $user = 'guest';
 
     const USERNAME_ERROR = "username not found";
     const PASSWORD_ERROR = "password did not match";
@@ -37,14 +38,9 @@ abstract class BaseAuth {
     }
 
     /**
-     * 
-     * @param type $user
-     * @return boolean
+     * set user
+     * @param type $username
      */
-    public function access($user) {
-        return false;
-    }
-
     public function setUser($username) {
         Base::instance()->session->setData('username', $username);
     }
@@ -54,7 +50,8 @@ abstract class BaseAuth {
      * @return null
      */
     public function getUser() {
-        return Base::instance()->session->getData('username');
+        $user = Base::instance()->session->getData('username');
+        return ($user) ? $user : $this->user;
     }
 
     /**
@@ -98,6 +95,9 @@ abstract class BaseAuth {
         Base::instance()->session->setData('role', $role);
     }
 
+    /**
+     * 
+     */
     public function signOut() {
         
     }
