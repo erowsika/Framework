@@ -24,9 +24,13 @@ class BaseView {
      */
     private $vars = array();
     private $viewPath = VIEWS_PATH;
-    
+    private static $scriptFile;
+    private static $styleFile;
+    private static $style;
+    private static $script;
+
     public function __construct() {
-       
+        
     }
 
     /**
@@ -80,7 +84,7 @@ class BaseView {
             if (!file_exists($file)) {
                 throw new MainException("File {$file} not found");
             }
- 
+
             extract($this->vars);
             ob_start();
             include($file);
@@ -165,6 +169,38 @@ class BaseView {
      */
     public function redirect($url) {
         Base::instance()->router->redirect($url);
+    }
+
+    public static function enqueueScriptFile() {
+        
+    }
+
+    public static function enqueueStyleFile() {
+        
+    }
+
+    public static function enqueueStyle() {
+        
+    }
+
+    public static function enqueueScript() {
+        
+    }
+
+    public static function registerScriptFile() {
+        
+    }
+
+    public static function registerStyleFile() {
+        
+    }
+
+    public static function registerStyle() {
+        
+    }
+
+    public static function registerScript() {
+        
     }
 
 }
