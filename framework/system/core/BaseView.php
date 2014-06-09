@@ -24,13 +24,9 @@ class BaseView {
      */
     private $vars = array();
     private $viewPath = VIEWS_PATH;
-    private $buffer;
-    private $_isCache;
-    private $cacheName;
-
+    
     public function __construct() {
-        $this->_isCache = false;
-        ob_start();
+       
     }
 
     /**
@@ -120,38 +116,6 @@ class BaseView {
     }
 
     /**
-     * start cache
-     */
-    public function startCache() {
-        $this->_isCache = true;
-        $this->cacheName = $this->router->getController() . '_' . Base::instance()->router->getMethod();
-        if (($output = Base::instance()->cache->get($this->cacheName))) {
-            echo $output;
-            exit();
-        }
-    }
-
-    /**
-     * get the output buffer
-     * @return string
-     */
-    public function getOutputBuffer() {
-        return ob_get_clean();
-    }
-
-    /**
-     * 
-     */
-    public function __destruct() {
-        $this->buffer = $this->getOutputBuffer();
-
-        if ($this->_isCache) {
-            Base::instance()->cache->set($this->cacheName, $this->buffer);
-        }
-        echo $this->buffer;
-    }
-
-    /**
      * generate json output
      * @param type $data
      * @param type $options
@@ -195,6 +159,10 @@ class BaseView {
         return $element;
     }
 
+    /**
+     * 
+     * @param type $url
+     */
     public function redirect($url) {
         Base::instance()->router->redirect($url);
     }

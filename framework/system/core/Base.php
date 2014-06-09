@@ -138,11 +138,11 @@ class Base {
 
                 if (in_array($method, get_class_methods($this->$controller))) {
 
-                    self::invoke($this->$controller, "before");
+                    self::invoke($this->$controller, "beforeExecute");
 
                     self::invoke($this->$controller, $method, $parameters);
 
-                    self::invoke($this->$controller, "after");
+                    self::invoke($this->$controller, "afterExecute");
                 } else {
                     throw new HttpException('Page not found', 404);
                 }

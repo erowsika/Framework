@@ -15,20 +15,25 @@ namespace system\auth;
  */
 use system\core\Base;
 
-abstract class BaseAuth {
+class BaseAuth {
 
     /**
      *
      * @var type 
      */
     public $remember;
-    public $login_url;
+    public $loginUrl;
     public $permission = array();
     private $user = 'guest';
 
     const USERNAME_ERROR = "username not found";
     const PASSWORD_ERROR = "password did not match";
 
+    
+    public function __construct() {
+        $this->loginUrl = Base::instance()->base_url;
+    }
+    
     /**
      * check is user has logged in
      * @return type
@@ -94,6 +99,7 @@ abstract class BaseAuth {
     public function setRole($role) {
         Base::instance()->session->setData('role', $role);
     }
+   
 
     /**
      * 

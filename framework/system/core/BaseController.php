@@ -11,10 +11,15 @@ namespace system\core;
 class BaseController extends BaseView {
 
     protected $layout = "layout\main.php";
+    private $buffer;
+    private $isCache;
+    private $cacheName;
 
     public function __construct() {
         parent::__construct();
+        ob_start();
         $this->checkAccess();
+        $this->isCache = false;
     }
 
     /**
@@ -50,6 +55,38 @@ class BaseController extends BaseView {
     }
 
     /**
+     * start cache
+     */
+    public function startCache() {
+        $this->isCache = true;
+        $this->cacheName = Base::instance()->router->getController() . '_' . Base::instance()->router->getMethod();
+        if (($output = Base::instance()->cache->get($this->cacheName))) {
+            echo $output;
+            exit();
+        }
+    }
+
+    /**
+     * get the output buffer
+     * @return string
+     */
+    public function getOutputBuffer() {
+        return ob_get_clean();
+    }
+
+    /**
+     * 
+     */
+    public function __destruct() {
+        $this->buffer = $this->getOutputBuffer();
+
+        if ($this->isCache) {
+            Base::instance()->cache->set($this->cacheName, $this->buffer);
+        }
+        echo $this->buffer;
+    }
+
+    /**
      * 
      * @return boolean
      */
@@ -72,8 +109,7 @@ class BaseController extends BaseView {
                     if ($accessType == 'grant' and $hasAuth) {
                         return true;
                     } else if ($accessType == 'revoke' and $hasAuth) {
-                        $this->outputJson(array("you don't have any such privileges to access this page"));
-                        Base::instance()->input->response($this->output, "application/json", 403);
+                        throw new HttpException('you are not allowed to access this page', 403);
                     }
                 }
             }

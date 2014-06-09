@@ -55,22 +55,21 @@ class Pagination {
 
     public function render() {
         $total = ceil($this->total / $this->limit);
-
+        $output = '';
         //$total += $this->current;
         $start = 1;
 
-        if ($this->current > 1) {
-            $start = abs($total - $this->limit);
-        }
-        
         $urlCallback = $this->baseUrl . "/?" . $this->query . "=";
-        $output = str_replace("#", $urlCallback . $start, $this->prevText);
-        
+
+        if ($total > 1) {
+            $output = str_replace("#", $urlCallback . $this->current - 1, $this->prevText);
+        }
+
         for ($i = $this->current + 1; $i <= $total; $i++) {
-            
+
             if ($i > $this->total)
                 break;
-            
+
             if ($i == $this->current) {
                 $output .= str_replace("{page}", $i, $this->styleListActive);
             } else {
@@ -79,8 +78,10 @@ class Pagination {
                 $output .= $page;
             }
         }
-        $end = ($total >= $this->total) ? $total : $total + 1;
-        $output .= str_replace("#", $urlCallback . $end, $this->nextText);
+        if ($total > 1) {
+            $end = ($total >= $this->total) ? $total : $total + 1;
+            $output .= str_replace("#", $urlCallback . $end, $this->nextText);
+        }
         return $output;
     }
 

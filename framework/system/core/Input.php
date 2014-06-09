@@ -200,7 +200,7 @@ class Input {
             return $this->cleanInputs($_GET);
         }
 
-        if (isset($_POST[$key])) {
+        if (isset($_GET[$key])) {
             return $this->cleanInputs($_GET[$key]);
         }
         return $default;
