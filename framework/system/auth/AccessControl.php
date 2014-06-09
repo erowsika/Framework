@@ -22,21 +22,36 @@ class AccessControl {
     private $auth;
     private $loginUrl;
 
+    /**
+     * 
+     */
     public function __construct() {
         $this->method = Base::instance()->router->getMethod();
         $this->auth = Base::instance()->auth;
         $this->loginUrl = Base::instance()->base_url;
     }
 
+    /**
+     * 
+     * @param type $loginUrl
+     */
     public function setLoginUrl($loginUrl) {
         $this->loginUrl = $loginUrl;
     }
 
+    /**
+     * 
+     * @param array $rules
+     */
     public function setRules(Array $rules) {
         $this->rules = $rules;
     }
 
+    /**
+     * 
+     */
     public function checkAccess() {
+
         foreach ($rules as $rule) {
             $executes = $rule['executes'];
             $accessType = reset($rule);
@@ -44,21 +59,36 @@ class AccessControl {
                 if (isset($rule['user'])) {
                     $userList = $rule['user'];
                     $user = $auth->getUser();
+                    $this->checkPermission($userList, $accessType, $user);
                 } else {
                     $roleList = $rule['role'];
                     $role = $auth->getRole();
+                    $this->checkPermission($roleList, $accessType, $role);
                 }
             }
         }
     }
 
+    /**
+     * 
+     * @param type $accessList
+     * @param type $accessType
+     * @param type $user
+     * @return boolean
+     * @throws HttpException
+     */
     private function checkPermission($accessList, $accessType, $user) {
 
         $hasAuth = in_array($user, $accessList);
         if ($accessType == 'grant' and $hasAuth) {
             return true;
         } else if ($accessType == 'revoke' and $hasAuth) {
-            throw new HttpException('you are not allowed to access this page', 403);
+
+            if (!$this->auth->isGuest()) {
+                throw new HttpException('you are not allowed to access this page', 403);
+            } else {
+                header("Location: " . $this->loginUrl);
+            }
         }
     }
 
