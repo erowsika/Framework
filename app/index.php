@@ -1,6 +1,6 @@
 <?php
 
-//include 'init.php';
+include 'init.php';
 /**
  * define application name
  */

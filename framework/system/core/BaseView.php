@@ -14,6 +14,7 @@ namespace system\core;
  * @author masfu
  */
 use system\core\MainException;
+use system\helper\Utils;
 
 class BaseView {
 
@@ -23,15 +24,36 @@ class BaseView {
      * @var array
      */
     private $vars = array();
-    private $viewPath = VIEWS_PATH;
-    private static $scriptFile;
-    private static $styleFile;
-    private static $style;
-    private static $script;
 
-    public function __construct() {
-        
-    }
+    /**
+     * directory of view files
+     * @var string 
+     */
+    private $viewPath = VIEWS_PATH;
+
+    /**
+     * script file
+     * @var array 
+     */
+    public static $scriptFile = array();
+
+    /**
+     * style file
+     * @var array 
+     */
+    public static $styleFile = array();
+
+    /**
+     * style
+     * @var array 
+     */
+    public static $style = array();
+
+    /**
+     * script
+     * @var array 
+     */
+    public static $script = array();
 
     /**
      * get store value
@@ -171,36 +193,73 @@ class BaseView {
         Base::instance()->router->redirect($url);
     }
 
-    public static function enqueueScriptFile() {
-        
+    /**
+     * add base_url if there is no http prefix
+     * @param string $url
+     * @return string
+     */
+    public static function checkUrl($url) {
+        if ($url and strpos($url, "://") == false) {
+            $url = Base::instance()->base_url . $url;
+        }
+        return $url;
     }
 
-    public static function enqueueStyleFile() {
-        
+    /**
+     * enqueue javascript file
+     * @param string $href
+     */
+    public static function enqueueScriptFile($href) {
+        $href = self::checkUrl($href);
+        self::$scriptFile[] = "<script src=\"" . $href . "\" type=\"text/javascript\"></script>";
     }
 
-    public static function enqueueStyle() {
-        
+    /**
+     * enqueue css file
+     * @param string $href
+     * @param string $option
+     */
+    public static function enqueueStyleFile($href, $option = '') {
+        $href = self::checkUrl($href);
+        self::$styleFile[] = "<link rel=\"stylesheet\" href=\"" . $href . "\" media=\"screen\" $option>";
     }
 
-    public static function enqueueScript() {
-        
+    /**
+     * enqueue css style
+     * @param string $style
+     */
+    public static function enqueueStyle($style) {
+        self::$style[] = $style;
     }
 
-    public static function registerScriptFile() {
-        
+    /**
+     * enqueue javacript
+     * @param string $script
+     */
+    public static function enqueueScript($script) {
+        self::$script[] = $script;
     }
 
-    public static function registerStyleFile() {
-        
+    /**
+     * register javascript file and copy it to the assest folder
+     * @param string $fileName
+     */
+    public static function registerScriptFile($fileName) {
+        if (ENVIRONMENT == 'development') {
+            $dest = DIR_APP . "/assets/js/";
+            Utils::xcopy($fileName, $dest);
+        }
     }
 
-    public static function registerStyle() {
-        
-    }
-
-    public static function registerScript() {
-        
+    /**
+     * register css file and copy it to the assest folder
+     * @param string $fileName
+     */
+    public static function registerStyleFile($fileName) {
+        if (ENVIRONMENT == 'development') {
+            $dest = DIR_APP . "/assets/css/";
+            Utils::xcopy($fileName, $dest);
+        }
     }
 
 }

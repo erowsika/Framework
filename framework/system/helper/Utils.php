@@ -40,4 +40,34 @@ class Utils {
         return $val;
     }
 
+    /**
+     * copy and make dir recursively
+     * @param string $source
+     * @param string $dest
+     * @param integer $permissions
+     * @return boolean
+     */
+    public static function xcopy($source, $dest, $permissions = 0755) {
+        if (is_link($source)) {
+            return symlink(readlink($source), $dest);
+        }
+        if (is_file($source)) {
+            return copy($source, $dest);
+        }
+
+        if (!is_dir($dest)) {
+            mkdir($dest, $permissions);
+        }
+        $dir = dir($source);
+        while (false !== $entry = $dir->read()) {
+            if ($entry == '.' || $entry == '..') {
+                continue;
+            }
+            $this->xcopy("$source/$entry", "$dest/$entry");
+        }
+
+        $dir->close();
+        return true;
+    }
+
 }

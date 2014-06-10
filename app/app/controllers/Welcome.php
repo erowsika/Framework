@@ -16,14 +16,7 @@ class Welcome extends Controller {
      * constructor
      */
     public function __construct() {
-        
-    }
-
-    public function permission() {
-        return array(
-            'index' => array('cache' => false, 'allowed_user' => 'guest', 'admin'),
-            'dokumentasi' => array('cache' => false, 'allowed_user' => 'guest', 'admin'),
-            'classReference' => array('cache' => false, 'allowed_user' => 'guest', 'admin'));
+        parent::__construct();
     }
 
     /**
@@ -31,6 +24,8 @@ class Welcome extends Controller {
      * @access public
      */
     public function index() {
+        self::enqueueScriptFile('assets/js/boostrap.js');
+        self::enqueueStyleFile('assets/css/boostrap.css');
         $this->display("welcome\index.php");
     }
 

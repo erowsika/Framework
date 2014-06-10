@@ -16,7 +16,6 @@ class BaseController extends BaseView {
     private $cacheName;
 
     public function __construct() {
-        parent::__construct();
         ob_start();
         $this->checkAccess();
         $this->isCache = false;
@@ -51,7 +50,7 @@ class BaseController extends BaseView {
      * @param type $arguments
      */
     public function __call($name, $arguments) {
-        // echo $name . ' dsds ' . $arguments;
+// echo $name . ' dsds ' . $arguments;
     }
 
     /**
@@ -79,11 +78,61 @@ class BaseController extends BaseView {
      */
     public function __destruct() {
         $this->buffer = $this->getOutputBuffer();
+        $this->buffer = str_replace("</title>", "</title>" . $this->appendStyle(), $this->buffer);
+        $this->buffer = str_replace("</body>", $this->appendScript() . "</body>", $this->buffer);
 
         if ($this->isCache) {
             Base::instance()->cache->set($this->cacheName, $this->buffer);
         }
         echo $this->buffer;
+    }
+
+    /**
+     * append script
+     * @return string
+     */
+    private function appendScript() {
+        $scriptFile = array_unique(self::$scriptFile);
+        $script = array_unique(self::$script);
+        $scr = '';
+        if (count($scriptFile) > 0) {
+            foreach ($scriptFile as $val) {
+                $scr.=$val . "\n";
+            }
+        }
+
+        if (count($script) > 0) {
+            $scr .= "<script type=\"text/javascript\">\n/*<![CDATA[*/\njQuery(function(){";
+            foreach ($script as $val) {
+                $scr.=$val . "\n";
+            }
+            $scr.="\n});\n/*]]>*/\n</script>";
+        }
+        return $scr;
+    }
+
+    /**
+     * append style
+     * @return string
+     */
+    private function appendStyle() {
+        $styleFile = array_unique(self::$styleFile);
+        $style = array_unique(self::$style);
+        $scr = '';
+        if (count($styleFile) > 0) {
+            foreach ($styleFile as $val) {
+                $scr.=$val . "\n";
+            }
+        }
+
+        if (count($style) > 0) {
+            $scr .= "\t<style type='text/css'>";
+            foreach ($style as $val) {
+                $scr.= "\n\t" . $val;
+            }
+            $scr.="\n\t</style>\n";
+        }
+        return $scr;
     }
 
     /**
