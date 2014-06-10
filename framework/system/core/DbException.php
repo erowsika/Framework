@@ -26,6 +26,10 @@ class DbException extends \Exception {
         parent::__construct($message, $code, $previous);
     }
 
+    
+    /**
+     * print error message
+     */
     public function printError() {
         $message = $this->message;
         $line = $this->line;

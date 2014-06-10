@@ -10,11 +10,34 @@ namespace system\core;
  */
 class BaseController extends BaseView {
 
+    /**
+     * layout location
+     * @var string 
+     */
     protected $layout = "layout\main.php";
+    
+    /**
+     * buffer data
+     * @var string 
+     */
     private $buffer;
+    
+    /**
+     * is caching
+     * @var boolean 
+     */
     private $isCache;
+    
+    /**
+     * cache name
+     * @var string 
+     */
     private $cacheName;
 
+    
+    /**
+     * public constructor
+     */
     public function __construct() {
         ob_start();
         $this->checkAccess();
@@ -22,7 +45,7 @@ class BaseController extends BaseView {
     }
 
     /**
-     * 
+     * set data
      * @param string $name
      * @param string $value
      */
@@ -31,7 +54,7 @@ class BaseController extends BaseView {
     }
 
     /**
-     * 
+     * get data
      * @param string $name
      * @return object 
      */
@@ -46,8 +69,8 @@ class BaseController extends BaseView {
 
     /**
      * 
-     * @param type $name
-     * @param type $arguments
+     * @param string $name
+     * @param string $arguments
      */
     public function __call($name, $arguments) {
 // echo $name . ' dsds ' . $arguments;
@@ -74,7 +97,7 @@ class BaseController extends BaseView {
     }
 
     /**
-     * 
+     * destructor
      */
     public function __destruct() {
         $this->buffer = $this->getOutputBuffer();
@@ -136,7 +159,7 @@ class BaseController extends BaseView {
     }
 
     /**
-     * 
+     * check access
      * @return boolean
      */
     public function checkAccess() {
@@ -166,7 +189,7 @@ class BaseController extends BaseView {
     }
 
     /**
-     * 
+     * redirect
      * @param string $url
      */
     public function redirect($url) {

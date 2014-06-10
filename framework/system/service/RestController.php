@@ -40,9 +40,9 @@ class RestController extends BaseView {
 
     /**
      * overide method outputJson
-     * @param type $data
-     * @param type $options
-     * @param type $depth
+     * @param string $data
+     * @param string $options
+     * @param string $depth
      */
     public function outputJson($data, $options = 0, $depth = 512) {
         $contentType = "application/json";
@@ -51,9 +51,9 @@ class RestController extends BaseView {
 
     /**
      * overide method outputXML
-     * @param type $data
-     * @param type $options
-     * @param type $depth
+     * @param string $data
+     * @param string $options
+     * @param string $depth
      */
     public function outputXml($data) {
         $contentType = "application/xml";
@@ -61,7 +61,7 @@ class RestController extends BaseView {
     }
 
     /**
-     * 
+     * set data
      * @param string $name
      * @param string $value
      */
@@ -70,7 +70,7 @@ class RestController extends BaseView {
     }
 
     /**
-     * 
+     * get data
      * @param string $name
      * @return object 
      */

@@ -22,13 +22,21 @@ class Session {
      * @var array 
      */
     private static $_instance;
+    /**
+     * config variable
+     * @var array 
+     */
     private $config = array();
+    /**
+     * message variable
+     * @var string 
+     */
     protected $messages;
 
     const FLASH = 'flash';
 
     /**
-     * constructor
+     * public constructor
      */
     public function __construct() {
         $this->config = Config::getInstance()->get('session');
@@ -46,6 +54,10 @@ class Session {
         $this->save();
     }
 
+    /**
+     * get data instance
+     * @return string
+     */
     public static function instance() {
         if (self::$_instance === null) {
             self::$_instance = new self();
@@ -54,8 +66,8 @@ class Session {
     }
 
     /**
-     * 
-     * @return type
+     * get unique data
+     * @return string
      */
     public function getUniqueId() {
         return session_id();
@@ -79,9 +91,9 @@ class Session {
     }
 
     /**
-     * 
-     * @param type $name
-     * @param type $value
+     * set data
+     * @param string $name
+     * @param string $value
      */
     public function setData($name, $value) {
         $this->setTimeExpire();
@@ -106,7 +118,8 @@ class Session {
     }
 
     /**
-     * 
+     * keep flash data
+     * @param string $key
      */
     public function keepFlashData($key) {
         foreach ($this->messages['prev'] as $key => $val) {

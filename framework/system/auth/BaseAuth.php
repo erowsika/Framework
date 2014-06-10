@@ -18,22 +18,36 @@ use system\core\Base;
 class BaseAuth {
 
     /**
-     *
-     * @var type 
+     * is remember
+     * @var string 
      */
     public $remember;
+
+    /**
+     * login url
+     * @var string 
+     */
     public $loginUrl;
-    public $permission = array();
+
+    /**
+     * name of user
+     * @var string 
+     */
     private $user = 'guest';
 
+    /**
+     * error message
+     */
     const USERNAME_ERROR = "username not found";
     const PASSWORD_ERROR = "password did not match";
 
-    
+    /**
+     * public constructor
+     */
     public function __construct() {
         $this->loginUrl = Base::instance()->base_url;
     }
-    
+
     /**
      * check is user has logged in
      * @return type
@@ -51,8 +65,8 @@ class BaseAuth {
     }
 
     /**
-     * 
-     * @return null
+     * get the current user
+     * @return string
      */
     public function getUser() {
         $user = Base::instance()->session->getData('username');
@@ -60,9 +74,9 @@ class BaseAuth {
     }
 
     /**
-     * 
-     * @param type $name
-     * @param type $value
+     * set remember data
+     * @param string $name
+     * @param string $value
      */
     public function setRemember($name, $value) {
         if (is_array($value)) {
@@ -72,9 +86,9 @@ class BaseAuth {
     }
 
     /**
-     * 
-     * @param type $name
-     * @return type
+     * get remember data from cookie
+     * @param string $name
+     * @return string
      */
     public function getRemember($name) {
         $value = Base::instance()->input->getCookie($name);
@@ -85,27 +99,26 @@ class BaseAuth {
     }
 
     /**
-     * 
-     * @return type
+     * get role of the current user
+     * @return string
      */
     public function getRole() {
         return Base::instance()->session->getData('role');
     }
 
     /**
-     * 
+     * set role of the current user
      * @param type $role
      */
     public function setRole($role) {
         Base::instance()->session->setData('role', $role);
     }
-   
 
     /**
-     * 
+     * logout user
      */
     public function signOut() {
-        
+        Base::instance()->session->destroy();
     }
 
 }

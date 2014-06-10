@@ -11,6 +11,11 @@ namespace system\core;
 
 class HttpException extends \Exception {
 
+    
+    /**
+     * array of message
+     * @var array 
+     */
     private $codes = array(
         400 => array('400 Bad Request', 'The request cannot be fulfilled due to bad syntax.'),
         401 => array('401 Login Error', 'It appears that the password and/or user-name you entered was incorrect.'),
@@ -32,6 +37,9 @@ class HttpException extends \Exception {
         parent::__construct($message, $code);
     }
 
+    /**
+     * print error message
+     */
     public function printError() {
         $message = $this->message;
         $code = $this->code;

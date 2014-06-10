@@ -84,9 +84,8 @@ class Base {
         }
         return $registry->get($name);
     }
-
     /**
-     * 
+     * shutdown
      */
     public function shutDown() {
         $objects = Registry::getInstance()->getProperty();
@@ -98,8 +97,8 @@ class Base {
     }
 
     /**
-     * 
-     * @param type $class
+     * import class file
+     * @param string $class
      * @throws MainException
      */
     public static function import($class) {

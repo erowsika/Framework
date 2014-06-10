@@ -10,11 +10,16 @@
 namespace system\core;
 
 class Config {
+    
     /*
      * @var registry
      */
-
     private $vars;
+    
+    /**
+     * instance
+     * @var Config 
+     */
     private static $_instance;
 
     /*
@@ -29,6 +34,10 @@ class Config {
         $this->vars = $property;
     }
 
+    /**
+     * get instance
+     * @return Config
+     */
     public static function getInstance() {
         if (self::$_instance === null) {
             self::$_instance = new Config();
@@ -56,6 +65,10 @@ class Config {
         $this->vars[$key] = $value;
     }
 
+    /**
+     * get property
+     * @return array
+     */
     public function getProperty(){
         return $this->vars;
     }

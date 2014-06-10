@@ -22,8 +22,8 @@ class MemCached extends BaseCache implements CacheDriver {
     public $memcached = null;
 
     /**
-     * 
-     * @param type $config
+     * public constructor
+     * @param string $config
      * @throws MainException
      */
     public function __construct($config = array()) {
@@ -37,24 +37,27 @@ class MemCached extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
+     * delete cache data
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function _delete($key) {
         $this->memcached->delete($key);
     }
 
     /**
-     * 
+     * flush data cache
      */
     public function _flush() {
         $this->memcached->flush();
     }
 
     /**
-     * 
-     * @param type $key
-     * @return type
+     * get data cache
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function _get($key) {
         $value = $this->memcached->get($key);
@@ -62,29 +65,31 @@ class MemCached extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $value
-     * @param type $time
-     * @param type $isOverwrite
+     * set data cache
+     * @param string $key
+     * @param string $value
+     * @param string $time
+     * @param string $option
      */
     public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
         $this->memcached->set($key, $value, $time);
     }
 
-    /**
-     * 
-     * @param type $key
-     * @param type $offset
+     /**
+     * decrement
+     * @param string $key
+     * @param string $offset
+     * @return string
      */
     public function _decrement($key, $offset = 1) {
         $this->memcached->decrement($key, $offset);
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $offset
+     * increment
+     * @param string $key
+     * @param string $offset
+     * @return string
      */
     public function _increment($key, $offset = 1) {
         $this->memcached->increment($key, $offset);

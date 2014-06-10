@@ -117,24 +117,24 @@ class BaseView {
     }
 
     /**
-     * 
-     * @param type $path
+     * set view directory
+     * @param string $path
      */
     public function setViewDir($path) {
         $this->viewPath = $path;
     }
 
     /**
-     * 
+     * get layout
      */
     public function setLayout() {
         echo $this->outputHtml($this->layout);
     }
 
     /**
-     * 
-     * @param type $file
-     * @param type $data
+     * display file
+     * @param string $file
+     * @param array $data
      */
     public function display($file, $data = array()) {
         $this->content = $this->outputHtml($file, $data);
@@ -186,8 +186,8 @@ class BaseView {
     }
 
     /**
-     * 
-     * @param type $url
+     * redirect
+     * @param string $url
      */
     public function redirect($url) {
         Base::instance()->router->redirect($url);

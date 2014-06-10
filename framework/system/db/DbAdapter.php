@@ -380,6 +380,9 @@ abstract class DbAdapter {
         return $sql;
     }
 
+    /**
+     * reset database query
+     */
     public function reset() {
         $this->column = array();
         $this->criteria = '';

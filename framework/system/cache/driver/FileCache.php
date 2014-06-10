@@ -20,8 +20,8 @@ use system\core\MainException;
 class FileCache extends BaseCache implements CacheDriver {
 
     /**
-     * 
-     * @param type $config
+     * public constructor
+     * @param array $config
      */
     public function __construct($config = array()) {
 
@@ -29,9 +29,10 @@ class FileCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @return boolean
+     * delete cache data
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function _delete($key) {
         $filename = $this->getFileName($key);
@@ -43,8 +44,7 @@ class FileCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @return type
+     * flush data cache
      */
     public function _flush() {
         $dir = (isset($this->config['path'])) ? isset($this->config['path']) : '/tmp/s_cache';
@@ -56,9 +56,10 @@ class FileCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @return boolean
+     * get data cache
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function _get($key) {
         $filename = $this->getFileName($key);
@@ -74,7 +75,7 @@ class FileCache extends BaseCache implements CacheDriver {
 
         $value = file_get_contents($filename);
         fclose($handle);
-        
+
         if (!($data = unserialize($value))) {
             unlink($filename);
             return null;
@@ -87,17 +88,16 @@ class FileCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $value
-     * @param type $time
-     * @param type $isOverwrite
-     * @throws MainException
+     * set data cache
+     * @param string $key
+     * @param string $value
+     * @param string $time
+     * @param string $option
      */
     public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
         $filename = $this->getFileName($key);
 
-        
+
         if (!($handle = fopen($filename, 'w'))) {
             throw new MainException("could not open file");
         }
@@ -106,7 +106,7 @@ class FileCache extends BaseCache implements CacheDriver {
         fseek($handle, 0);
         ftruncate($handle, 0);
 
-        $data = serialize(array('time' => (int)(time() + $time),
+        $data = serialize(array('time' => (int) (time() + $time),
             'data' => $value));
         if (!fwrite($handle, $data)) {
             throw new MainException("could not open file to write cache");
@@ -114,16 +114,33 @@ class FileCache extends BaseCache implements CacheDriver {
         fclose($handle);
     }
 
+    /**
+     * get file name
+     * @param string $key
+     * @return string
+     */
     public function getFileName($key) {
         $path = (isset($this->config['path'])) ? $this->config['path'] : CACHE_PATH;
         $key = md5($key);
         return $path . DIRECTORY_SEPARATOR . $key;
     }
 
+    /**
+     * decrement
+     * @param string $key
+     * @param string $offset
+     * @return string
+     */
     public function _decrement($key, $offset = 1) {
         
     }
 
+    /**
+     * increment
+     * @param string $key
+     * @param string $offset
+     * @return string
+     */
     public function _increment($key, $offset = 1) {
         
     }

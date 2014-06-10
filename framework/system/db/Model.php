@@ -24,7 +24,6 @@ class Model {
     private $pk;
     protected $connection;
     private $validator;
-    
     private static $instance;
 
     /**
@@ -36,7 +35,6 @@ class Model {
 
         $this->table = ($table) ? $table : end(explode('\\', get_called_class()));
         $this->connection = Database::getConnection($db);
-        $this->getColumn();
     }
 
     /**
@@ -55,8 +53,7 @@ class Model {
         $model = self::model();
         if (method_exists($model, $name)) {
             return call_user_func_array(array($model, $name), $arguments);
-        }else
-        {
+        } else {
             throw new \system\core\MainException("function $name not found");
         }
     }
@@ -76,6 +73,8 @@ class Model {
      * @return type
      */
     public function findByPk($pk) {
+        $this->getColumn();
+
         return $this->connection->select()
                         ->from($this->table)
                         ->where(array($this->pk => $pk));
@@ -125,12 +124,15 @@ class Model {
      * 
      */
     public function getColumn() {
-        $cols = $this->connection->columns($this->table);
-        foreach ($cols as $key => $value) {
-            if ($value['pk']) {
-                $this->pk = $value['name'];
+
+        if ($this->pk == '') {
+            $cols = $this->connection->columns($this->table);
+            foreach ($cols as $key => $value) {
+                if ($value['pk']) {
+                    $this->pk = $value['name'];
+                }
+                $this->column[$value['name']] = $value;
             }
-            $this->column[$value['name']] = $value;
         }
     }
 
@@ -140,6 +142,7 @@ class Model {
      * @return \system\db\Model|boolean
      */
     public function update($where = null) {
+        $this->getColumn();
 
         if (!is_bool($where) and $where == true) {
             if (!$this->validate()) {
@@ -182,6 +185,8 @@ class Model {
      * @return \system\db\Model
      */
     public function delete($where = null) {
+        $this->getColumn();
+
         if (!$where) {
             $where = array($this->pk => $this->attributes[$this->pk]);
         }
@@ -203,6 +208,8 @@ class Model {
      * @return type
      */
     public function first() {
+        $this->getColumn();
+
         $result = $this->connection->select()
                 ->from($this->table)
                 ->limit(0, 1)
@@ -217,6 +224,8 @@ class Model {
      * @return type
      */
     public function last() {
+        $this->getColumn();
+
         $result = $this->connection->select()
                 ->from($this->table)
                 ->orderBy($this->pk, 'ASC')

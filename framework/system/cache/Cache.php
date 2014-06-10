@@ -9,7 +9,7 @@
 namespace system\cache;
 
 /**
- * Description of Cachee
+ * Description of cache 
  *
  * @author masfu
  */
@@ -19,8 +19,16 @@ use system\core\Config;
 
 class Cache {
 
+    /**
+     * this is a cache object
+     * @var Cache 
+     */
     private $cache = null;
 
+    /**
+     * public constructor
+     * @throws MainException
+     */
     public function __construct() {
         $config = Config::getInstance()->get('cache');
 
@@ -44,10 +52,10 @@ class Cache {
     }
 
     /**
-     * 
-     * @param type $name
-     * @param type $parameter
-     * @return type
+     * magic method to call the function dynamically
+     * @param string $name
+     * @param string $parameter
+     * @return string
      * @throws MainException
      */
     public function __call($name, $parameter) {

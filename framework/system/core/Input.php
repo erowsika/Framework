@@ -239,9 +239,9 @@ class Input {
     }
 
     /**
-     * 
-     * @param type $data
-     * @return type
+     * purify input
+     * @param string $data
+     * @return string
      */
     public function cleanInputs($data) {
         $clean_input = array();
@@ -268,9 +268,9 @@ class Input {
     }
 
     /**
-     * 
-     * @param type string
-     * @param type integer
+     * response
+     * @param string string
+     * @param string integer
      */
     public function response($data, $contentType, $status = 200) {
         $this->code = $status;
@@ -281,7 +281,7 @@ class Input {
     }
 
     /**
-     * 
+     * set headers
      */
     private function setHeaders() {
         header("HTTP/1.1 " . $this->code . " " . $this->getStatusMessage());

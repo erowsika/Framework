@@ -22,8 +22,8 @@ class BaseCache {
     public $config = array();
     
     /**
-     *
-     * @var  
+     * storage type
+     * @var string  
      */
     public $storage = "";
     
@@ -34,45 +34,44 @@ class BaseCache {
     public $option = array();
     
     /**
-     *
+     * path directory
      * @var string 
      */
     public $path = "";
 
     /**
-     * 
-     * @param type $key
-     * @param type $value
-     * @param type $time
-     * @param type $option
+     * set data cache
+     * @param string $key
+     * @param string $value
+     * @param string $time
+     * @param string $option
      */
     public function set($key, $value, $time = 600, $isOverwrite = true) {
         $this->_set($key, $value, $time, $isOverwrite);
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $option
-     * @return type
+     * get data cache
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function get($key) {
         return $this->_get($key);
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $option
-     * @return type
+     * delete cache data
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function delete($key) {
         return $this->_delete($key, $option);
     }
 
     /**
-     * 
-     * @param type $option
+     * flush data cache
      */
     public function flush() {
         $this->_flush();

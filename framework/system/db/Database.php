@@ -19,8 +19,19 @@ use system\core\MainException;
 
 class Database {
 
-    static private $connections = array();
+    
+    /**
+     *
+     * @var database 
+     */
+    private static $connections = array();
 
+    
+    /**
+     * get connection
+     * @param string $name
+     * @return string
+     */
     public static function getConnection($name = null) {
         $config = Config::getInstance()->get('database');
 

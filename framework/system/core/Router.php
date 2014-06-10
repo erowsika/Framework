@@ -71,6 +71,7 @@ class Router {
      * 
      */
 
+    
     public function execute() {
 
         //if url is the root

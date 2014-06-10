@@ -20,8 +20,8 @@ use system\core\MainException;
 class ApcCache extends BaseCache implements CacheDriver {
 
     /**
-     * 
-     * @param type $config
+     * public constructor
+     * @param array $config
      */
     public function __construct($config = array()) {
 
@@ -32,17 +32,17 @@ class ApcCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $option
+     * delete cache data
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function _delete($key) {
         return apc_delete($key);
     }
 
     /**
-     * 
-     * @param type $option
+     * flush data cache
      */
     public function _flush() {
         apc_clear_cache();
@@ -50,9 +50,10 @@ class ApcCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $option
+     * get data cache
+     * @param string $key
+     * @param string $option
+     * @return string
      */
     public function _get($key) {
         $data = apc_fetch($key, $status);
@@ -63,11 +64,11 @@ class ApcCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $value
-     * @param type $time
-     * @param type $option
+     * set data cache
+     * @param string $key
+     * @param string $value
+     * @param string $time
+     * @param string $option
      */
     public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
         if ($isOverwrite) {
@@ -78,20 +79,20 @@ class ApcCache extends BaseCache implements CacheDriver {
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $offset
-     * @return type
+     * decrement
+     * @param string $key
+     * @param string $offset
+     * @return string
      */
     public function _decrement($key, $offset = 1) {
         return apc_dec($key, $offset);
     }
 
     /**
-     * 
-     * @param type $key
-     * @param type $offset
-     * @return type
+     * increment
+     * @param string $key
+     * @param string $offset
+     * @return string
      */
     public function _increment($key, $offset = 1) {
         return apc_inc($key, $offset);
