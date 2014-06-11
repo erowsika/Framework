@@ -44,8 +44,8 @@ class Database {
 
         if (!isset(self::$connections[$name])) {
             if ($config['driver'] == 'pdo') {
-                $dsn = $config['dsn'];
-                $dbadapter = 'pdo\\' . ucwords(reset(explode(':', $dsn)));
+                $dsn = explode(':', $config['dsn']);
+                $dbadapter = 'pdo\\' . ucwords(reset($dsn));
             } else {
                 $dbadapter = ucwords($config['driver']);
             }

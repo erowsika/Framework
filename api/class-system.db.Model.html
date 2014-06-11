@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class system\db\Model | framework</title>
+
+	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
+	<script type="text/javascript" src="elementlist.js?1938111067"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">framework</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-system.db.html" title="Summary of system\db"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-app.html">app<span></span></a>
+						<ul>
+				<li><a href="namespace-app.controllers.html">controllers</a>
+						</li>
+				<li><a href="namespace-app.core.html">core</a>
+						</li>
+				<li><a href="namespace-app.models.html">models</a>
+						</li>
+				<li><a href="namespace-app.moduls.html">moduls</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-system.html">system<span></span></a>
+						<ul>
+				<li><a href="namespace-system.auth.html">auth</a>
+						</li>
+				<li><a href="namespace-system.cache.html">cache<span></span></a>
+						<ul>
+				<li><a href="namespace-system.cache.driver.html">driver</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-system.core.html">core</a>
+						</li>
+				<li><a href="namespace-system.crudgen.html">crudgen</a>
+						</li>
+				<li class="active"><a href="namespace-system.db.html">db<span></span></a>
+						<ul>
+				<li><a href="namespace-system.db.adapter.html">adapter<span></span></a>
+						<ul>
+				<li><a href="namespace-system.db.adapter.pdo.html">pdo</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-system.helper.html">helper</a>
+						</li>
+				<li><a href="namespace-system.service.html">service</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-system.db.Database.html">Database</a></li>
+				<li><a href="class-system.db.DbAdapter.html">DbAdapter</a></li>
+				<li class="active"><a href="class-system.db.Model.html">Model</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-system.db.Connection.html">Connection</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Model</h1>
+
+
+
+
+
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-app.models.Mbalita.html">app\models\Mbalita</a></code>, 
+			<code><a href="class-app.models.Santri.html">app\models\Santri</a></code>
+		</p>
+	</div>
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-system.html">system</a>\<a href="namespace-system.db.html">db</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-system.db.Model.html#19-257" title="Go to source code">framework/system/db/Model.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-system.db.Model.html#29-38" title="Go to source code">__construct</a>( <span>type <var>$table</var> = <span class="php-quote">''</span></span>, <span>type <var>$db</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>constructor</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>constructor</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$table</var></dt>
+						<dd><code>type</code><br>$table</dd>
+						<dt><var>$db</var></dt>
+						<dd><code>type</code><br>$db</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="model" id="_model">
+
+			<td class="attributes"><code>
+				 public static
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_model">#</a>
+			<code><a href="source-class-system.db.Model.html#40-50" title="Go to source code">model</a>( )</code>
+
+			<div class="description short">
+				
+<p>get the instance of the inherits class</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>get the instance of the inherits class</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__callStatic" id="___callStatic">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___callStatic">#</a>
+			<code><a href="source-class-system.db.Model.html#52-59" title="Go to source code">__callStatic</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$arguments</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="find" id="_find">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_find">#</a>
+			<code><a href="source-class-system.db.Model.html#61-68" title="Go to source code">find</a>( )</code>
+
+			<div class="description short">
+				
+<p>get data</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>get data</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="findByPk" id="_findByPk">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_findByPk">#</a>
+			<code><a href="source-class-system.db.Model.html#70-81" title="Go to source code">findByPk</a>( <span>type <var>$pk</var></span> )</code>
+
+			<div class="description short">
+				
+<p>find data by primary key</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>find data by primary key</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$pk</var></dt>
+						<dd><code>type</code><br>$pk</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="findBySql" id="_findBySql">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_findBySql">#</a>
+			<code><a href="source-class-system.db.Model.html#83-92" title="Go to source code">findBySql</a>( <span>type <var>$sql</var></span>, <span>type <var>$values</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sql</var></dt>
+						<dd><code>type</code><br>$sql</dd>
+						<dt><var>$values</var></dt>
+						<dd><code>type</code><br>$values</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__set" id="___set">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___set">#</a>
+			<code><a href="source-class-system.db.Model.html#94-107" title="Go to source code">__set</a>( <span>type <var>$name</var></span>, <span>type <var>$value</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd><code>type</code><br>$name</dd>
+						<dt><var>$value</var></dt>
+						<dd><code>type</code><br>$value</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__get" id="___get">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___get">#</a>
+			<code><a href="source-class-system.db.Model.html#109-121" title="Go to source code">__get</a>( <span>type <var>$name</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd><code>type</code><br>$name</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getColumn" id="_getColumn">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getColumn">#</a>
+			<code><a href="source-class-system.db.Model.html#123-137" title="Go to source code">getColumn</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.Model.html">system\db\Model</a></code>|boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-system.db.Model.html#139-159" title="Go to source code">update</a>( <span>type <var>$where</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$where</var></dt>
+						<dd><code>type</code><br>$where</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.Model.html">system\db\Model</a></code>|boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="save" id="_save">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.Model.html">system\db\Model</a></code>|boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_save">#</a>
+			<code><a href="source-class-system.db.Model.html#161-172" title="Go to source code">save</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.Model.html">system\db\Model</a></code>|boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="countAll" id="_countAll">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_countAll">#</a>
+			<code><a href="source-class-system.db.Model.html#174-180" title="Go to source code">countAll</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.Model.html">system\db\Model</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code><a href="source-class-system.db.Model.html#182-195" title="Go to source code">delete</a>( <span>type <var>$where</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$where</var></dt>
+						<dd><code>type</code><br>$where</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.Model.html">system\db\Model</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="updateAll" id="_updateAll">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_updateAll">#</a>
+			<code><a href="source-class-system.db.Model.html#197-204" title="Go to source code">updateAll</a>( <span>type <var>$data</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd><code>type</code><br>$data</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="first" id="_first">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_first">#</a>
+			<code><a href="source-class-system.db.Model.html#206-220" title="Go to source code">first</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="last" id="_last">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_last">#</a>
+			<code><a href="source-class-system.db.Model.html#222-235" title="Go to source code">last</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rules" id="_rules">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rules">#</a>
+			<code><a href="source-class-system.db.Model.html#250-255" title="Go to source code">rules</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="connection" id="$connection">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.Model.html#25" title="Go to source code"><var>$connection</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$connection" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		framework API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

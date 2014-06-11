@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class system\db\adapter\Pgsql | framework</title>
+
+	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
+	<script type="text/javascript" src="elementlist.js?1938111067"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">framework</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-system.db.adapter.html" title="Summary of system\db\adapter"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-app.html">app<span></span></a>
+						<ul>
+				<li><a href="namespace-app.controllers.html">controllers</a>
+						</li>
+				<li><a href="namespace-app.core.html">core</a>
+						</li>
+				<li><a href="namespace-app.models.html">models</a>
+						</li>
+				<li><a href="namespace-app.moduls.html">moduls</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-system.html">system<span></span></a>
+						<ul>
+				<li><a href="namespace-system.auth.html">auth</a>
+						</li>
+				<li><a href="namespace-system.cache.html">cache<span></span></a>
+						<ul>
+				<li><a href="namespace-system.cache.driver.html">driver</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-system.core.html">core</a>
+						</li>
+				<li><a href="namespace-system.crudgen.html">crudgen</a>
+						</li>
+				<li class="active"><a href="namespace-system.db.html">db<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-system.db.adapter.html">adapter<span></span></a>
+						<ul>
+				<li><a href="namespace-system.db.adapter.pdo.html">pdo</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-system.helper.html">helper</a>
+						</li>
+				<li><a href="namespace-system.service.html">service</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-system.db.adapter.Mongodb.html">Mongodb</a></li>
+				<li><a href="class-system.db.adapter.Mysql.html">Mysql</a></li>
+				<li><a href="class-system.db.adapter.Mysqli.html">Mysqli</a></li>
+				<li><a href="class-system.db.adapter.Oci8.html">Oci8</a></li>
+				<li class="active"><a href="class-system.db.adapter.Pgsql.html">Pgsql</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Pgsql</h1>
+
+
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-system.db.DbAdapter.html"><span>system\db\DbAdapter</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>system\db\adapter\Pgsql</span></b>			
+			 implements 
+				<a href="class-system.db.Connection.html"><span>system\db\Connection</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-system.html">system</a>\<a href="namespace-system.db.html">db</a>\<a href="namespace-system.db.adapter.html">adapter</a><br />
+		
+
+				<b>Author:</b>
+				masfu<br />
+		<b>Located at</b> <a href="source-class-system.db.adapter.Pgsql.html#20-279" title="Go to source code">framework/system/db/adapter/Pgsql.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#24-40" title="Go to source code">__construct</a>( <span>type <var>$config</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$config</var></dt>
+						<dd><code>type</code><br>$config</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="initialize" id="_initialize">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_initialize">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#42-51" title="Go to source code">initialize</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_initialize">system\db\DbAdapter::initialize</a></code></div>
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-system.db.Connection.html#_initialize">system\db\Connection::initialize()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="connect" id="_connect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_connect">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#53-65" title="Go to source code">connect</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_connect">system\db\DbAdapter::connect</a></code></div>
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-system.db.Connection.html#_connect">system\db\Connection::connect()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="dbSelect" id="_dbSelect">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_dbSelect">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#67-75" title="Go to source code">dbSelect</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-system.db.Connection.html#_dbSelect">system\db\Connection::dbSelect()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="disconnect" id="_disconnect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_disconnect">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#77-82" title="Go to source code">disconnect</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_disconnect">system\db\DbAdapter::disconnect</a></code></div>
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-system.db.Connection.html#_disconnect">system\db\Connection::disconnect()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="pconnect" id="_pconnect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_pconnect">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#84-96" title="Go to source code">pconnect</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_pconnect">system\db\DbAdapter::pconnect</a></code></div>
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-system.db.Connection.html#_pconnect">system\db\Connection::pconnect()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_tables" id="__tables">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__tables">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#98-112" title="Go to source code">_tables</a>( <span>type <var>$like</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$like</var></dt>
+						<dd><code>type</code><br>$like</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_column" id="__column">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__column">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#114-143" title="Go to source code">_column</a>( <span>type <var>$column</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$column</var></dt>
+						<dd><code>type</code><br>$column</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_columnInfo" id="__columnInfo">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__columnInfo">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#145-157" title="Go to source code">_columnInfo</a>( <span>type <var>$column</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$column</var></dt>
+						<dd><code>type</code><br>$column</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="escape" id="_escape">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_escape">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#159-173" title="Go to source code">escape</a>( <span>type <var>$str</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$str</var></dt>
+						<dd><code>type</code><br>$str</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_escape">system\db\DbAdapter::escape</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fetchAssoc" id="_fetchAssoc">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fetchAssoc">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#175-185" title="Go to source code">fetchAssoc</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_fetchAssoc">system\db\DbAdapter::fetchAssoc</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fetchObject" id="_fetchObject">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fetchObject">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#187-197" title="Go to source code">fetchObject</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_fetchObject">system\db\DbAdapter::fetchObject</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="insertId" id="_insertId">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_insertId">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#199-205" title="Go to source code">insertId</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_insertId">system\db\DbAdapter::insertId</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="query" id="_query">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_query">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#207-229" title="Go to source code">query</a>( <span>type <var>$sql</var></span>, <span>type <var>&amp; $value</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sql</var></dt>
+						<dd><code>type</code><br>$sql</dd>
+						<dt><var>$value</var></dt>
+						<dd><code>type</code><br>$value</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code></code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_query">system\db\DbAdapter::query</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rollback" id="_rollback">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rollback">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#231-237" title="Go to source code">rollback</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_rollback">system\db\DbAdapter::rollback</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="transaction" id="_transaction">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_transaction">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#239-245" title="Go to source code">transaction</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_transaction">system\db\DbAdapter::transaction</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="commit" id="_commit">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_commit">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#247-254" title="Go to source code">commit</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-system.db.DbAdapter.html#_commit">system\db\DbAdapter::commit</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_limit" id="__limit">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__limit">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#256-267" title="Go to source code">_limit</a>( <span>type <var>$sql</var></span>, <span>type <var>$limit</var></span>, <span>type <var>$offset</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sql</var></dt>
+						<dd><code>type</code><br>$sql</dd>
+						<dt><var>$limit</var></dt>
+						<dd><code>type</code><br>$limit</dd>
+						<dt><var>$offset</var></dt>
+						<dd><code>type</code><br>$offset</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setEncoding" id="_setEncoding">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setEncoding">#</a>
+			<code><a href="source-class-system.db.adapter.Pgsql.html#269-277" title="Go to source code">setEncoding</a>( <span>type <var>$charset</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$charset</var></dt>
+						<dd><code>type</code><br>$charset</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-system.db.DbAdapter.html#methods">system\db\DbAdapter</a></h3>
+		<p class="elementList">
+			<code><a href="class-system.db.DbAdapter.html#_All">All()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_One">One()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_bindParam">bindParam()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_buildSelect">buildSelect()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_columns">columns()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_countAll">countAll()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_delete">delete()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_distinct">distinct()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_from">from()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_get">get()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_groupBy">groupBy()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_having">having()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_insert">insert()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_join">join()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_limit">limit()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_orderBy">orderBy()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_reset">reset()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_select">select()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_tables">tables()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_update">update()</a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#_where">where()</a></code>
+		</p>
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="DEFAULT_PORT" id="$DEFAULT_PORT">
+			<td class="attributes"><code>
+				public static 
+				integer
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.adapter.Pgsql.html#22" title="Go to source code"><var>$DEFAULT_PORT</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$DEFAULT_PORT" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Properties inherited from <a href="class-system.db.DbAdapter.html#properties">system\db\DbAdapter</a></h3>
+		<p class="elementList">
+			<code><a href="class-system.db.DbAdapter.html#$autoinit"><var>$autoinit</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$column"><var>$column</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$conn"><var>$conn</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$criteria"><var>$criteria</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$database"><var>$database</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$distinct"><var>$distinct</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$dsn"><var>$dsn</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$group"><var>$group</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$having"><var>$having</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$host"><var>$host</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$join"><var>$join</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$limit"><var>$limit</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$offset"><var>$offset</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$order"><var>$order</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$orderType"><var>$orderType</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$param"><var>$param</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$password"><var>$password</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$persistent"><var>$persistent</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$port"><var>$port</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$resultid"><var>$resultid</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$sql"><var>$sql</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$tables"><var>$tables</var></a></code>, 
+			<code><a href="class-system.db.DbAdapter.html#$username"><var>$username</var></a></code>
+		</p>
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		framework API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>
