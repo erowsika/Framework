@@ -33,7 +33,12 @@ class Model {
      */
     public function __construct($table = '', $db = '') {
 
-        $this->table = ($table) ? $table : end(explode('\\', get_called_class()));
+        if ($table) {
+            $this->table = $table;
+        } else {
+            $table = explode('\\', get_called_class());
+            $this->table = end($table);
+        }
         $this->connection = Database::getConnection($db);
     }
 
@@ -162,8 +167,8 @@ class Model {
      * 
      * @return \system\db\Model|boolean
      */
-    public function save() {
-        if (!$this->validate()) {
+    public function save($isValidate = true) {
+        if ($isValidate === true and !$this->validate()) {
             return false;
         }
 
