@@ -18,12 +18,46 @@ use system\helper\Validator;
 
 class Model {
 
+    /**
+     *
+     * @var type 
+     */
     private $attributes = array();
+
+    /**
+     *
+     * @var type 
+     */
     private $column = array();
+
+    /**
+     *
+     * @var type 
+     */
     private $table = '';
+
+    /**
+     *
+     * @var type 
+     */
     private $pk;
+
+    /**
+     *
+     * @var type 
+     */
     protected $connection;
+
+    /**
+     *
+     * @var type 
+     */
     private $validator;
+
+    /**
+     *
+     * @var type 
+     */
     private static $instance;
 
     /**
@@ -106,6 +140,10 @@ class Model {
             $this->attributes = $value;
         }
 
+        if ($this->pk == '') {
+            $this->getColumn();
+        }
+
         if (array_key_exists($name, $this->column)) {
             $this->attributes[$name] = $value;
         }
@@ -147,7 +185,6 @@ class Model {
      * @return \system\db\Model|boolean
      */
     public function update($where = null) {
-        $this->getColumn();
 
         if (!is_bool($where) and $where == true) {
             if (!$this->validate()) {
@@ -168,7 +205,7 @@ class Model {
      * @return \system\db\Model|boolean
      */
     public function save($isValidate = true) {
-        if ($isValidate === true and !$this->validate()) {
+        if ($isValidate === true and ! $this->validate()) {
             return false;
         }
 
@@ -190,13 +227,19 @@ class Model {
      * @return \system\db\Model
      */
     public function delete($where = null) {
-        $this->getColumn();
+        try {
+            if (!isset($this->attributes[$this->pk])) {
+                throw new \system\core\DbException("the value of this field {$this->pk} is null check your assigment for primary key");
+            }
 
-        if (!$where) {
-            $where = array($this->pk => $this->attributes[$this->pk]);
+            if (!$where) {
+                $where = array($this->pk => $this->attributes[$this->pk]);
+            }
+            $this->connection->delete($this->table, $where);
+            return $this;
+        } catch (\system\core\DbException $exc) {
+            echo $exc->printError();
         }
-        $this->connection->delete($this->table, $where);
-        return $this;
     }
 
     /**

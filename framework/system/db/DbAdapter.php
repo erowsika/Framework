@@ -349,7 +349,8 @@ abstract class DbAdapter {
         }
 
         $result = $this->query("SELECT COUNT(*) AS num_rows FROM $table $where")->fetchAssoc();
-        return reset($result)['num_rows'];
+       $result = reset($result);
+        return $result['num_rows'];
     }
 
     /**
