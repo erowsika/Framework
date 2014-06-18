@@ -17,11 +17,14 @@ use system\core\Base;
 
 class Captcha {
 
+    const CAPTCHA_ERROR = "code you have entered mismacth";
+
     private $img;
     private $lenght;
     private $width;
     private $height;
     private $fontsize = 30;
+    private $font = "";
     private $sessionVar = 'captcha';
 
     /**
@@ -34,6 +37,8 @@ class Captcha {
         $this->lenght = $lenght;
         $this->width = $width;
         $this->height = $height;
+        $this->font = __DIR__ . '/fonts/monofont.ttf';
+        $this->fontsize = $this->height * 0.75;
     }
 
     /**
@@ -42,13 +47,11 @@ class Captcha {
      * @return boolean
      */
     public function validate($str) {
-        if (isset($arr) && is_array($arr)) {
-            if (isset($arr[$this->sessionvar])) {
-                if ($arr[$this->sessionvar] == Base::instance()->session->getData($this->sessionVar)) {
-                    return true;
-                }
-            }
+        if ($str == Base::instance()->session->getData($this->sessionVar)) {
+            Base::instance()->session->unsetSess($this->sessionVar);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -74,8 +77,8 @@ class Captcha {
             header("Content-type: image/png");
 
             $bg = ImageColorAllocate($this->img, 255, 255, 255);
-            $txt = ImageColorAllocate($this->img, 0, 0, 0);
             $noise_color = imagecolorallocate($this->img, 100, 120, 180);
+            $text_color = imagecolorallocate($this->img, 20, 40, 100);
 
             $string = $this->generateRandomString($this->lenght);
 
@@ -84,7 +87,10 @@ class Captcha {
                 imagefilledellipse($this->img, mt_rand(0, $this->width), mt_rand(0, $this->height), 1, 1, $noise_color);
             }
 
-            imagestring ($this->img, 100, $this->fontsize, 0, $string, $txt);
+            $textbox = imagettfbbox($this->fontsize, 0, $this->font, $string);
+            $x = ($this->width - $textbox[4]) / 2;
+            $y = ($this->height - $textbox[5]) / 2;
+            imagettftext($this->img, $this->fontsize, 0, $x, $y, $text_color, $this->font, $string);
             Imagepng($this->img);
 
             Base::instance()->session->setData($this->sessionVar, $string);

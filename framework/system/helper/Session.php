@@ -43,15 +43,6 @@ class Session {
         $name = $this->config['session_name'];
         session_name($name);
         session_start();
-
-        $this->messages = array(
-            'prev' => array(),
-            'next' => array(),
-            'now' => array()
-        );
-
-        $this->loadMessages();
-        $this->save();
     }
 
     /**
@@ -112,9 +103,7 @@ class Session {
      * @param sting $value
      */
     public function setFlashData($key, $value) {
-        $this->messages['next'][$key] = $value;
-        $this->save();
-        $this->keepFlashData($key);
+       $this->setData($key, $value);
     }
 
     /**
@@ -126,27 +115,14 @@ class Session {
             $this->messages['next'][$key] = $val;
         }
     }
-
-    public function save() {
-        $_SESSION[self::FLASH] = $this->messages['next'];
-    }
-
-    /**
-     * Load messages from previous request if available
-     */
-    public function loadMessages() {
-        if (isset($_SESSION[self::FLASH])) {
-            $this->messages['prev'] = $_SESSION[self::FLASH];
-        }
-    }
-
     /**
      * get flash message data
      * @param string $name
      * @return string
      */
     public function flashData($key) {
-        $data = isset($this->messages['next'][$key]) ? $this->messages['next'][$key] : '';
+        $data = $this->getData($key);
+        $this->unsetSess($key);
         return $data;
     }
 

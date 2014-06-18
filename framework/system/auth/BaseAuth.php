@@ -99,6 +99,15 @@ class BaseAuth {
     }
 
     /**
+     * 
+     * @param type $name
+     * @param type $value
+     */
+    public function setData($name, $value) {
+         Base::instance()->session->setData($name, $value);
+    }
+
+    /**
      * get role of the current user
      * @return string
      */
