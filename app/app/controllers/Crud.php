@@ -15,6 +15,8 @@ namespace app\controllers;
  */
 use app\core as app;
 use system\crudgen\BaseGen;
+use app\moduls\Chat;
+use Ratchet\Server\IoServer;
 
 class Crud extends app\Controller {
 
@@ -23,7 +25,11 @@ class Crud extends app\Controller {
     }
 
     public function index() {
-        (new BaseGen())->run();
+        $server = IoServer::factory(
+                        new Chat(), 443
+        );
+
+        $server->run();
     }
 
 }

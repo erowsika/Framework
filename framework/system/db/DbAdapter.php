@@ -349,7 +349,7 @@ abstract class DbAdapter {
         }
 
         $result = $this->query("SELECT COUNT(*) AS num_rows FROM $table $where")->fetchAssoc();
-       $result = reset($result);
+        $result = reset($result);
         return $result['num_rows'];
     }
 
@@ -417,7 +417,7 @@ abstract class DbAdapter {
      * @param type $mode
      * @return type
      */
-    public function All($mode = 'Assoc') {
+    public function All($mode = 'Object') {
         return ($mode == 'Assoc') ?
                 $this->get()->fetchAssoc() : $this->get()->fetchObject();
     }
@@ -427,7 +427,7 @@ abstract class DbAdapter {
      * @param type $mode
      * @return type
      */
-    public function One($mode = 'Assoc') {
+    public function One($mode = 'Object') {
         $data = $this->All($mode);
         return ($data != false) ? reset($data) : false;
     }

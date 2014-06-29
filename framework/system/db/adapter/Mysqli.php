@@ -57,7 +57,7 @@ class Mysqli extends DbAdapter implements Connection {
 
         try {
             if (!($this->conn = new \mysqli($this->host, $this->username, $this->password, $this->database))) {
-                throw new DbException($conn->connect_error);
+                throw new DbException($this->conn->connect_error);
             }
         } catch (DbException $e) {
             echo $e->printError();
@@ -189,7 +189,7 @@ class Mysqli extends DbAdapter implements Connection {
         while ($this->stmt->fetch()) {
             $result = new \stdClass();
             foreach ($row as $key => $val) {
-                $result->{$key} =(object) $val;
+                $result->{$key} = $val;
             }
             array_push($results, $result);
         }
@@ -212,7 +212,9 @@ class Mysqli extends DbAdapter implements Connection {
             foreach ($params as $key => $value) {
                 $refs[$key] = & $params[$key];
             }
-            call_user_func_array(array($this->stmt, 'bind_param'), $refs);
+            $ref = new \ReflectionClass('mysqli_stmt');
+            $method = $ref->getMethod("bind_param");
+            $method->invokeArgs($this->stmt, $refs);
         }
     }
 

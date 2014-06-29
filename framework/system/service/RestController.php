@@ -91,7 +91,7 @@ class RestController extends BaseView {
      * 
      */
     public function checkAccess() {
-        $method = Base::instance()->router->getMethod();
+        $method = Base::instance()->router->getAction();
         $auth = null;
         if (method_exists($this, 'access')) {
             $auth = Base::instance()->auth;

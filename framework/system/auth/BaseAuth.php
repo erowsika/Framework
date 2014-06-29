@@ -53,7 +53,7 @@ class BaseAuth {
      * @return type
      */
     public function isGuest() {
-        return Base::instance()->session->getData('is_logged_id') ? true : false;
+        return Base::instance()->session->getData('is_logged_id') ? false : true;
     }
 
     /**
@@ -71,6 +71,14 @@ class BaseAuth {
     public function getUser() {
         $user = Base::instance()->session->getData('username');
         return ($user) ? $user : $this->user;
+    }
+
+    /**
+     * set login state true or false
+     * @param boolean $state
+     */
+    public function setLoginState($state) {
+        Base::instance()->session->setData('is_logged_id', $state);
     }
 
     /**
@@ -104,7 +112,16 @@ class BaseAuth {
      * @param type $value
      */
     public function setData($name, $value) {
-         Base::instance()->session->setData($name, $value);
+        Base::instance()->session->setData($name, $value);
+    }
+
+    /**
+     * 
+     * @param type $name
+     * @return type
+     */
+    public function getData($name) {
+        return Base::instance()->session->getData($name);
     }
 
     /**

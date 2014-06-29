@@ -7,14 +7,7 @@ return array(
      * base url for domain and path 
      */
     'base_url' => 'http://hisyam-pc/framework/app/',
-    /* default router where the default class and action should be called
-     * controller is a class name
-     * action is a function name
-     * 
-     */
-    'router' => array(
-        'controller' => 'welcome',
-        'parameter' => array()),
+    
     /*
      * modules is an autoload mechanism
      */

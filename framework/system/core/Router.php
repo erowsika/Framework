@@ -21,7 +21,7 @@ class Router {
     /* function name of class to be invoked
      * $var String
      */
-    private $method;
+    private $action;
 
     /* array to store parameter from url
      * @var array
@@ -34,17 +34,17 @@ class Router {
     private $uri;
 
 
-    /*
-     *  store rules from config file
-     * @var array
+    /**
+     *
+     * @var type 
      */
-    private $request;
+    private $rules = array();
 
     /*
      * config
      * @var Config
      */
-    private $config;
+    private static $config;
 
     /*
      * segmen url
@@ -53,15 +53,24 @@ class Router {
      */
     private $segments = array();
 
+    /**
+     *
+     * @var type 
+     */
+    private $callback;
     /*
      * constructor
      */
+    private $routes = array();
+    
+    
+    
+    private static $match = array();
 
     public function __construct() {
         $this->uri = (isset($_SERVER['PATH_INFO'])) ? rtrim($_SERVER['PATH_INFO'], "\/") : '/';
-        $this->config = Config::getInstance();
-        $this->request = $this->config->get('router');
-
+        $this->rules = Config::getInstance()->get('router');
+        $this->parseRules();
         $this->execute();
     }
 
@@ -71,17 +80,63 @@ class Router {
      * 
      */
 
-    
+    private function parseRules() {
+        foreach ($this->rules as $key => $rule) {
+            if (is_array($rule) and ! is_string($key)) {
+                $this->routes[] = array('method' => $rule[0],
+                    'pattern' => $rule[1],
+                    'callback' => $rule[2]);
+            } else
+                self::$config[$key] = $rule;
+        }
+    }
+
     public function execute() {
 
-        //if url is the root
-        if ($this->uri != '/') {
-            $this->segments = $this->parse();
-            if (empty($this->segments)) {
-                $this->defaultRoute();
+        $paramRules = "/\<(?<key>[0-9a-z_]+)\>/";
+        foreach ($this->routes as $key => $route) {
+
+            $source = str_replace(")", ")?", $route['pattern']);
+
+            $pattern = preg_replace_callback($paramRules, 'self::replacer', $source);
+            $pattern = '/^' . str_replace('/', '\/', $pattern) . '$/';
+
+            if (preg_match($pattern, $this->uri, $params)) {
+                array_shift($params);
+
+                foreach (self::$config['parameter'] as $key => $value) {
+                    if (isset($params[$key])) {
+                        array_push($this->segments, $params[$key]);
+                        self::$match[$key] = $params[$key];
+                    }
+                }
+                $this->callback = preg_replace_callback($paramRules, 'self::replaceCallback', $route['callback']);
+                $this->parseAction();
+                return;
             }
         }
-        $this->setRoute();
+        $this->defaultRoute();
+    }
+
+    /**
+     * 
+     * @param type $pattern
+     * @return type
+     */
+    private static function replaceCallback($pattern) {
+        return isset(self::$match[$pattern['key']]) ? self::$match[$pattern['key']] : '';
+    }
+
+    /**
+     * 
+     * @param type $pattern
+     * @return type
+     */
+    private static function replacer($pattern) {
+        if (isset(self::$config['parameter'][$pattern['key']])) {
+            return "(?<" . $pattern['key'] . ">" . self::$config['parameter'][$pattern['key']] . ")";
+        }
+        return "(?<" . $pattern['key'] . ">" . "([^/]+)" . ")";
     }
 
     /*
@@ -97,110 +152,45 @@ class Router {
                 $this->segments[] = $val;
             }
         }
-    }
-
-    /*
-     * assign segment array into controller, method, and parameter
-     * @return void
-     * 
-     */
-
-    public function setRoute() {
-
-        $this->controller = isset($this->segments[0]) ? $this->segments[0] : $this->request['controller'];
-
-        $this->method = isset($this->segments[1]) ? $this->segments[1] : 'index';
-
+        $this->controller = isset($this->segments[0]) ? $this->segments[0] : $this->rules['default_controller'];
+        $this->action = isset($this->segments[1]) ? $this->segments[1] : 'index';
         $this->parameter = isset($this->segments[2]) ? array_slice($this->segments, 2) : array();
-    }
-
-    /*
-     * parse and match router from config file
-     * @return void
-     * 
-     */
-
-    public function parse() {
-
-        if (!empty($this->request)) {
-
-            foreach ($this->request as $k => $v) {
-                if (is_array($v) and $k !== 'parameter') {
-                    $this->parameter = $this->request['parameter'];
-                    $v['request'] = preg_replace_callback("/\<(?<key>[0-9a-z_]+)\>/", array(get_class($this), 'replacer'), str_replace(")", ")?", $v['request'])
-                    );
-                    $rulleTemp = array_merge((array) $this->request, (array) $v);
-                    if (($route = $this->reportRulle($rulleTemp, $this->uri))) {
-                        return $route;
-                    }
-                }
-            }
-        } else
-            return array();
-    }
-
-    /*
-     * replace reg exp
-     */
-
-    private function replacer($matches) {
-        if (isset($this->parameter[$matches['key']])) {
-            return "(?<" . $matches['key'] . ">" . $this->parameter[$matches['key']] . ")";
-        } else
-            return "(?<" . $matches['key'] . ">" . "([^/]+)" . ")";
     }
 
     /**
      * 
-     * @param type $ini_array
-     * @param type $uri
-     * @return type
      */
-    private function reportRulle($ini_array, $uri) {
-        if (is_array($ini_array) and $uri) {
-            if (preg_match("#^" . $ini_array['request'] . "$#", $uri, $match)) {
-                $r = array_merge((array) $ini_array, (array) $match);
-                foreach ($r as $k => $v)
-                    if ((int) $k OR $k == 'parameter' OR $k == 'request')
-                        unset($r[$k]);
-                return $r;
-            }
-        }
-    }
-
-    /* get controller name from url request
-     * return string
-     */
-
     public function getController() {
         return $this->controller;
     }
 
-    /* get method name from url request
-     * @return string
+    /**
+     * 
      */
-
-    public function getMethod() {
-        return $this->method;
+    public function getAction() {
+        return $this->action;
     }
 
-    /* get parameter name from url request
-     * @return string
+    /**
+     * 
+     * @return type
      */
-
     public function getParameter() {
         return $this->parameter;
     }
 
     /**
-     * redirect to url
-     * @param string $url
+     * 
      */
-    public function redirect($url) {
-        if ($url and strpos($url, "://") == false)
-            $url = Base::instance()->base_url . $url;
-       
-        header("Location: " . $url);
+    private function parseAction() {
+
+        $str = explode('@', $this->callback);
+        $this->controller = reset($str);
+        $param = explode('\\', end($str));
+
+        $this->action = reset($param);
+        $parameter = array_slice($param, 1);
+        $this->parameter = array_merge($this->parameter, $parameter);
     }
 
     /**

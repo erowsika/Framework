@@ -21,7 +21,6 @@ class BaseGen extends BaseView {
     public $layout = 'main.php';
 
     public function __construct() {
-        parent::__construct();
         $this->setViewDir(__DIR__ . '/layout/');
         $this->init();
     }

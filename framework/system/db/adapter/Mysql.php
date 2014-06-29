@@ -202,7 +202,7 @@ class Mysql extends DbAdapter implements Connection {
      * 
      * @return type
      */
-    public function insertId() {
+    public function insertId($sequence = NULL) {
         return @mysql_insert_id($this->conn);
     }
 
@@ -218,8 +218,8 @@ class Mysql extends DbAdapter implements Connection {
             if (!$this->autoinit) {
                 $this->initialize();
             }
-
-            if (!($this->resultid = @mysql_query($sql, $this->conn))) {
+            $this->sql = $sql;
+            if (!($this->resultid = @mysql_query($this->sql, $this->conn))) {
                 $message = "Query:  " . $sql;
                 $message .= "<p> Message: " . mysql_error() . "<p>";
                 throw new DbException($message, mysql_errno());

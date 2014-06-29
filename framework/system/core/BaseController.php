@@ -15,26 +15,25 @@ class BaseController extends BaseView {
      * @var string 
      */
     protected $layout = "layout\main.php";
-    
+
     /**
      * buffer data
      * @var string 
      */
     private $buffer;
-    
+
     /**
      * is caching
      * @var boolean 
      */
     private $isCache;
-    
+
     /**
      * cache name
      * @var string 
      */
     private $cacheName;
 
-    
     /**
      * public constructor
      */
@@ -163,7 +162,7 @@ class BaseController extends BaseView {
      * @return boolean
      */
     public function checkAccess() {
-        $method = Base::instance()->router->getMethod();
+        $method = Base::instance()->router->getAction();
         $auth = null;
         if (method_exists($this, 'access')) {
             $auth = Base::instance()->auth;
@@ -177,10 +176,12 @@ class BaseController extends BaseView {
 
                 if (in_array($method, $executes)) {
                     $accessType = reset($rule);
-                    $hasAuth = in_array($userAuth, $userRole);
-                    if ($accessType == 'grant' and $hasAuth) {
+                    $isDefined = in_array($userAuth, $userRole);
+                    if ($accessType == 'grant' and $isDefined) {
                         return true;
-                    } else if ($accessType == 'revoke' and $hasAuth) {
+                    } else if ($accessType == 'revoke' and $isDefined and $auth->isGuest()) {
+                        $this->redirect($auth->loginUrl);
+                    } else if ($accessType == 'revoke' and $isDefined) {
                         throw new HttpException('you are not allowed to access this page', 403);
                     }
                 }

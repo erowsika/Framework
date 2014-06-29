@@ -1,6 +1,7 @@
 <?php
 
-include 'init.php';
+//include 'init.php';
+
 /**
  * define application name
  */
@@ -45,6 +46,11 @@ define('LOGS_PATH', APP_PATH . '/logs/');
  * error files folder
  */
 define('ERROR_PATH', APP_PATH . '/errors/');
+
+/*
+ * error files folder
+ */
+define('VENDOR_PATH', APP_PATH . '/vendor/');
 
 /**
  * include bootsrap file

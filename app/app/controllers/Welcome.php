@@ -24,13 +24,13 @@ class Welcome extends Controller {
      * @access public
      */
     public function index() {
-        self::enqueueScriptFile('assets/js/boostrap.js');
-        self::enqueueStyleFile('assets/css/boostrap.css');
+      //  self::enqueueScriptFile('assets/js/boostrap.js');
+       // self::enqueueStyleFile('assets/css/boostrap.css');
         $this->display("welcome\index.php");
     }
 
     public function dokumentasi() {
-        $this->display("welcome\dokumentasi.php");
+	    $this->display("welcome\dokumentasi.php");
     }
 
     public function classReference() {

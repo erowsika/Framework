@@ -84,6 +84,7 @@ class Base {
         }
         return $registry->get($name);
     }
+
     /**
      * shutdown
      */
@@ -126,10 +127,16 @@ class Base {
 
     public function run() {
 
-        $controller = APP_NAME . '\\controllers\\' . ucwords($this->router->getController());
-        $method = $this->router->getMethod();
-        $parameters = $this->router->getParameter();
+        $namespace = APP_NAME . '\\controllers\\';
+        $controller = $this->router->getController();
 
+        if (strpos($controller, $namespace) === FALSE) {
+            $controller = $namespace . $controller;
+        }
+        $method = $this->router->getAction();
+        $parameters = $this->router->getParameter();
+        //echo $namespace . '<br>' . $controller . '<br>' . $method;
+       // die;
         try {
             if (isset($method) and class_exists($controller, true)) {
 

@@ -10,12 +10,12 @@
 namespace system\core;
 
 class Config {
-    
     /*
      * @var registry
      */
+
     private $vars;
-    
+
     /**
      * instance
      * @var Config 
@@ -26,12 +26,8 @@ class Config {
      * constructor
      */
 
-    public function __construct($conf = null) {
-        $property = array();
-        if ($conf == null) {
-            $property = include(CONFIG_PATH . '/application.php');
-        }
-        $this->vars = $property;
+    public function __construct($conf = 'application') {
+        $this->vars = $this->parse($conf);
     }
 
     /**
@@ -52,8 +48,10 @@ class Config {
      */
 
     public function get($key = null) {
-        $value = isset($this->vars[$key]) ? $this->vars[$key] : false;
-        return $value;
+        if (!isset($this->vars[$key])) {
+            $this->vars[$key] = $this->parse($key);
+        }
+        return $this->vars[$key];
     }
 
     /* set value 
@@ -69,7 +67,22 @@ class Config {
      * get property
      * @return array
      */
-    public function getProperty(){
+    public function getProperty() {
         return $this->vars;
     }
+
+    /**
+     * 
+     */
+    public function parse($conf) {
+        $property = array();
+        $filename = CONFIG_PATH . DIRECTORY_SEPARATOR . $conf.EXT_FILE;
+        if (file_exists($filename)) {
+            $property = include($filename);
+        } else {
+            throw new MainException('file config ' . $filename . ' is not found');
+        }
+        return $property;
+    }
+
 }

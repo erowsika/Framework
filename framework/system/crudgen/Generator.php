@@ -65,6 +65,7 @@ class Generator {
      */
     public function write($location, $code) {
         file_put_contents($location, $code);
+        chmod($location, 0777);
         return trim(htmlentities($code));
     }
 

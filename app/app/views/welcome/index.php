@@ -1,3 +1,13 @@
+<script>
+var conn = new WebSocket('ws://hisyam-pc:443');
+conn.onopen = function(e) {
+    console.log("Connection established!");
+};
+
+conn.onmessage = function(e) {
+    console.log(e.data);
+};
+</script>
 <main class="bs-docs-masthead" id="content" role="main">
     <div class="container">
         <span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">F</span>

@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-0": {
+            "app": "app"
+        }
+    },
+    "require": {
+        "cboden/ratchet": "0.3.*",
+		"illuminate/database": "4.2.*",
+		"illuminate/pagination": "*",
+		"illuminate/validation": "*"
+    }
+}
