@@ -140,7 +140,7 @@ class Oci8 extends DbAdapter implements Connection {
      * @return type
      */
     public function _columnInfo($column) {
-        $colomnInfo = array('name' => $column['column_name'],
+        $colomnInfo = array('name' => strtolower($column['column_name']),
             'nullable' => ($column['nullable'] === 'Y' ? true : false),
             'pk' => ($column['pk'] === 'P' ? true : false),
             'auto_increment' => false);
@@ -159,7 +159,7 @@ class Oci8 extends DbAdapter implements Connection {
                 $data[$key] = $this->escape($value);
             }
         }
-        $str = addslashes($data);
+        $str = addslashes($str);
         return $str;
     }
 
@@ -170,9 +170,9 @@ class Oci8 extends DbAdapter implements Connection {
     public function fetchAssoc() {
         $result = array();
         while ($row = @oci_fetch_assoc($this->stmt)) {
-            $result[] = $row;
+            $result[] = array_change_key_case($row, CASE_LOWER);
         }
-        return array_change_key_case($result, CASE_LOWER);
+        return $result;
     }
 
     /**
@@ -181,17 +181,17 @@ class Oci8 extends DbAdapter implements Connection {
      */
     public function fetchObject() {
         $result = array();
-        while ($row = @oci_fetch_object($this->stmt)) {
-            $result[] = $row;
+        while ($row = @oci_fetch_assoc($this->stmt)) {
+            $result[] = (object) array_change_key_case($row, CASE_LOWER);
         }
-        return array_change_key_case($result, CASE_LOWER);
+        return $result;
     }
 
     /**
      * 
      * @return type
      */
-    public function insertId() {
+    public function insertId($sequence = null) {
         return 0;
     }
 
@@ -310,4 +310,26 @@ class Oci8 extends DbAdapter implements Connection {
         return $this;
     }
 
+   /**
+     * override
+     * @param type $table
+     * @param type $where
+     * @return type
+     */
+   /* public function countAll($table, $where = null) {
+        if (is_array($where)) {
+            foreach ($where as $col => $val) {
+                $wheres[] = "$col = '" . $this->escape($val) . "'";
+            }
+            $where = implode(' AND ', $wheres);
+        }
+
+        if (!empty($where)) {
+            $where = " WHERE " . $where;
+        }
+
+        $result = $this->query("SELECT COUNT(*) AS num_rows FROM $table $where")->fetchAssoc();
+        $result = reset($result);
+        return $result['NUM_ROWS'];
+    } */
 }

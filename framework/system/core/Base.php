@@ -136,7 +136,7 @@ class Base {
         $method = $this->router->getAction();
         $parameters = $this->router->getParameter();
         //echo $namespace . '<br>' . $controller . '<br>' . $method;
-       // die;
+        //die;
         try {
             if (isset($method) and class_exists($controller, true)) {
 

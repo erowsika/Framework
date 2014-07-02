@@ -33,7 +33,6 @@ class Router {
      */
     private $uri;
 
-
     /**
      *
      * @var type 
@@ -62,9 +61,11 @@ class Router {
      * constructor
      */
     private $routes = array();
-    
-    
-    
+
+    /**
+     *
+     * @var type 
+     */
     private static $match = array();
 
     public function __construct() {
@@ -161,6 +162,10 @@ class Router {
      * 
      */
     public function getController() {
+
+        if (isset($this->rules['controller_suffix'])) {
+            $this->controller = $this->controller . $this->rules['controller_suffix'];
+        }
         return $this->controller;
     }
 
@@ -199,6 +204,15 @@ class Router {
      */
     public function getUri() {
         return $this->uri;
+    }
+
+    /**
+     * get segment of url
+     * @param type $index
+     * @return type
+     */
+    public function getSegment($index) {
+        return $this->segments[$index];
     }
 
 }

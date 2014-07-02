@@ -45,7 +45,7 @@ class BaseAuth {
      * public constructor
      */
     public function __construct() {
-        $this->loginUrl = Base::instance()->base_url;
+        //$this->loginUrl = Base::instance()->base_url;
     }
 
     /**

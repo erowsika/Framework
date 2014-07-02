@@ -78,10 +78,10 @@ class Validator {
 
             $field = $value['field'];
 
-            if (array_key_exists('required', $opt) and $opt['required'] == true) {
+            if (array_key_exists('required', $opt) and $opt['required'] == true and isset($this->attributes[$field])) {
                 $this->is_set($field);
-            } else if (!isset($this->attributes[$var])) {
-                $this->is_set($field);
+            } else if (!isset($this->attributes[$field])) {
+               // $this->is_set($field);
                 continue;
             }
 
@@ -328,8 +328,7 @@ class Validator {
         if ($required == false && strlen($this->attributes[$var]) == 0) {
             return true;
         }
-        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN);
-        {
+        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN); {
             $this->errors[$var] = $var . $this->error_message[6];
         }
     }

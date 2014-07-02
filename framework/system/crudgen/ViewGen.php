@@ -33,18 +33,21 @@ class ViewGen extends Generator {
                 $required = Base::instance()->input->post('required_' . $value) ? 'required' : '';
                 $min = Base::instance()->input->post('min_' . $value);
                 $max = Base::instance()->input->post('max_' . $value);
-                
+                $name = $this->table . '[' . $value . ']';
+
                 $value = "";
-                if($isEdit){
-                    $value = '$'.$col;
+                if ($isEdit) {
+                    $value = '$' . $col;
                 }
-                
+                $error = "<?php echo $" . "this->html->formError('$col'); ?>";
+
                 $field .= "<div class=\"form-group\">
-    <label for=\"$col\" class=\"col-sm-2 control-label\">$label</label>
-    <div class=\"col-sm-10\">
-      <input type=\"$typeform\" class=\"form-control\" $required id=\"$col\" value=\"$value\" placeholder=\"$label\">
-    </div>
-  </div>";
+                            <label for=\"$col\" class=\"col-sm-2 control-label\">$label</label>
+                            <div class=\"col-sm-10\">
+                              <input type=\"$typeform\" name=\"$name\" class=\"form-control\" $required id=\"$col\" value=\"$value\" placeholder=\"$label\">
+                              $error
+                             </div>
+                          </div>\n";
             }
         }
         $filename = __DIR__ . '/layout/view/template.tpl';
@@ -59,7 +62,7 @@ class ViewGen extends Generator {
         $viewType = Base::instance()->input->post('typ');
         switch ($action) {
             case 'write_file':
-                $code = $this->make();
+                $code = $this->createForm();
                 $dir = VIEWS_PATH . $this->table;
                 if (!is_dir($dir)) {
                     mkdir($dir, 0777);
@@ -69,7 +72,7 @@ class ViewGen extends Generator {
                 $this->write($filename, $code);
                 break;
             case 'download' :
-                $code = $this->make();
+                $code = $this->createForm();
                 $dir = VIEWS_PATH . $this->table;
                 if (!is_dir($dir)) {
                     mkdir($dir, 0777);

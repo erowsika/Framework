@@ -254,7 +254,7 @@ class Paginator {
                     $href = preg_replace(
                             array('/=$/', '/=&/'), array('', '&'), $href
                     );
-                    if ($current === 1) {
+                    if ($current === 1 or $params[$key] === 0) {
                         $href = '#';
                         array_push($classes, 'disabled');
                     }
@@ -274,13 +274,13 @@ class Paginator {
                         $max = min($pages, $crumbs);
                         $limit = ((int) floor($max / 2));
                         $leading = $limit;
-                        for ($x = 0; $x < $limit; ++$x) {
+                        for ($x = 1; $x <= $limit; ++$x) {
                             if ($current === ($x + 1)) {
                                 $leading = $x;
                                 break;
                             }
                         }
-                        for ($x = $pages - $limit; $x < $pages; ++$x) {
+                        for ($x = $pages - $limit; $x <= $pages; ++$x) {
                             if ($current === ($x + 1)) {
                                 $leading = $max - ($pages - $x);
                                 break;
@@ -288,10 +288,10 @@ class Paginator {
                         }
 
                         // calculate trailing crumb count based on inverse of leading
-                        $trailing = $max - $leading - 1;
+                        $trailing = $max - $leading;
 
                         // generate/render leading crumbs
-                        for ($x = 0; $x < $leading; ++$x) {
+                        for ($x = 1; $x < $leading; ++$x) {
 
                             // class/href setup
                             $params = $get;
@@ -310,7 +310,7 @@ class Paginator {
                         <li class="number active"><a href="#"><?= ($current) ?></a></li>
                         <?php
                         // generate/render trailing crumbs
-                        for ($x = 0; $x < $trailing; ++$x) {
+                        for ($x = $current -1 ; $x < $trailing; ++$x) {
 
                             // class/href setup
                             $params = $get;

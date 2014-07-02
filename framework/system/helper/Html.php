@@ -56,7 +56,6 @@ class Html {
         return "<input type=\"hidden\" name=\"$name\" value=\"$value\" $extra>";
     }
 
-    
     /**
      * 
      * @param type $name
@@ -90,7 +89,6 @@ class Html {
         return "<input type=\"file\" name=\"$name\" value=\"$value\" $extra>";
     }
 
-    
     /**
      * 
      * @param type $name
@@ -134,7 +132,6 @@ class Html {
         return $form;
     }
 
-    
     /**
      * 
      * @param type $name
@@ -146,7 +143,6 @@ class Html {
         return "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra>";
     }
 
-    
     /**
      * 
      * @param type $name
@@ -170,7 +166,6 @@ class Html {
         return "<input type=\"submit\" name=\"$name\" value=\"$value\" $extra>";
     }
 
-    
     /**
      * 
      * @param type $name
@@ -279,7 +274,6 @@ class Html {
         
     }
 
-    
     /**
      * 
      * @param type $field
@@ -289,12 +283,13 @@ class Html {
      */
     public static function formError($field = '', $prefix = '', $suffix = '') {
         $error = Base::instance()->session->flashData('error');
+        $msg = '';
         if (isset($error[$field])) {
-            $error = $error[$field];
-        } else {
-            $error = '';
+            $msg = $error[$field];
+            unset($error[$field]);
         }
-        return '<small style="color:red;">' . $error . '</small>';
+        Base::instance()->session->setFlashData('error', $error);
+        return '<small style="color:red;">' . $msg . '</small>';
     }
 
     /**

@@ -15,6 +15,7 @@ namespace system\db;
  */
 use system\core\Base;
 use system\helper\Validator;
+use system\helper\Paginator;
 
 class Model {
 
@@ -208,7 +209,6 @@ class Model {
         if ($isValidate === true and ! $this->validate()) {
             return false;
         }
-
         $this->connection->insert($this->table, $this->attributes);
         return $this;
     }
@@ -300,6 +300,20 @@ class Model {
      */
     public function rules() {
         
+    }
+
+    /**
+     * 
+     * @param type $target
+     * @return type
+     */
+    public function paging($target) {
+        $current = Base::instance()->input->get('page', 1);
+        $count = $this->CountAll();
+        $paging = new Paginator($current, $count);
+        $paging->setRPP(10);
+        $paging->setTarget(Base::instance()->base_url . $target);
+        return $paging->parse();
     }
 
 }
