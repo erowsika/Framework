@@ -81,7 +81,7 @@ class Validator {
             if (array_key_exists('required', $opt) and $opt['required'] == true and isset($this->attributes[$field])) {
                 $this->is_set($field);
             } else if (!isset($this->attributes[$field])) {
-               // $this->is_set($field);
+                // $this->is_set($field);
                 continue;
             }
 
@@ -98,7 +98,7 @@ class Validator {
             }
 
             if (!isset($opt['max'])) {
-                $opt['max'] = 255;
+                $opt['max'] = INF;
             }
 
             switch ($opt['type']) {
@@ -283,8 +283,10 @@ class Validator {
         if ($required == false && strlen($this->attributes[$var]) == 0) {
             return true;
         }
+
         if (filter_var($this->attributes[$var], FILTER_VALIDATE_INT, array("options" => array("min_range" => $min, "max_range" => $max))) === FALSE) {
             $this->errors[$var] = $var . $this->error_message[7];
+            var_dump($this->attributes[$var]);
         }
     }
 
@@ -328,7 +330,8 @@ class Validator {
         if ($required == false && strlen($this->attributes[$var]) == 0) {
             return true;
         }
-        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN); {
+        filter_var($this->attributes[$var], FILTER_VALIDATE_BOOLEAN);
+        {
             $this->errors[$var] = $var . $this->error_message[6];
         }
     }

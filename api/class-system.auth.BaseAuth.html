@@ -7,7 +7,7 @@
 	<title>Class system\auth\BaseAuth | framework</title>
 
 	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
-	<script type="text/javascript" src="elementlist.js?1938111067"></script>
+	<script type="text/javascript" src="elementlist.js?815270973"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -51,17 +51,6 @@
 		<div id="groups">
 			<h3>Namespaces</h3>
 			<ul>
-				<li><a href="namespace-app.html">app<span></span></a>
-						<ul>
-				<li><a href="namespace-app.controllers.html">controllers</a>
-						</li>
-				<li><a href="namespace-app.core.html">core</a>
-						</li>
-				<li><a href="namespace-app.models.html">models</a>
-						</li>
-				<li><a href="namespace-app.moduls.html">moduls</a>
-						</li>
-							</ul></li>
 				<li><a href="namespace-None.html">None</a>
 						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -121,12 +110,6 @@
 
 
 
-	<div>
-		<h3>Direct known subclasses</h3>
-		<p class="elementList">
-			<code><a href="class-app.core.Auth.html">app\core\Auth</a></code>
-		</p>
-	</div>
 
 
 
@@ -139,7 +122,7 @@
 		<b>Namespace:</b> <a href="namespace-system.html">system</a>\<a href="namespace-system.auth.html">auth</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-system.auth.BaseAuth.html#18-124" title="Go to source code">framework/system/auth/BaseAuth.php</a><br />
+		<b>Located at</b> <a href="source-class-system.auth.BaseAuth.html#18-150" title="Go to source code">framework/system/auth/BaseAuth.php</a><br />
 	</div>
 
 
@@ -291,6 +274,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="setLoginState" id="_setLoginState">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setLoginState">#</a>
+			<code><a href="source-class-system.auth.BaseAuth.html#76-82" title="Go to source code">setLoginState</a>( <span>boolean <var>$state</var></span> )</code>
+
+			<div class="description short">
+				
+<p>set login state true or false</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>set login state true or false</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$state</var></dt>
+						<dd><code>boolean</code><br>$state</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="setRemember" id="_setRemember">
 
 			<td class="attributes"><code>
@@ -302,7 +323,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setRemember">#</a>
-			<code><a href="source-class-system.auth.BaseAuth.html#76-86" title="Go to source code">setRemember</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
+			<code><a href="source-class-system.auth.BaseAuth.html#84-94" title="Go to source code">setRemember</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
 
 			<div class="description short">
 				
@@ -342,7 +363,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRemember">#</a>
-			<code><a href="source-class-system.auth.BaseAuth.html#88-99" title="Go to source code">getRemember</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-system.auth.BaseAuth.html#96-107" title="Go to source code">getRemember</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				
@@ -373,6 +394,80 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="setData" id="_setData">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setData">#</a>
+			<code><a href="source-class-system.auth.BaseAuth.html#109-116" title="Go to source code">setData</a>( <span>type <var>$name</var></span>, <span>type <var>$value</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd><code>type</code><br>$name</dd>
+						<dt><var>$value</var></dt>
+						<dd><code>type</code><br>$value</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getData" id="_getData">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getData">#</a>
+			<code><a href="source-class-system.auth.BaseAuth.html#118-125" title="Go to source code">getData</a>( <span>type <var>$name</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd><code>type</code><br>$name</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getRole" id="_getRole">
 
 			<td class="attributes"><code>
@@ -384,7 +479,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRole">#</a>
-			<code><a href="source-class-system.auth.BaseAuth.html#101-107" title="Go to source code">getRole</a>( )</code>
+			<code><a href="source-class-system.auth.BaseAuth.html#127-133" title="Go to source code">getRole</a>( )</code>
 
 			<div class="description short">
 				
@@ -421,7 +516,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setRole">#</a>
-			<code><a href="source-class-system.auth.BaseAuth.html#109-115" title="Go to source code">setRole</a>( <span>type <var>$role</var></span> )</code>
+			<code><a href="source-class-system.auth.BaseAuth.html#135-141" title="Go to source code">setRole</a>( <span>type <var>$role</var></span> )</code>
 
 			<div class="description short">
 				
@@ -459,7 +554,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_signOut">#</a>
-			<code><a href="source-class-system.auth.BaseAuth.html#117-122" title="Go to source code">signOut</a>( )</code>
+			<code><a href="source-class-system.auth.BaseAuth.html#143-148" title="Go to source code">signOut</a>( )</code>
 
 			<div class="description short">
 				

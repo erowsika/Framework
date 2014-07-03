@@ -35,6 +35,11 @@ class Upload {
         $this->uploadDir = $uploadDir;
     }
 
+    /**
+     * see php.net form mime type
+     * @param type $filename
+     * @return string
+     */
     function mimeContentType($filename) {
 
         $mime_types = array(
@@ -101,7 +106,7 @@ class Upload {
         if (count($_FILES) and $require == true) {
             $this->setError($this->field, $this->errorMessage[1]);
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -114,7 +119,7 @@ class Upload {
     }
 
     public function getFileName() {
-        return $this->uploadFile;
+        return $this->tmp_name != '' ? $this->uploadFile : false;
     }
 
     private function getExt($file) {

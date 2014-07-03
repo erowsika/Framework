@@ -70,4 +70,19 @@ class Utils {
         return true;
     }
 
+    /**
+     * 
+     * @param type $date
+     * @param type $format
+     */
+    public static function dateFormat($date, $format = 'Y-m-d') {
+        return date($format, strtotime($date));
+    }
+
+    public static function deleteFile($filename){
+        if(file_exists($filename)){
+           return unlink($filename);
+        }
+        return false;
+    }
 }

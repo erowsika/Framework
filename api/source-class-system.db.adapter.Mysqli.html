@@ -8,7 +8,7 @@
 	<title>File framework/system/db/adapter/Mysqli.php | framework</title>
 
 	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
-	<script type="text/javascript" src="elementlist.js?1938111067"></script>
+	<script type="text/javascript" src="elementlist.js?815270973"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -53,17 +53,6 @@
 		<div id="groups">
 			<h3>Namespaces</h3>
 			<ul>
-				<li><a href="namespace-app.html">app<span></span></a>
-						<ul>
-				<li><a href="namespace-app.controllers.html">controllers</a>
-						</li>
-				<li><a href="namespace-app.core.html">core</a>
-						</li>
-				<li><a href="namespace-app.models.html">models</a>
-						</li>
-				<li><a href="namespace-app.moduls.html">moduls</a>
-						</li>
-							</ul></li>
 				<li><a href="namespace-None.html">None</a>
 						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -178,7 +167,7 @@
 </span><span id="57" class="l"><a class="l" href="#57"> 57 </a>
 </span><span id="58" class="l"><a class="l" href="#58"> 58 </a>        <span class="php-keyword1">try</span> {
 </span><span id="59" class="l"><a class="l" href="#59"> 59 </a>            <span class="php-keyword1">if</span> (!(<span class="php-var">$this</span>-&gt;conn = <span class="php-keyword1">new</span> \mysqli(<span class="php-var">$this</span>-&gt;host, <span class="php-var">$this</span>-&gt;username, <span class="php-var">$this</span>-&gt;password, <span class="php-var">$this</span>-&gt;database))) {
-</span><span id="60" class="l"><a class="l" href="#60"> 60 </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DbException(<span class="php-var">$conn</span>-&gt;connect_error);
+</span><span id="60" class="l"><a class="l" href="#60"> 60 </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DbException(<span class="php-var">$this</span>-&gt;conn-&gt;connect_error);
 </span><span id="61" class="l"><a class="l" href="#61"> 61 </a>            }
 </span><span id="62" class="l"><a class="l" href="#62"> 62 </a>        } <span class="php-keyword1">catch</span> (DbException <span class="php-var">$e</span>) {
 </span><span id="63" class="l"><a class="l" href="#63"> 63 </a>            <span class="php-keyword1">echo</span> <span class="php-var">$e</span>-&gt;printError();
@@ -310,7 +299,7 @@
 </span><span id="189" class="l"><a class="l" href="#189">189 </a>        <span class="php-keyword1">while</span> (<span class="php-var">$this</span>-&gt;stmt-&gt;fetch()) {
 </span><span id="190" class="l"><a class="l" href="#190">190 </a>            <span class="php-var">$result</span> = <span class="php-keyword1">new</span> \stdClass();
 </span><span id="191" class="l"><a class="l" href="#191">191 </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$row</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$val</span>) {
-</span><span id="192" class="l"><a class="l" href="#192">192 </a>                <span class="php-var">$result</span>-&gt;{<span class="php-var">$key</span>} =(object) <span class="php-var">$val</span>;
+</span><span id="192" class="l"><a class="l" href="#192">192 </a>                <span class="php-var">$result</span>-&gt;{<span class="php-var">$key</span>} = <span class="php-var">$val</span>;
 </span><span id="193" class="l"><a class="l" href="#193">193 </a>            }
 </span><span id="194" class="l"><a class="l" href="#194">194 </a>            <span class="php-keyword2">array_push</span>(<span class="php-var">$results</span>, <span class="php-var">$result</span>);
 </span><span id="195" class="l"><a class="l" href="#195">195 </a>        }
@@ -333,108 +322,110 @@
 </span><span id="212" class="l"><a class="l" href="#212">212 </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$params</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
 </span><span id="213" class="l"><a class="l" href="#213">213 </a>                <span class="php-var">$refs</span>[<span class="php-var">$key</span>] = &amp; <span class="php-var">$params</span>[<span class="php-var">$key</span>];
 </span><span id="214" class="l"><a class="l" href="#214">214 </a>            }
-</span><span id="215" class="l"><a class="l" href="#215">215 </a>            <span class="php-keyword2">call_user_func_array</span>(<span class="php-keyword1">array</span>(<span class="php-var">$this</span>-&gt;stmt, <span class="php-quote">'bind_param'</span>), <span class="php-var">$refs</span>);
-</span><span id="216" class="l"><a class="l" href="#216">216 </a>        }
-</span><span id="217" class="l"><a class="l" href="#217">217 </a>    }
-</span><span id="218" class="l"><a class="l" href="#218">218 </a>
-</span><span id="219" class="l"><a class="l" href="#219">219 </a>    <span class="php-comment">/**
-</span></span><span id="220" class="l"><a class="l" href="#220">220 </a><span class="php-comment">     * 
-</span></span><span id="221" class="l"><a class="l" href="#221">221 </a><span class="php-comment">     * @return type
-</span></span><span id="222" class="l"><a class="l" href="#222">222 </a><span class="php-comment">     */</span>
-</span><span id="223" class="l"><a class="l" href="#223">223 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_insertId" href="#_insertId">insertId</a>(<span class="php-var">$sequence</span> = <span class="php-keyword1">NULL</span>) {
-</span><span id="224" class="l"><a class="l" href="#224">224 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;conn-&gt;insert_id;
-</span><span id="225" class="l"><a class="l" href="#225">225 </a>    }
-</span><span id="226" class="l"><a class="l" href="#226">226 </a>
-</span><span id="227" class="l"><a class="l" href="#227">227 </a>    <span class="php-comment">/**
-</span></span><span id="228" class="l"><a class="l" href="#228">228 </a><span class="php-comment">     * 
-</span></span><span id="229" class="l"><a class="l" href="#229">229 </a><span class="php-comment">     * @param type $sql
-</span></span><span id="230" class="l"><a class="l" href="#230">230 </a><span class="php-comment">     * @param type $value
-</span></span><span id="231" class="l"><a class="l" href="#231">231 </a><span class="php-comment">     * @return \system\db\adapter\Mysql
-</span></span><span id="232" class="l"><a class="l" href="#232">232 </a><span class="php-comment">     * @throws DbException
-</span></span><span id="233" class="l"><a class="l" href="#233">233 </a><span class="php-comment">     */</span>
-</span><span id="234" class="l"><a class="l" href="#234">234 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_query" href="#_query">query</a>(<span class="php-var">$sql</span>, &amp;<span class="php-var">$value</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="235" class="l"><a class="l" href="#235">235 </a>        <span class="php-keyword1">try</span> {
-</span><span id="236" class="l"><a class="l" href="#236">236 </a>            <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;autoinit) {
-</span><span id="237" class="l"><a class="l" href="#237">237 </a>                <span class="php-var">$this</span>-&gt;connect();
-</span><span id="238" class="l"><a class="l" href="#238">238 </a>            }
-</span><span id="239" class="l"><a class="l" href="#239">239 </a>
-</span><span id="240" class="l"><a class="l" href="#240">240 </a>            <span class="php-keyword1">if</span> (!(<span class="php-var">$this</span>-&gt;stmt = <span class="php-var">$this</span>-&gt;conn-&gt;prepare(<span class="php-var">$sql</span>))) {
-</span><span id="241" class="l"><a class="l" href="#241">241 </a>                <span class="php-var">$message</span> = <span class="php-quote">&quot;Query:  &quot;</span> . <span class="php-var">$sql</span>;
-</span><span id="242" class="l"><a class="l" href="#242">242 </a>                <span class="php-var">$message</span> .= <span class="php-quote">&quot;&lt;p&gt; Message: &quot;</span> . <span class="php-var">$this</span>-&gt;conn-&gt;error . <span class="php-quote">&quot;&lt;p&gt;&quot;</span>;
-</span><span id="243" class="l"><a class="l" href="#243">243 </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DbException(<span class="php-var">$message</span>, <span class="php-var">$this</span>-&gt;conn-&gt;errno);
-</span><span id="244" class="l"><a class="l" href="#244">244 </a>            }
-</span><span id="245" class="l"><a class="l" href="#245">245 </a>            <span class="php-var">$this</span>-&gt;bindParam(<span class="php-var">$value</span>);
-</span><span id="246" class="l"><a class="l" href="#246">246 </a>
-</span><span id="247" class="l"><a class="l" href="#247">247 </a>            <span class="php-keyword1">if</span> (!(<span class="php-var">$this</span>-&gt;stmt-&gt;execute())) {
-</span><span id="248" class="l"><a class="l" href="#248">248 </a>                <span class="php-var">$message</span> = <span class="php-var">$this</span>-&gt;conn-&gt;error;
-</span><span id="249" class="l"><a class="l" href="#249">249 </a>                <span class="php-var">$errorCode</span> = <span class="php-var">$this</span>-&gt;conn-&gt;errno;
-</span><span id="250" class="l"><a class="l" href="#250">250 </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DbException(<span class="php-var">$message</span>, <span class="php-var">$errorCode</span>);
-</span><span id="251" class="l"><a class="l" href="#251">251 </a>            }
-</span><span id="252" class="l"><a class="l" href="#252">252 </a>        } <span class="php-keyword1">catch</span> (DbException <span class="php-var">$e</span>) {
-</span><span id="253" class="l"><a class="l" href="#253">253 </a>            <span class="php-var">$e</span>-&gt;printError();
-</span><span id="254" class="l"><a class="l" href="#254">254 </a>        }
-</span><span id="255" class="l"><a class="l" href="#255">255 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
-</span><span id="256" class="l"><a class="l" href="#256">256 </a>    }
-</span><span id="257" class="l"><a class="l" href="#257">257 </a>
-</span><span id="258" class="l"><a class="l" href="#258">258 </a>    <span class="php-comment">/**
-</span></span><span id="259" class="l"><a class="l" href="#259">259 </a><span class="php-comment">     * 
-</span></span><span id="260" class="l"><a class="l" href="#260">260 </a><span class="php-comment">     * @return boolean
-</span></span><span id="261" class="l"><a class="l" href="#261">261 </a><span class="php-comment">     */</span>
-</span><span id="262" class="l"><a class="l" href="#262">262 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_rollback" href="#_rollback">rollback</a>() {
-</span><span id="263" class="l"><a class="l" href="#263">263 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'ROLLBACK'</span>);
-</span><span id="264" class="l"><a class="l" href="#264">264 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'SET AUTOCOMMIT=1'</span>);
-</span><span id="265" class="l"><a class="l" href="#265">265 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
-</span><span id="266" class="l"><a class="l" href="#266">266 </a>    }
-</span><span id="267" class="l"><a class="l" href="#267">267 </a>
-</span><span id="268" class="l"><a class="l" href="#268">268 </a>    <span class="php-comment">/**
-</span></span><span id="269" class="l"><a class="l" href="#269">269 </a><span class="php-comment">     * 
-</span></span><span id="270" class="l"><a class="l" href="#270">270 </a><span class="php-comment">     * @return boolean
-</span></span><span id="271" class="l"><a class="l" href="#271">271 </a><span class="php-comment">     */</span>
-</span><span id="272" class="l"><a class="l" href="#272">272 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_transaction" href="#_transaction">transaction</a>() {
-</span><span id="273" class="l"><a class="l" href="#273">273 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'SET AUTOCOMMIT=0'</span>);
-</span><span id="274" class="l"><a class="l" href="#274">274 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'START TRANSACTION'</span>);
-</span><span id="275" class="l"><a class="l" href="#275">275 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
-</span><span id="276" class="l"><a class="l" href="#276">276 </a>    }
-</span><span id="277" class="l"><a class="l" href="#277">277 </a>
-</span><span id="278" class="l"><a class="l" href="#278">278 </a>    <span class="php-comment">/**
-</span></span><span id="279" class="l"><a class="l" href="#279">279 </a><span class="php-comment">     * 
-</span></span><span id="280" class="l"><a class="l" href="#280">280 </a><span class="php-comment">     * @return boolean
-</span></span><span id="281" class="l"><a class="l" href="#281">281 </a><span class="php-comment">     */</span>
-</span><span id="282" class="l"><a class="l" href="#282">282 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_commit" href="#_commit">commit</a>() {
-</span><span id="283" class="l"><a class="l" href="#283">283 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'COMMIT'</span>);
-</span><span id="284" class="l"><a class="l" href="#284">284 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'SET AUTOCOMMIT=1'</span>);
-</span><span id="285" class="l"><a class="l" href="#285">285 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
-</span><span id="286" class="l"><a class="l" href="#286">286 </a>    }
-</span><span id="287" class="l"><a class="l" href="#287">287 </a>
-</span><span id="288" class="l"><a class="l" href="#288">288 </a>    <span class="php-comment">/**
-</span></span><span id="289" class="l"><a class="l" href="#289">289 </a><span class="php-comment">     * 
-</span></span><span id="290" class="l"><a class="l" href="#290">290 </a><span class="php-comment">     * @param type $sql
-</span></span><span id="291" class="l"><a class="l" href="#291">291 </a><span class="php-comment">     * @param type $limit
-</span></span><span id="292" class="l"><a class="l" href="#292">292 </a><span class="php-comment">     * @param type $offset
-</span></span><span id="293" class="l"><a class="l" href="#293">293 </a><span class="php-comment">     * @return type
-</span></span><span id="294" class="l"><a class="l" href="#294">294 </a><span class="php-comment">     */</span>
-</span><span id="295" class="l"><a class="l" href="#295">295 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="__limit" href="#__limit">_limit</a>(<span class="php-var">$sql</span>, <span class="php-var">$limit</span>, <span class="php-var">$offset</span>) {
-</span><span id="296" class="l"><a class="l" href="#296">296 </a>        <span class="php-var">$sql</span> .= <span class="php-quote">&quot; LIMIT &quot;</span> . <span class="php-var">$limit</span>;
-</span><span id="297" class="l"><a class="l" href="#297">297 </a>        <span class="php-var">$sql</span> .= (<span class="php-var">$offset</span>) ? <span class="php-quote">&quot;, &quot;</span> . <span class="php-var">$offset</span> : <span class="php-quote">&quot;&quot;</span>;
-</span><span id="298" class="l"><a class="l" href="#298">298 </a>        <span class="php-keyword1">return</span> <span class="php-var">$sql</span>;
-</span><span id="299" class="l"><a class="l" href="#299">299 </a>    }
-</span><span id="300" class="l"><a class="l" href="#300">300 </a>
-</span><span id="301" class="l"><a class="l" href="#301">301 </a>    <span class="php-comment">/**
-</span></span><span id="302" class="l"><a class="l" href="#302">302 </a><span class="php-comment">     * 
-</span></span><span id="303" class="l"><a class="l" href="#303">303 </a><span class="php-comment">     * @param type $charset
-</span></span><span id="304" class="l"><a class="l" href="#304">304 </a><span class="php-comment">     * @return \system\db\adapter\Mysql
-</span></span><span id="305" class="l"><a class="l" href="#305">305 </a><span class="php-comment">     */</span>
-</span><span id="306" class="l"><a class="l" href="#306">306 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_setEncoding" href="#_setEncoding">setEncoding</a>(<span class="php-var">$charset</span>) {
-</span><span id="307" class="l"><a class="l" href="#307">307 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">&quot;SET NAMES </span><span class="php-var">$charset</span><span class="php-quote">&quot;</span>);
-</span><span id="308" class="l"><a class="l" href="#308">308 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
-</span><span id="309" class="l"><a class="l" href="#309">309 </a>    }
-</span><span id="310" class="l"><a class="l" href="#310">310 </a>
-</span><span id="311" class="l"><a class="l" href="#311">311 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_dbSelect" href="#_dbSelect">dbSelect</a>() {
-</span><span id="312" class="l"><a class="l" href="#312">312 </a>        
-</span><span id="313" class="l"><a class="l" href="#313">313 </a>    }
-</span><span id="314" class="l"><a class="l" href="#314">314 </a>
-</span><span id="315" class="l"><a class="l" href="#315">315 </a>}
-</span><span id="316" class="l"><a class="l" href="#316">316 </a></span></code></pre>
+</span><span id="215" class="l"><a class="l" href="#215">215 </a>            <span class="php-var">$ref</span> = <span class="php-keyword1">new</span> \ReflectionClass(<span class="php-quote">'mysqli_stmt'</span>);
+</span><span id="216" class="l"><a class="l" href="#216">216 </a>            <span class="php-var">$method</span> = <span class="php-var">$ref</span>-&gt;getMethod(<span class="php-quote">&quot;bind_param&quot;</span>);
+</span><span id="217" class="l"><a class="l" href="#217">217 </a>            <span class="php-var">$method</span>-&gt;invokeArgs(<span class="php-var">$this</span>-&gt;stmt, <span class="php-var">$refs</span>);
+</span><span id="218" class="l"><a class="l" href="#218">218 </a>        }
+</span><span id="219" class="l"><a class="l" href="#219">219 </a>    }
+</span><span id="220" class="l"><a class="l" href="#220">220 </a>
+</span><span id="221" class="l"><a class="l" href="#221">221 </a>    <span class="php-comment">/**
+</span></span><span id="222" class="l"><a class="l" href="#222">222 </a><span class="php-comment">     * 
+</span></span><span id="223" class="l"><a class="l" href="#223">223 </a><span class="php-comment">     * @return type
+</span></span><span id="224" class="l"><a class="l" href="#224">224 </a><span class="php-comment">     */</span>
+</span><span id="225" class="l"><a class="l" href="#225">225 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_insertId" href="#_insertId">insertId</a>(<span class="php-var">$sequence</span> = <span class="php-keyword1">NULL</span>) {
+</span><span id="226" class="l"><a class="l" href="#226">226 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;conn-&gt;insert_id;
+</span><span id="227" class="l"><a class="l" href="#227">227 </a>    }
+</span><span id="228" class="l"><a class="l" href="#228">228 </a>
+</span><span id="229" class="l"><a class="l" href="#229">229 </a>    <span class="php-comment">/**
+</span></span><span id="230" class="l"><a class="l" href="#230">230 </a><span class="php-comment">     * 
+</span></span><span id="231" class="l"><a class="l" href="#231">231 </a><span class="php-comment">     * @param type $sql
+</span></span><span id="232" class="l"><a class="l" href="#232">232 </a><span class="php-comment">     * @param type $value
+</span></span><span id="233" class="l"><a class="l" href="#233">233 </a><span class="php-comment">     * @return \system\db\adapter\Mysql
+</span></span><span id="234" class="l"><a class="l" href="#234">234 </a><span class="php-comment">     * @throws DbException
+</span></span><span id="235" class="l"><a class="l" href="#235">235 </a><span class="php-comment">     */</span>
+</span><span id="236" class="l"><a class="l" href="#236">236 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_query" href="#_query">query</a>(<span class="php-var">$sql</span>, &amp;<span class="php-var">$value</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="237" class="l"><a class="l" href="#237">237 </a>        <span class="php-keyword1">try</span> {
+</span><span id="238" class="l"><a class="l" href="#238">238 </a>            <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;autoinit) {
+</span><span id="239" class="l"><a class="l" href="#239">239 </a>                <span class="php-var">$this</span>-&gt;connect();
+</span><span id="240" class="l"><a class="l" href="#240">240 </a>            }
+</span><span id="241" class="l"><a class="l" href="#241">241 </a>
+</span><span id="242" class="l"><a class="l" href="#242">242 </a>            <span class="php-keyword1">if</span> (!(<span class="php-var">$this</span>-&gt;stmt = <span class="php-var">$this</span>-&gt;conn-&gt;prepare(<span class="php-var">$sql</span>))) {
+</span><span id="243" class="l"><a class="l" href="#243">243 </a>                <span class="php-var">$message</span> = <span class="php-quote">&quot;Query:  &quot;</span> . <span class="php-var">$sql</span>;
+</span><span id="244" class="l"><a class="l" href="#244">244 </a>                <span class="php-var">$message</span> .= <span class="php-quote">&quot;&lt;p&gt; Message: &quot;</span> . <span class="php-var">$this</span>-&gt;conn-&gt;error . <span class="php-quote">&quot;&lt;p&gt;&quot;</span>;
+</span><span id="245" class="l"><a class="l" href="#245">245 </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DbException(<span class="php-var">$message</span>, <span class="php-var">$this</span>-&gt;conn-&gt;errno);
+</span><span id="246" class="l"><a class="l" href="#246">246 </a>            }
+</span><span id="247" class="l"><a class="l" href="#247">247 </a>            <span class="php-var">$this</span>-&gt;bindParam(<span class="php-var">$value</span>);
+</span><span id="248" class="l"><a class="l" href="#248">248 </a>
+</span><span id="249" class="l"><a class="l" href="#249">249 </a>            <span class="php-keyword1">if</span> (!(<span class="php-var">$this</span>-&gt;stmt-&gt;execute())) {
+</span><span id="250" class="l"><a class="l" href="#250">250 </a>                <span class="php-var">$message</span> = <span class="php-var">$this</span>-&gt;conn-&gt;error;
+</span><span id="251" class="l"><a class="l" href="#251">251 </a>                <span class="php-var">$errorCode</span> = <span class="php-var">$this</span>-&gt;conn-&gt;errno;
+</span><span id="252" class="l"><a class="l" href="#252">252 </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DbException(<span class="php-var">$message</span>, <span class="php-var">$errorCode</span>);
+</span><span id="253" class="l"><a class="l" href="#253">253 </a>            }
+</span><span id="254" class="l"><a class="l" href="#254">254 </a>        } <span class="php-keyword1">catch</span> (DbException <span class="php-var">$e</span>) {
+</span><span id="255" class="l"><a class="l" href="#255">255 </a>            <span class="php-var">$e</span>-&gt;printError();
+</span><span id="256" class="l"><a class="l" href="#256">256 </a>        }
+</span><span id="257" class="l"><a class="l" href="#257">257 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
+</span><span id="258" class="l"><a class="l" href="#258">258 </a>    }
+</span><span id="259" class="l"><a class="l" href="#259">259 </a>
+</span><span id="260" class="l"><a class="l" href="#260">260 </a>    <span class="php-comment">/**
+</span></span><span id="261" class="l"><a class="l" href="#261">261 </a><span class="php-comment">     * 
+</span></span><span id="262" class="l"><a class="l" href="#262">262 </a><span class="php-comment">     * @return boolean
+</span></span><span id="263" class="l"><a class="l" href="#263">263 </a><span class="php-comment">     */</span>
+</span><span id="264" class="l"><a class="l" href="#264">264 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_rollback" href="#_rollback">rollback</a>() {
+</span><span id="265" class="l"><a class="l" href="#265">265 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'ROLLBACK'</span>);
+</span><span id="266" class="l"><a class="l" href="#266">266 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'SET AUTOCOMMIT=1'</span>);
+</span><span id="267" class="l"><a class="l" href="#267">267 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+</span><span id="268" class="l"><a class="l" href="#268">268 </a>    }
+</span><span id="269" class="l"><a class="l" href="#269">269 </a>
+</span><span id="270" class="l"><a class="l" href="#270">270 </a>    <span class="php-comment">/**
+</span></span><span id="271" class="l"><a class="l" href="#271">271 </a><span class="php-comment">     * 
+</span></span><span id="272" class="l"><a class="l" href="#272">272 </a><span class="php-comment">     * @return boolean
+</span></span><span id="273" class="l"><a class="l" href="#273">273 </a><span class="php-comment">     */</span>
+</span><span id="274" class="l"><a class="l" href="#274">274 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_transaction" href="#_transaction">transaction</a>() {
+</span><span id="275" class="l"><a class="l" href="#275">275 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'SET AUTOCOMMIT=0'</span>);
+</span><span id="276" class="l"><a class="l" href="#276">276 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'START TRANSACTION'</span>);
+</span><span id="277" class="l"><a class="l" href="#277">277 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+</span><span id="278" class="l"><a class="l" href="#278">278 </a>    }
+</span><span id="279" class="l"><a class="l" href="#279">279 </a>
+</span><span id="280" class="l"><a class="l" href="#280">280 </a>    <span class="php-comment">/**
+</span></span><span id="281" class="l"><a class="l" href="#281">281 </a><span class="php-comment">     * 
+</span></span><span id="282" class="l"><a class="l" href="#282">282 </a><span class="php-comment">     * @return boolean
+</span></span><span id="283" class="l"><a class="l" href="#283">283 </a><span class="php-comment">     */</span>
+</span><span id="284" class="l"><a class="l" href="#284">284 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_commit" href="#_commit">commit</a>() {
+</span><span id="285" class="l"><a class="l" href="#285">285 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'COMMIT'</span>);
+</span><span id="286" class="l"><a class="l" href="#286">286 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">'SET AUTOCOMMIT=1'</span>);
+</span><span id="287" class="l"><a class="l" href="#287">287 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+</span><span id="288" class="l"><a class="l" href="#288">288 </a>    }
+</span><span id="289" class="l"><a class="l" href="#289">289 </a>
+</span><span id="290" class="l"><a class="l" href="#290">290 </a>    <span class="php-comment">/**
+</span></span><span id="291" class="l"><a class="l" href="#291">291 </a><span class="php-comment">     * 
+</span></span><span id="292" class="l"><a class="l" href="#292">292 </a><span class="php-comment">     * @param type $sql
+</span></span><span id="293" class="l"><a class="l" href="#293">293 </a><span class="php-comment">     * @param type $limit
+</span></span><span id="294" class="l"><a class="l" href="#294">294 </a><span class="php-comment">     * @param type $offset
+</span></span><span id="295" class="l"><a class="l" href="#295">295 </a><span class="php-comment">     * @return type
+</span></span><span id="296" class="l"><a class="l" href="#296">296 </a><span class="php-comment">     */</span>
+</span><span id="297" class="l"><a class="l" href="#297">297 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="__limit" href="#__limit">_limit</a>(<span class="php-var">$sql</span>, <span class="php-var">$limit</span>, <span class="php-var">$offset</span>) {
+</span><span id="298" class="l"><a class="l" href="#298">298 </a>        <span class="php-var">$sql</span> .= <span class="php-quote">&quot; LIMIT &quot;</span> . <span class="php-var">$limit</span>;
+</span><span id="299" class="l"><a class="l" href="#299">299 </a>        <span class="php-var">$sql</span> .= (<span class="php-var">$offset</span>) ? <span class="php-quote">&quot;, &quot;</span> . <span class="php-var">$offset</span> : <span class="php-quote">&quot;&quot;</span>;
+</span><span id="300" class="l"><a class="l" href="#300">300 </a>        <span class="php-keyword1">return</span> <span class="php-var">$sql</span>;
+</span><span id="301" class="l"><a class="l" href="#301">301 </a>    }
+</span><span id="302" class="l"><a class="l" href="#302">302 </a>
+</span><span id="303" class="l"><a class="l" href="#303">303 </a>    <span class="php-comment">/**
+</span></span><span id="304" class="l"><a class="l" href="#304">304 </a><span class="php-comment">     * 
+</span></span><span id="305" class="l"><a class="l" href="#305">305 </a><span class="php-comment">     * @param type $charset
+</span></span><span id="306" class="l"><a class="l" href="#306">306 </a><span class="php-comment">     * @return \system\db\adapter\Mysql
+</span></span><span id="307" class="l"><a class="l" href="#307">307 </a><span class="php-comment">     */</span>
+</span><span id="308" class="l"><a class="l" href="#308">308 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_setEncoding" href="#_setEncoding">setEncoding</a>(<span class="php-var">$charset</span>) {
+</span><span id="309" class="l"><a class="l" href="#309">309 </a>        <span class="php-var">$this</span>-&gt;query(<span class="php-quote">&quot;SET NAMES </span><span class="php-var">$charset</span><span class="php-quote">&quot;</span>);
+</span><span id="310" class="l"><a class="l" href="#310">310 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
+</span><span id="311" class="l"><a class="l" href="#311">311 </a>    }
+</span><span id="312" class="l"><a class="l" href="#312">312 </a>
+</span><span id="313" class="l"><a class="l" href="#313">313 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_dbSelect" href="#_dbSelect">dbSelect</a>() {
+</span><span id="314" class="l"><a class="l" href="#314">314 </a>        
+</span><span id="315" class="l"><a class="l" href="#315">315 </a>    }
+</span><span id="316" class="l"><a class="l" href="#316">316 </a>
+</span><span id="317" class="l"><a class="l" href="#317">317 </a>}
+</span><span id="318" class="l"><a class="l" href="#318">318 </a></span></code></pre>
 	</div>
 
 	<div id="footer">

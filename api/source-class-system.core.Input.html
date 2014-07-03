@@ -8,7 +8,7 @@
 	<title>File framework/system/core/Input.php | framework</title>
 
 	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
-	<script type="text/javascript" src="elementlist.js?1938111067"></script>
+	<script type="text/javascript" src="elementlist.js?815270973"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -53,17 +53,6 @@
 		<div id="groups">
 			<h3>Namespaces</h3>
 			<ul>
-				<li><a href="namespace-app.html">app<span></span></a>
-						<ul>
-				<li><a href="namespace-app.controllers.html">controllers</a>
-						</li>
-				<li><a href="namespace-app.core.html">core</a>
-						</li>
-				<li><a href="namespace-app.models.html">models</a>
-						</li>
-				<li><a href="namespace-app.moduls.html">moduls</a>
-						</li>
-							</ul></li>
 				<li><a href="namespace-None.html">None</a>
 						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -368,57 +357,81 @@
 </span><span id="239" class="l"><a class="l" href="#239">239 </a>    }
 </span><span id="240" class="l"><a class="l" href="#240">240 </a>
 </span><span id="241" class="l"><a class="l" href="#241">241 </a>    <span class="php-comment">/**
-</span></span><span id="242" class="l"><a class="l" href="#242">242 </a><span class="php-comment">     * purify input
-</span></span><span id="243" class="l"><a class="l" href="#243">243 </a><span class="php-comment">     * @param string $data
-</span></span><span id="244" class="l"><a class="l" href="#244">244 </a><span class="php-comment">     * @return string
-</span></span><span id="245" class="l"><a class="l" href="#245">245 </a><span class="php-comment">     */</span>
-</span><span id="246" class="l"><a class="l" href="#246">246 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_cleanInputs" href="#_cleanInputs">cleanInputs</a>(<span class="php-var">$data</span>) {
-</span><span id="247" class="l"><a class="l" href="#247">247 </a>        <span class="php-var">$clean_input</span> = <span class="php-keyword1">array</span>();
-</span><span id="248" class="l"><a class="l" href="#248">248 </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">is_array</span>(<span class="php-var">$data</span>)) {
-</span><span id="249" class="l"><a class="l" href="#249">249 </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$data</span> <span class="php-keyword1">as</span> <span class="php-var">$k</span> =&gt; <span class="php-var">$v</span>) {
-</span><span id="250" class="l"><a class="l" href="#250">250 </a>                <span class="php-var">$clean_input</span>[<span class="php-var">$k</span>] = <span class="php-var">$this</span>-&gt;cleanInputs(<span class="php-var">$v</span>);
-</span><span id="251" class="l"><a class="l" href="#251">251 </a>            }
-</span><span id="252" class="l"><a class="l" href="#252">252 </a>        } <span class="php-keyword1">else</span> {
-</span><span id="253" class="l"><a class="l" href="#253">253 </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">get_magic_quotes_gpc</span>()) {
-</span><span id="254" class="l"><a class="l" href="#254">254 </a>                <span class="php-var">$data</span> = <span class="php-keyword2">trim</span>(<span class="php-keyword2">stripslashes</span>(<span class="php-var">$data</span>));
-</span><span id="255" class="l"><a class="l" href="#255">255 </a>            }
-</span><span id="256" class="l"><a class="l" href="#256">256 </a>            <span class="php-var">$data</span> = <span class="php-keyword2">strip_tags</span>(<span class="php-var">$data</span>);
-</span><span id="257" class="l"><a class="l" href="#257">257 </a>            <span class="php-var">$clean_input</span> = <span class="php-keyword2">trim</span>(<span class="php-var">$data</span>);
-</span><span id="258" class="l"><a class="l" href="#258">258 </a>        }
-</span><span id="259" class="l"><a class="l" href="#259">259 </a>        <span class="php-keyword1">return</span> <span class="php-var">$clean_input</span>;
-</span><span id="260" class="l"><a class="l" href="#260">260 </a>    }
-</span><span id="261" class="l"><a class="l" href="#261">261 </a>
-</span><span id="262" class="l"><a class="l" href="#262">262 </a>    <span class="php-comment">/**
-</span></span><span id="263" class="l"><a class="l" href="#263">263 </a><span class="php-comment">     * get http referer
-</span></span><span id="264" class="l"><a class="l" href="#264">264 </a><span class="php-comment">     * @return string
-</span></span><span id="265" class="l"><a class="l" href="#265">265 </a><span class="php-comment">     */</span>
-</span><span id="266" class="l"><a class="l" href="#266">266 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getReferer" href="#_getReferer">getReferer</a>() {
-</span><span id="267" class="l"><a class="l" href="#267">267 </a>        <span class="php-keyword1">return</span> <span class="php-var">$_SERVER</span>[<span class="php-quote">'HTTP_REFERER'</span>];
-</span><span id="268" class="l"><a class="l" href="#268">268 </a>    }
-</span><span id="269" class="l"><a class="l" href="#269">269 </a>
-</span><span id="270" class="l"><a class="l" href="#270">270 </a>    <span class="php-comment">/**
-</span></span><span id="271" class="l"><a class="l" href="#271">271 </a><span class="php-comment">     * response
-</span></span><span id="272" class="l"><a class="l" href="#272">272 </a><span class="php-comment">     * @param string string
-</span></span><span id="273" class="l"><a class="l" href="#273">273 </a><span class="php-comment">     * @param string integer
-</span></span><span id="274" class="l"><a class="l" href="#274">274 </a><span class="php-comment">     */</span>
-</span><span id="275" class="l"><a class="l" href="#275">275 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_response" href="#_response">response</a>(<span class="php-var">$data</span>, <span class="php-var">$contentType</span>, <span class="php-var">$status</span> = <span class="php-num">200</span>) {
-</span><span id="276" class="l"><a class="l" href="#276">276 </a>        <span class="php-var">$this</span>-&gt;code = <span class="php-var">$status</span>;
-</span><span id="277" class="l"><a class="l" href="#277">277 </a>        <span class="php-var">$this</span>-&gt;contentType = <span class="php-var">$contentType</span>;
-</span><span id="278" class="l"><a class="l" href="#278">278 </a>        <span class="php-var">$this</span>-&gt;setHeaders();
-</span><span id="279" class="l"><a class="l" href="#279">279 </a>        <span class="php-keyword1">echo</span> <span class="php-var">$data</span>;
-</span><span id="280" class="l"><a class="l" href="#280">280 </a>        <span class="php-keyword1">exit</span>;
-</span><span id="281" class="l"><a class="l" href="#281">281 </a>    }
-</span><span id="282" class="l"><a class="l" href="#282">282 </a>
-</span><span id="283" class="l"><a class="l" href="#283">283 </a>    <span class="php-comment">/**
-</span></span><span id="284" class="l"><a class="l" href="#284">284 </a><span class="php-comment">     * set headers
-</span></span><span id="285" class="l"><a class="l" href="#285">285 </a><span class="php-comment">     */</span>
-</span><span id="286" class="l"><a class="l" href="#286">286 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> <a id="_setHeaders" href="#_setHeaders">setHeaders</a>() {
-</span><span id="287" class="l"><a class="l" href="#287">287 </a>        <span class="php-keyword2">header</span>(<span class="php-quote">&quot;HTTP/1.1 &quot;</span> . <span class="php-var">$this</span>-&gt;code . <span class="php-quote">&quot; &quot;</span> . <span class="php-var">$this</span>-&gt;getStatusMessage());
-</span><span id="288" class="l"><a class="l" href="#288">288 </a>        <span class="php-keyword2">header</span>(<span class="php-quote">&quot;Content-Type:&quot;</span> . <span class="php-var">$this</span>-&gt;contentType);
-</span><span id="289" class="l"><a class="l" href="#289">289 </a>    }
-</span><span id="290" class="l"><a class="l" href="#290">290 </a>
-</span><span id="291" class="l"><a class="l" href="#291">291 </a>}
-</span><span id="292" class="l"><a class="l" href="#292">292 </a></span></code></pre>
+</span></span><span id="242" class="l"><a class="l" href="#242">242 </a><span class="php-comment">     * get remote ip
+</span></span><span id="243" class="l"><a class="l" href="#243">243 </a><span class="php-comment">     * @return string
+</span></span><span id="244" class="l"><a class="l" href="#244">244 </a><span class="php-comment">     */</span>
+</span><span id="245" class="l"><a class="l" href="#245">245 </a>    <span class="php-keyword1">function</span> <a id="_getClientIp" href="#_getClientIp">getClientIp</a>() {
+</span><span id="246" class="l"><a class="l" href="#246">246 </a>        <span class="php-var">$ipaddress</span> = <span class="php-quote">''</span>;
+</span><span id="247" class="l"><a class="l" href="#247">247 </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_CLIENT_IP'</span>)) {
+</span><span id="248" class="l"><a class="l" href="#248">248 </a>            <span class="php-var">$ipaddress</span> = <span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_CLIENT_IP'</span>);
+</span><span id="249" class="l"><a class="l" href="#249">249 </a>        } <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> (<span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_X_FORWARDED_FOR'</span>)) {
+</span><span id="250" class="l"><a class="l" href="#250">250 </a>            <span class="php-var">$ipaddress</span> = <span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_X_FORWARDED_FOR'</span>);
+</span><span id="251" class="l"><a class="l" href="#251">251 </a>        } <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> (<span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_X_FORWARDED'</span>)) {
+</span><span id="252" class="l"><a class="l" href="#252">252 </a>            <span class="php-var">$ipaddress</span> = <span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_X_FORWARDED'</span>);
+</span><span id="253" class="l"><a class="l" href="#253">253 </a>        } <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> (<span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_FORWARDED_FOR'</span>)) {
+</span><span id="254" class="l"><a class="l" href="#254">254 </a>            <span class="php-var">$ipaddress</span> = <span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_FORWARDED_FOR'</span>);
+</span><span id="255" class="l"><a class="l" href="#255">255 </a>        } <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> (<span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_FORWARDED'</span>)) {
+</span><span id="256" class="l"><a class="l" href="#256">256 </a>            <span class="php-var">$ipaddress</span> = <span class="php-keyword2">getenv</span>(<span class="php-quote">'HTTP_FORWARDED'</span>);
+</span><span id="257" class="l"><a class="l" href="#257">257 </a>        } <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> (<span class="php-keyword2">getenv</span>(<span class="php-quote">'REMOTE_ADDR'</span>)) {
+</span><span id="258" class="l"><a class="l" href="#258">258 </a>            <span class="php-var">$ipaddress</span> = <span class="php-keyword2">getenv</span>(<span class="php-quote">'REMOTE_ADDR'</span>);
+</span><span id="259" class="l"><a class="l" href="#259">259 </a>        } <span class="php-keyword1">else</span> {
+</span><span id="260" class="l"><a class="l" href="#260">260 </a>            <span class="php-var">$ipaddress</span> = <span class="php-quote">'UNKNOWN'</span>;
+</span><span id="261" class="l"><a class="l" href="#261">261 </a>        }
+</span><span id="262" class="l"><a class="l" href="#262">262 </a>        <span class="php-keyword1">return</span> <span class="php-var">$ipaddress</span>;
+</span><span id="263" class="l"><a class="l" href="#263">263 </a>    }
+</span><span id="264" class="l"><a class="l" href="#264">264 </a>
+</span><span id="265" class="l"><a class="l" href="#265">265 </a>    <span class="php-comment">/**
+</span></span><span id="266" class="l"><a class="l" href="#266">266 </a><span class="php-comment">     * purify input
+</span></span><span id="267" class="l"><a class="l" href="#267">267 </a><span class="php-comment">     * @param string $data
+</span></span><span id="268" class="l"><a class="l" href="#268">268 </a><span class="php-comment">     * @return string
+</span></span><span id="269" class="l"><a class="l" href="#269">269 </a><span class="php-comment">     */</span>
+</span><span id="270" class="l"><a class="l" href="#270">270 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_cleanInputs" href="#_cleanInputs">cleanInputs</a>(<span class="php-var">$data</span>) {
+</span><span id="271" class="l"><a class="l" href="#271">271 </a>        <span class="php-var">$clean_input</span> = <span class="php-keyword1">array</span>();
+</span><span id="272" class="l"><a class="l" href="#272">272 </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">is_array</span>(<span class="php-var">$data</span>)) {
+</span><span id="273" class="l"><a class="l" href="#273">273 </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$data</span> <span class="php-keyword1">as</span> <span class="php-var">$k</span> =&gt; <span class="php-var">$v</span>) {
+</span><span id="274" class="l"><a class="l" href="#274">274 </a>                <span class="php-var">$clean_input</span>[<span class="php-var">$k</span>] = <span class="php-var">$this</span>-&gt;cleanInputs(<span class="php-var">$v</span>);
+</span><span id="275" class="l"><a class="l" href="#275">275 </a>            }
+</span><span id="276" class="l"><a class="l" href="#276">276 </a>        } <span class="php-keyword1">else</span> {
+</span><span id="277" class="l"><a class="l" href="#277">277 </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">get_magic_quotes_gpc</span>()) {
+</span><span id="278" class="l"><a class="l" href="#278">278 </a>                <span class="php-var">$data</span> = <span class="php-keyword2">trim</span>(<span class="php-keyword2">stripslashes</span>(<span class="php-var">$data</span>));
+</span><span id="279" class="l"><a class="l" href="#279">279 </a>            }
+</span><span id="280" class="l"><a class="l" href="#280">280 </a>            <span class="php-var">$data</span> = <span class="php-keyword2">strip_tags</span>(<span class="php-var">$data</span>);
+</span><span id="281" class="l"><a class="l" href="#281">281 </a>            <span class="php-var">$clean_input</span> = <span class="php-keyword2">trim</span>(<span class="php-var">$data</span>);
+</span><span id="282" class="l"><a class="l" href="#282">282 </a>        }
+</span><span id="283" class="l"><a class="l" href="#283">283 </a>        <span class="php-keyword1">return</span> <span class="php-var">$clean_input</span>;
+</span><span id="284" class="l"><a class="l" href="#284">284 </a>    }
+</span><span id="285" class="l"><a class="l" href="#285">285 </a>
+</span><span id="286" class="l"><a class="l" href="#286">286 </a>    <span class="php-comment">/**
+</span></span><span id="287" class="l"><a class="l" href="#287">287 </a><span class="php-comment">     * get http referer
+</span></span><span id="288" class="l"><a class="l" href="#288">288 </a><span class="php-comment">     * @return string
+</span></span><span id="289" class="l"><a class="l" href="#289">289 </a><span class="php-comment">     */</span>
+</span><span id="290" class="l"><a class="l" href="#290">290 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getReferer" href="#_getReferer">getReferer</a>() {
+</span><span id="291" class="l"><a class="l" href="#291">291 </a>        <span class="php-keyword1">return</span> <span class="php-var">$_SERVER</span>[<span class="php-quote">'HTTP_REFERER'</span>];
+</span><span id="292" class="l"><a class="l" href="#292">292 </a>    }
+</span><span id="293" class="l"><a class="l" href="#293">293 </a>
+</span><span id="294" class="l"><a class="l" href="#294">294 </a>    <span class="php-comment">/**
+</span></span><span id="295" class="l"><a class="l" href="#295">295 </a><span class="php-comment">     * response
+</span></span><span id="296" class="l"><a class="l" href="#296">296 </a><span class="php-comment">     * @param string string
+</span></span><span id="297" class="l"><a class="l" href="#297">297 </a><span class="php-comment">     * @param string integer
+</span></span><span id="298" class="l"><a class="l" href="#298">298 </a><span class="php-comment">     */</span>
+</span><span id="299" class="l"><a class="l" href="#299">299 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_response" href="#_response">response</a>(<span class="php-var">$data</span>, <span class="php-var">$contentType</span>, <span class="php-var">$status</span> = <span class="php-num">200</span>) {
+</span><span id="300" class="l"><a class="l" href="#300">300 </a>        <span class="php-var">$this</span>-&gt;code = <span class="php-var">$status</span>;
+</span><span id="301" class="l"><a class="l" href="#301">301 </a>        <span class="php-var">$this</span>-&gt;contentType = <span class="php-var">$contentType</span>;
+</span><span id="302" class="l"><a class="l" href="#302">302 </a>        <span class="php-var">$this</span>-&gt;setHeaders();
+</span><span id="303" class="l"><a class="l" href="#303">303 </a>        <span class="php-keyword1">echo</span> <span class="php-var">$data</span>;
+</span><span id="304" class="l"><a class="l" href="#304">304 </a>        <span class="php-keyword1">exit</span>;
+</span><span id="305" class="l"><a class="l" href="#305">305 </a>    }
+</span><span id="306" class="l"><a class="l" href="#306">306 </a>
+</span><span id="307" class="l"><a class="l" href="#307">307 </a>    <span class="php-comment">/**
+</span></span><span id="308" class="l"><a class="l" href="#308">308 </a><span class="php-comment">     * set headers
+</span></span><span id="309" class="l"><a class="l" href="#309">309 </a><span class="php-comment">     */</span>
+</span><span id="310" class="l"><a class="l" href="#310">310 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> <a id="_setHeaders" href="#_setHeaders">setHeaders</a>() {
+</span><span id="311" class="l"><a class="l" href="#311">311 </a>        <span class="php-keyword2">header</span>(<span class="php-quote">&quot;HTTP/1.1 &quot;</span> . <span class="php-var">$this</span>-&gt;code . <span class="php-quote">&quot; &quot;</span> . <span class="php-var">$this</span>-&gt;getStatusMessage());
+</span><span id="312" class="l"><a class="l" href="#312">312 </a>        <span class="php-keyword2">header</span>(<span class="php-quote">&quot;Content-Type:&quot;</span> . <span class="php-var">$this</span>-&gt;contentType);
+</span><span id="313" class="l"><a class="l" href="#313">313 </a>    }
+</span><span id="314" class="l"><a class="l" href="#314">314 </a>
+</span><span id="315" class="l"><a class="l" href="#315">315 </a>}
+</span><span id="316" class="l"><a class="l" href="#316">316 </a></span></code></pre>
 	</div>
 
 	<div id="footer">

@@ -240,7 +240,6 @@ class Paginator {
         // if there are pages to be shown
         if ($pages > 1) {
             ?>
-            <div class="<?= implode(' ', $classes) ?>">
                 <ul class="<?= implode(' ', $classes) ?>">
                     <?php
                     /**
@@ -343,7 +342,6 @@ class Paginator {
                         ?>
                     <li class="<?= implode(' ', $classes) ?>"><a href="<?= ($href) ?>"><?= ($next) ?></a></li>
                 </ul>
-            </div>
             <?php
         }
         $_response = ob_get_contents();

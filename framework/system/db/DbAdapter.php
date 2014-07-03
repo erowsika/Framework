@@ -385,6 +385,7 @@ abstract class DbAdapter {
      * reset database query
      */
     public function reset() {
+
         $this->column = array();
         $this->criteria = '';
         $this->tables = array();
@@ -418,8 +419,14 @@ abstract class DbAdapter {
      * @return type
      */
     public function All($mode = 'Object') {
-        return ($mode == 'Assoc') ?
-                $this->get()->fetchAssoc() : $this->get()->fetchObject();
+       
+        if ($mode == 'Assoc') {
+            $result = $this->get()->fetchAssoc();
+        } else {
+            $result = $this->get()->fetchObject();
+        }
+        $this->reset();
+        return $result;
     }
 
     /**
@@ -444,7 +451,6 @@ abstract class DbAdapter {
             if ($this->autoinit) {
                 $this->connect();
             }
-
             if (!($this->stmt = $this->conn->prepare($sql))) {
                 $message = $this->conn->errorInfo();
                 $errorCode = $this->conn->errorCode();

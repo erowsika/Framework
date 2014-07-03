@@ -20,6 +20,7 @@ use system\core\DbException;
 class Oci8 extends DbAdapter implements Connection {
 
     protected $_commit = OCI_COMMIT_ON_SUCCESS;
+    private $lastInsertId;
 
     /**
      * 
@@ -192,7 +193,7 @@ class Oci8 extends DbAdapter implements Connection {
      * @return type
      */
     public function insertId($sequence = null) {
-        return 0;
+        return $this->lastInsertId;
     }
 
     /**
@@ -204,9 +205,9 @@ class Oci8 extends DbAdapter implements Connection {
         try {
             foreach ($data as $key => $value) {
                 $name = ":" . $key;
-
                 if (!oci_bind_by_name($this->stmt, $name, $data[$key])) {
                     $e = oci_error();
+                    echo $name.'<br>';
                     throw new DbException($e['message']);
                 }
             }
@@ -295,8 +296,7 @@ class Oci8 extends DbAdapter implements Connection {
     public function _limit($sql, $limit, $offset) {
         $offset = intval($offset);
         $stop = $offset + intval($limit);
-        return
-                "SELECT * FROM (SELECT a.*, rownum ar_rnum__ FROM ($sql) a " .
+        return "SELECT * FROM (SELECT a.*, rownum ar_rnum__ FROM ($sql) a " .
                 "WHERE rownum <= $stop) WHERE ar_rnum__ > $offset";
     }
 
@@ -310,26 +310,32 @@ class Oci8 extends DbAdapter implements Connection {
         return $this;
     }
 
-   /**
-     * override
+    /**
+     * override method insert to customize and get last insert id
      * @param type $table
-     * @param type $where
+     * @param type $data
      * @return type
      */
-   /* public function countAll($table, $where = null) {
-        if (is_array($where)) {
-            foreach ($where as $col => $val) {
-                $wheres[] = "$col = '" . $this->escape($val) . "'";
+    public function insert($table, $data = array()) {
+        $primary_key = '';
+        $fields = array_keys($data);
+        $colBind = array();
+        foreach ($data as $key => $val) {
+            $data[$key] = $this->escape($val);
+            $colBind[] = ':'.$key;
+        }
+       
+        $cols = $this->columns($table);
+        foreach ($cols as $key => $value) {
+            if ($value['pk']) {
+                $primary_key = $value['name'];
+                $data[$primary_key] = 999999;
+                break;
             }
-            $where = implode(' AND ', $wheres);
         }
-
-        if (!empty($where)) {
-            $where = " WHERE " . $where;
-        }
-
-        $result = $this->query("SELECT COUNT(*) AS num_rows FROM $table $where")->fetchAssoc();
-        $result = reset($result);
-        return $result['NUM_ROWS'];
-    } */
+        $sql = "INSERT INTO $table (" . implode(', ', $fields) . ") VALUES (" . implode(", ", $colBind) . ") RETURNING $primary_key INTO :$primary_key ";
+        $this->query($sql, $data);
+        $this->lastInsertId = $data[$primary_key];
+        return true;
+    }
 }

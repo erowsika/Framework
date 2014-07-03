@@ -8,7 +8,7 @@
 	<title>File framework/system/db/Database.php | framework</title>
 
 	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
-	<script type="text/javascript" src="elementlist.js?1938111067"></script>
+	<script type="text/javascript" src="elementlist.js?815270973"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -53,17 +53,6 @@
 		<div id="groups">
 			<h3>Namespaces</h3>
 			<ul>
-				<li><a href="namespace-app.html">app<span></span></a>
-						<ul>
-				<li><a href="namespace-app.controllers.html">controllers</a>
-						</li>
-				<li><a href="namespace-app.core.html">core</a>
-						</li>
-				<li><a href="namespace-app.models.html">models</a>
-						</li>
-				<li><a href="namespace-app.moduls.html">moduls</a>
-						</li>
-							</ul></li>
 				<li><a href="namespace-None.html">None</a>
 						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -167,8 +156,8 @@
 </span><span id="44" class="l"><a class="l" href="#44">44 </a>
 </span><span id="45" class="l"><a class="l" href="#45">45 </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(self::<span class="php-var">$connections</span>[<span class="php-var">$name</span>])) {
 </span><span id="46" class="l"><a class="l" href="#46">46 </a>            <span class="php-keyword1">if</span> (<span class="php-var">$config</span>[<span class="php-quote">'driver'</span>] == <span class="php-quote">'pdo'</span>) {
-</span><span id="47" class="l"><a class="l" href="#47">47 </a>                <span class="php-var">$dsn</span> = <span class="php-var">$config</span>[<span class="php-quote">'dsn'</span>];
-</span><span id="48" class="l"><a class="l" href="#48">48 </a>                <span class="php-var">$dbadapter</span> = <span class="php-quote">'pdo\\'</span> . <span class="php-keyword2">ucwords</span>(<span class="php-keyword2">reset</span>(<span class="php-keyword2">explode</span>(<span class="php-quote">':'</span>, <span class="php-var">$dsn</span>)));
+</span><span id="47" class="l"><a class="l" href="#47">47 </a>                <span class="php-var">$dsn</span> = <span class="php-keyword2">explode</span>(<span class="php-quote">':'</span>, <span class="php-var">$config</span>[<span class="php-quote">'dsn'</span>]);
+</span><span id="48" class="l"><a class="l" href="#48">48 </a>                <span class="php-var">$dbadapter</span> = <span class="php-quote">'pdo\\'</span> . <span class="php-keyword2">ucwords</span>(<span class="php-keyword2">reset</span>(<span class="php-var">$dsn</span>));
 </span><span id="49" class="l"><a class="l" href="#49">49 </a>            } <span class="php-keyword1">else</span> {
 </span><span id="50" class="l"><a class="l" href="#50">50 </a>                <span class="php-var">$dbadapter</span> = <span class="php-keyword2">ucwords</span>(<span class="php-var">$config</span>[<span class="php-quote">'driver'</span>]);
 </span><span id="51" class="l"><a class="l" href="#51">51 </a>            }

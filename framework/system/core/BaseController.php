@@ -162,30 +162,32 @@ class BaseController extends BaseView {
      * @return boolean
      */
     public function checkAccess() {
-        $method = Base::instance()->router->getAction();
-        $auth = null;
-        if (method_exists($this, 'access')) {
-            $auth = Base::instance()->auth;
-            $access = $this->access();
-            foreach ($access as $rule) {
-                $executes = $rule['executes'];
-
-                $userRole = isset($rule['user']) ? $rule['user'] : $rule['role'];
-
-                $userAuth = isset($rule['user']) ? $auth->getUser() : $auth->getRole();
-
-                if (in_array($method, $executes)) {
-                    $accessType = reset($rule);
-                    $isDefined = in_array($userAuth, $userRole);
-                    if ($accessType == 'grant' and $isDefined) {
-                        return true;
-                    } else if ($accessType == 'revoke' and $isDefined and $auth->isGuest()) {
-                        $this->redirect($auth->loginUrl);
-                    } else if ($accessType == 'revoke' and $isDefined) {
-                        throw new HttpException('you are not allowed to access this page', 403);
-                    }
-                }
+        $action = Base::instance()->router->getAction();
+        if (!method_exists($this, $action)) {
+            throw new HttpException('Page not found', 404);
+        }
+        foreach ($this->access() as $rule) {
+            $userList = array_key_exists('user', $rule) ? $rule['user'] : $rule['role'];
+            if (!in_array($action, $rule['executes'])) {
+                throw new HttpException('you are not allowed to access this page', 403);
             }
+            
+            if ($this->processAccess($rule, $userList)) {
+                return true;
+            }
+        }
+    }
+
+    public function processAccess($rule, $listUser) {
+        $auth = Base::instance()->auth;
+        $user = array_key_exists('user', $rule) ? $auth->getUser() : $auth->getRole();
+        $isDefined = in_array($user, $listUser);
+        if ($rule[0] == 'grant' and $isDefined) {
+            return true;
+        } else if ($rule[0] == 'revoke' and $isDefined and $auth->isGuest()) {
+            $this->redirect($auth->loginUrl);
+        } else if ($rule[0] == 'revoke' and $isDefined) {
+            return false;
         }
     }
 

@@ -34,7 +34,6 @@ class Base {
      * @access public
      * 
      */
-
     public function __construct() {
 
         // assign config string to this member

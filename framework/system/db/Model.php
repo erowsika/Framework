@@ -47,7 +47,7 @@ class Model {
      *
      * @var type 
      */
-    protected $connection;
+    protected $db;
 
     /**
      *
@@ -59,7 +59,7 @@ class Model {
      *
      * @var type 
      */
-    private static $instance;
+    private static $instance = array();
 
     /**
      * constructor
@@ -74,7 +74,7 @@ class Model {
             $table = explode('\\', get_called_class());
             $this->table = end($table);
         }
-        $this->connection = Database::getConnection($db);
+        $this->db = Database::getConnection($db);
     }
 
     /**
@@ -82,11 +82,23 @@ class Model {
      * @return type
      */
     public static function model() {
-        if (self::$instance === null) {
-            $class = get_called_class();
-            self::$instance = new $class();
+        $class = get_called_class();
+        if (!isset(self::$instance[$class])) {
+            self::$instance[$class] = new $class();
         }
-        return self::$instance;
+        return self::$instance[$class];
+    }
+
+    public function insertId() {
+        return $this->db->insertId();
+    }
+
+    public function __call($name, $arguments) {
+        if (method_exists($this->db, $name)) {
+            return call_user_func_array(array($this->db, $name), $arguments);
+        } else {
+            throw new \system\core\MainException("function $name not found");
+        }
     }
 
     public static function __callStatic($name, $arguments) {
@@ -103,8 +115,8 @@ class Model {
      * @return type
      */
     public function find() {
-        $this->connection->select()->from($this->table);
-        return $this->connection;
+        $this->db->select()->from($this->table);
+        return $this->db;
     }
 
     /**
@@ -114,8 +126,7 @@ class Model {
      */
     public function findByPk($pk) {
         $this->getColumn();
-
-        return $this->connection->select()
+        return $this->db->select('*')
                         ->from($this->table)
                         ->where(array($this->pk => $pk));
     }
@@ -127,8 +138,8 @@ class Model {
      * @return type
      */
     public function findBySql($sql, $values = null) {
-        $this->connection->reset();
-        return $this->connection->query($sql, $values);
+        $this->db->reset();
+        return $this->db->query($sql, $values);
     }
 
     /**
@@ -170,7 +181,7 @@ class Model {
     public function getColumn() {
 
         if ($this->pk == '') {
-            $cols = $this->connection->columns($this->table);
+            $cols = $this->db->columns($this->table);
             foreach ($cols as $key => $value) {
                 if ($value['pk']) {
                     $this->pk = $value['name'];
@@ -197,7 +208,7 @@ class Model {
             $where = array($this->pk => $this->attributes[$this->pk]);
         }
 
-        $this->connection->update($this->table, $this->attributes, $where);
+        $this->db->update($this->table, $this->attributes, $where);
         return $this;
     }
 
@@ -209,7 +220,7 @@ class Model {
         if ($isValidate === true and ! $this->validate()) {
             return false;
         }
-        $this->connection->insert($this->table, $this->attributes);
+        $this->db->insert($this->table, $this->attributes);
         return $this;
     }
 
@@ -218,7 +229,7 @@ class Model {
      * @return type
      */
     public function countAll() {
-        return $this->connection->countAll($this->table);
+        return $this->db->countAll($this->table);
     }
 
     /**
@@ -235,7 +246,7 @@ class Model {
             if (!$where) {
                 $where = array($this->pk => $this->attributes[$this->pk]);
             }
-            $this->connection->delete($this->table, $where);
+            $this->db->delete($this->table, $where);
             return $this;
         } catch (\system\core\DbException $exc) {
             echo $exc->printError();
@@ -248,7 +259,7 @@ class Model {
      * @return type
      */
     public function updateAll($data) {
-        return $this->connection->update($this->table, $data);
+        return $this->db->update($this->table, $data);
     }
 
     /**
@@ -258,7 +269,7 @@ class Model {
     public function first() {
         $this->getColumn();
 
-        $result = $this->connection->select()
+        $result = $this->db->select()
                 ->from($this->table)
                 ->limit(0, 1)
                 ->orderBy($this->pk, 'ASC')
@@ -274,7 +285,7 @@ class Model {
     public function last() {
         $this->getColumn();
 
-        $result = $this->connection->select()
+        $result = $this->db->select()
                 ->from($this->table)
                 ->orderBy($this->pk, 'ASC')
                 ->get()
