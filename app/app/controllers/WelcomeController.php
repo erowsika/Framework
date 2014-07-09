@@ -10,7 +10,7 @@ namespace app\controllers;
  */
 use app\core\Controller;
 
-class Welcome extends Controller {
+class WelcomeController extends Controller {
 
     /**
      * constructor
@@ -26,7 +26,7 @@ class Welcome extends Controller {
     public function index() {
       //  self::enqueueScriptFile('assets/js/boostrap.js');
        // self::enqueueStyleFile('assets/css/boostrap.css');
-        $this->display("welcome\index.php");
+      echo  $this->outputHtml("welcome\index.php");
     }
 
     public function dokumentasi() {

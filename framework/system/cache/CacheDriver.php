@@ -28,36 +28,36 @@ interface CacheDriver {
      * @param integer $time
      * @param boolean $isOverwrite
      */
-    public function _set($key, $value = "", $time = 600, $isOverwrite = true);
+    public function set($key, $value = "", $time = 600, $isOverwrite = true);
 
     /**
      * get the cache data
      * @param string $key
      */
-    public function _get($key);
+    public function get($key);
 
     /**
      * delete the cache data
      * @param string $key
      */
-    public function _delete($key);
+    public function delete($key);
 
     /**
      * flush data
      */
-    public function _flush();
+    public function flush();
 
     /**
      * increment
      * @param string $key
      * @param string $offset
      */
-    public function _increment($key, $offset = 1);
+    public function increment($key, $offset = 1);
 
     /**
      * decrement
      * @param string $key
      * @param string $offset
      */
-    public function _decrement($key, $offset = 1);
+    public function decrement($key, $offset = 1);
 }

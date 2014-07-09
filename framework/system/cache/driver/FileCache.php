@@ -34,7 +34,7 @@ class FileCache extends BaseCache implements CacheDriver {
      * @param string $option
      * @return string
      */
-    public function _delete($key) {
+    public function delete($key) {
         $filename = $this->getFileName($key);
         if (file_exists($filename) || is_readable($filename)) {
             unlink($filename);
@@ -46,7 +46,7 @@ class FileCache extends BaseCache implements CacheDriver {
     /**
      * flush data cache
      */
-    public function _flush() {
+    public function flush() {
         $dir = (isset($this->config['path'])) ? isset($this->config['path']) : '/tmp/s_cache';
         $files = array_diff(scandir($dir), array('.', '..'));
         foreach ($files as $file) {
@@ -61,7 +61,7 @@ class FileCache extends BaseCache implements CacheDriver {
      * @param string $option
      * @return string
      */
-    public function _get($key) {
+    public function get($key) {
         $filename = $this->getFileName($key);
 
         if (!file_exists($filename)) {
@@ -94,7 +94,7 @@ class FileCache extends BaseCache implements CacheDriver {
      * @param string $time
      * @param string $option
      */
-    public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
+    public function set($key, $value = "", $time = 600, $isOverwrite = true) {
         $filename = $this->getFileName($key);
 
 
@@ -131,7 +131,7 @@ class FileCache extends BaseCache implements CacheDriver {
      * @param string $offset
      * @return string
      */
-    public function _decrement($key, $offset = 1) {
+    public function decrement($key, $offset = 1) {
         
     }
 
@@ -141,7 +141,7 @@ class FileCache extends BaseCache implements CacheDriver {
      * @param string $offset
      * @return string
      */
-    public function _increment($key, $offset = 1) {
+    public function increment($key, $offset = 1) {
         
     }
 

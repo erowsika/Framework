@@ -39,42 +39,4 @@ class BaseCache {
      */
     public $path = "";
 
-    /**
-     * set data cache
-     * @param string $key
-     * @param string $value
-     * @param string $time
-     * @param string $option
-     */
-    public function set($key, $value, $time = 600, $isOverwrite = true) {
-        $this->_set($key, $value, $time, $isOverwrite);
-    }
-
-    /**
-     * get data cache
-     * @param string $key
-     * @param string $option
-     * @return string
-     */
-    public function get($key) {
-        return $this->_get($key);
-    }
-
-    /**
-     * delete cache data
-     * @param string $key
-     * @param string $option
-     * @return string
-     */
-    public function delete($key) {
-        return $this->_delete($key, $option);
-    }
-
-    /**
-     * flush data cache
-     */
-    public function flush() {
-        $this->_flush();
-    }
-
 }

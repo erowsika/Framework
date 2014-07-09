@@ -37,14 +37,14 @@ class ApcCache extends BaseCache implements CacheDriver {
      * @param string $option
      * @return string
      */
-    public function _delete($key) {
+    public function delete($key) {
         return apc_delete($key);
     }
 
     /**
      * flush data cache
      */
-    public function _flush() {
+    public function flush() {
         apc_clear_cache();
         apc_clear_cache("user");
     }
@@ -55,7 +55,7 @@ class ApcCache extends BaseCache implements CacheDriver {
      * @param string $option
      * @return string
      */
-    public function _get($key) {
+    public function get($key) {
         $data = apc_fetch($key, $status);
         if (!$status) {
             return null;
@@ -70,7 +70,7 @@ class ApcCache extends BaseCache implements CacheDriver {
      * @param string $time
      * @param string $option
      */
-    public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
+    public function set($key, $value = "", $time = 600, $isOverwrite = true) {
         if ($isOverwrite) {
             return apc_add($key, $value, $time);
         } else {
@@ -84,7 +84,7 @@ class ApcCache extends BaseCache implements CacheDriver {
      * @param string $offset
      * @return string
      */
-    public function _decrement($key, $offset = 1) {
+    public function decrement($key, $offset = 1) {
         return apc_dec($key, $offset);
     }
 
@@ -94,7 +94,7 @@ class ApcCache extends BaseCache implements CacheDriver {
      * @param string $offset
      * @return string
      */
-    public function _increment($key, $offset = 1) {
+    public function increment($key, $offset = 1) {
         return apc_inc($key, $offset);
     }
 

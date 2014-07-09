@@ -80,7 +80,7 @@ class BaseController extends BaseView {
      */
     public function startCache() {
         $this->isCache = true;
-        $this->cacheName = Base::instance()->router->getController() . '_' . Base::instance()->router->getMethod();
+        $this->cacheName = Base::instance()->router->getController() . '_' . Base::instance()->router->getAction();
         if (($output = Base::instance()->cache->get($this->cacheName))) {
             echo $output;
             exit();
@@ -171,7 +171,7 @@ class BaseController extends BaseView {
             if (!in_array($action, $rule['executes'])) {
                 throw new HttpException('you are not allowed to access this page', 403);
             }
-            
+
             if ($this->processAccess($rule, $userList)) {
                 return true;
             }
@@ -196,12 +196,17 @@ class BaseController extends BaseView {
      * @param string $url
      */
     public function redirect($url) {
-        if ($url and strpos($url, "://") == false)
+        if ($url and strpos($url, "://") == false) {
             $url = Base::instance()->base_url . $url;
+        }
         header("Location: " . $url);
     }
 
-    /**
+    protected function access(){
+        return array();
+    }
+
+        /**
      * 
      */
     public function beforeExecute() {

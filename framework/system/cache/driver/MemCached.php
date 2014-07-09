@@ -42,14 +42,14 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param string $option
      * @return string
      */
-    public function _delete($key) {
+    public function delete($key) {
         $this->memcached->delete($key);
     }
 
     /**
      * flush data cache
      */
-    public function _flush() {
+    public function flush() {
         $this->memcached->flush();
     }
 
@@ -59,7 +59,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param string $option
      * @return string
      */
-    public function _get($key) {
+    public function get($key) {
         $value = $this->memcached->get($key);
         return ($value == null) ? null : $value;
     }
@@ -71,7 +71,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param string $time
      * @param string $option
      */
-    public function _set($key, $value = "", $time = 600, $isOverwrite = true) {
+    public function set($key, $value = "", $time = 600, $isOverwrite = true) {
         $this->memcached->set($key, $value, $time);
     }
 
@@ -81,7 +81,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param string $offset
      * @return string
      */
-    public function _decrement($key, $offset = 1) {
+    public function decrement($key, $offset = 1) {
         $this->memcached->decrement($key, $offset);
     }
 
@@ -91,7 +91,7 @@ class MemCached extends BaseCache implements CacheDriver {
      * @param string $offset
      * @return string
      */
-    public function _increment($key, $offset = 1) {
+    public function increment($key, $offset = 1) {
         $this->memcached->increment($key, $offset);
     }
 

@@ -9,48 +9,19 @@
 namespace system\cache;
 
 /**
- * Description of cache 
+ * Description of Cache
  *
  * @author masfu
  */
-use system\cache\driver as driver;
-use system\core\MainException;
-use system\core\Config;
-
 class Cache {
-
-    /**
-     * this is a cache object
-     * @var Cache 
-     */
-    private $cache = null;
-
-    /**
-     * public constructor
-     * @throws MainException
-     */
+    
+    private $cache;
+    
     public function __construct() {
-        $config = Config::getInstance()->get('cache');
-
-        switch ($config['driver']) {
-            case 'apc':
-                $this->cache = new driver\ApcCache($config);
-                break;
-            case 'memcache':
-                $this->cache = new driver\MemCache($config);
-                break;
-            case 'memcached':
-                $this->cache = new driver\MemCached($config);
-                break;
-            case 'file':
-                $this->cache = new driver\FileCache($config);
-                break;
-            default:
-                throw new MainException('cache driver not found check your config file');
-                break;
-        }
+        $cache = new CacheFactory();
+        $this->cache = $cache->create();
     }
-
+    
     /**
      * magic method to call the function dynamically
      * @param string $name
@@ -65,5 +36,5 @@ class Cache {
             throw new MainException("method {$name} doesn't exist");
         }
     }
-
+    
 }
