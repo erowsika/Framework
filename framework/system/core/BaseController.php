@@ -62,8 +62,9 @@ class BaseController extends BaseView {
             return parent::__get($name);
         } else if (Base::instance()->$name) {
             return Base::instance()->$name;
-        } else
+        } else {
             throw new MainException("$name doesnt exist");
+        }
     }
 
     /**
@@ -124,11 +125,16 @@ class BaseController extends BaseView {
         }
 
         if (count($script) > 0) {
+            $jqueryScript = '';
             $scr .= "<script type=\"text/javascript\">\n/*<![CDATA[*/\njQuery(function(){";
             foreach ($script as $val) {
-                $scr.=$val . "\n";
+                if (substr($val, 1) != '$') {
+                    $jqueryScript .= $val . "\n";
+                } else {
+                    $scr.= $val . "\n";
+                }
             }
-            $scr.="\n});\n/*]]>*/\n</script>";
+            $scr.="\n}); \n $jqueryScript\n </script>";
         }
         return $scr;
     }
@@ -168,6 +174,7 @@ class BaseController extends BaseView {
         }
         foreach ($this->access() as $rule) {
             $userList = array_key_exists('user', $rule) ? $rule['user'] : $rule['role'];
+            
             if (!in_array($action, $rule['executes'])) {
                 throw new HttpException('you are not allowed to access this page', 403);
             }
@@ -202,11 +209,11 @@ class BaseController extends BaseView {
         header("Location: " . $url);
     }
 
-    protected function access(){
+    protected function access() {
         return array();
     }
 
-        /**
+    /**
      * 
      */
     public function beforeExecute() {

@@ -125,7 +125,15 @@ class Router {
      * @return type
      */
     private static function replaceCallback($pattern) {
-        return isset(self::$match[$pattern['key']]) ? self::$match[$pattern['key']] : '';
+        $match = "";
+        if (isset(self::$match[$pattern['key']])) {
+            $match = self::$match[$pattern['key']];
+        }
+
+        if ($pattern['key'] == 'controller') {
+            ucwords($match);
+        }
+        return $match;
     }
 
     /**
@@ -162,7 +170,8 @@ class Router {
      * 
      */
     public function getController() {
-
+        
+        $this->controller = $this->upperClassName($this->controller);
         if (isset($this->rules['controller_suffix'])) {
             $this->controller = $this->controller . $this->rules['controller_suffix'];
         }
@@ -213,6 +222,12 @@ class Router {
      */
     public function getSegment($index) {
         return $this->segments[$index];
+    }
+
+    private function upperClassName($class) {
+        $class = explode('\\', $class);
+        $class[count($class) - 1] = ucwords(end($class));
+        return implode('\\', $class);
     }
 
 }

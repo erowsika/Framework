@@ -28,12 +28,14 @@ class Base {
         'cache' => 'system\cache\Cache',
         'session' => 'system\helper\Session',
         'cookie' => 'system\helper\Cookie',
-        'html' => 'system\helper\Html');
+        'html' => 'system\helper\Html',
+        'ajax' => 'system\helper\Ajax');
 
     /* this is a constructor
      * @access public
      * 
      */
+
     public function __construct() {
 
         // assign config string to this member
@@ -115,7 +117,7 @@ class Base {
      */
     public static function invoke($class, $method, $parameters = array()) {
         if (method_exists($class, $method)) {
-            call_user_func_array(array(&$class, $method), $parameters);
+            return call_user_func_array(array(&$class, $method), $parameters);
         }
     }
 
