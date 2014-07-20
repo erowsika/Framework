@@ -54,6 +54,10 @@ class Base {
           throw new MainException("please use the different alias for moduls  $sameclass");
           } */
         $this->classes = array_merge($this->classes, $moduls);
+
+        set_exception_handler('system\core\MainException::handleException');
+        set_error_handler('system\core\MainException::handleError', error_reporting());
+
         register_shutdown_function(array($this, 'shutDown'));
     }
 
@@ -136,28 +140,33 @@ class Base {
         }
         $method = $this->router->getAction();
         $parameters = $this->router->getParameter();
-        //echo $namespace . '<br>' . $controller . '<br>' . $method;
-        //die;
+        
         try {
-            if (isset($method) and class_exists($controller, true)) {
-
+            if (class_exists($controller, true)) {
                 $this->$controller = new $controller();
-
-                if (in_array($method, get_class_methods($this->$controller))) {
-
-                    self::invoke($this->$controller, "beforeExecute");
-
-                    self::invoke($this->$controller, $method, $parameters);
-
-                    self::invoke($this->$controller, "afterExecute");
-                } else {
-                    throw new HttpException('Page not found', 404);
-                }
+                $this->runController($controller, $method, $parameters);
             } else {
                 throw new HttpException('Page not found', 404);
             }
         } catch (HttpException $e) {
             $e->printError();
+        }
+    }
+
+    /**
+     * run controller
+     * @param type $controller
+     * @param type $method
+     * @param type $parameters
+     * @throws HttpException
+     */
+    private function runController($controller, $method, $parameters) {
+        if (in_array($method, get_class_methods($this->$controller))) {
+            self::invoke($this->$controller, "beforeExecute");
+            self::invoke($this->$controller, $method, $parameters);
+            self::invoke($this->$controller, "afterExecute");
+        } else {
+            throw new HttpException('Page not found', 404);
         }
     }
 

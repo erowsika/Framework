@@ -149,7 +149,7 @@ class BaseView {
      * @return type
      */
     public function outputJson($data, $options = 0, $depth = 512) {
-        return json_encode($data, $options, $depth);
+        return json_encode($data, $options);
     }
 
     /**

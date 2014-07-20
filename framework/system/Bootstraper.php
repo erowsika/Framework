@@ -33,21 +33,18 @@ spl_autoload_register(function($class) {
 
     try {
         $filename = DIRECTORY_SEPARATOR . str_ireplace('\\', '/', $class) . EXT_FILE;
-        if (file_exists(($file = str_replace(SYS_NAME, '', __DIR__) . $filename))) {
-            require_once $file;
-        } else if (file_exists(($file = DIR_APP . $filename))) {
-            require_once $file;
-        } else {
+        $dir = strpos($filename, SYS_NAME) ? str_replace(SYS_NAME, '', __DIR__) : DIR_APP;
+        $file = $dir . $filename;
+        
+        if (!file_exists($file)) {
             throw new \Exception("Unable to load $filename file not found");
         }
+        
+        require $file;
     } catch (\Exception $e) {
         
     }
 });
-
-//set_exception_handler('core\MainException::handler');
-//set_error_handler('core\MainException::errorCallback', error_reporting());
-
 
 use system\core as core;
 
