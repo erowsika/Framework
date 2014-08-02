@@ -183,8 +183,10 @@ class Validator {
      */
     private function validateUnique($var, $label) {
         $val = $this->attributes[$var];
-        $is_exist = $this->model->find()->where("$var = '$val'")->All();
-        if (count($is_exist) > 0) {
+        $is_exist = $this->model->find(array(
+            'where' => array("$var = '$val'")
+        ));
+        if ($is_exist) {
             $this->errors[$var] = $label . $this->error_message[11];
         } else {
             return true;

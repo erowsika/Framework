@@ -174,7 +174,7 @@ class BaseController extends BaseView {
         }
         foreach ($this->access() as $rule) {
             $userList = array_key_exists('user', $rule) ? $rule['user'] : $rule['role'];
-            
+
             if (!in_array($action, $rule['executes'])) {
                 throw new HttpException('you are not allowed to access this page', 403);
             }
@@ -185,6 +185,12 @@ class BaseController extends BaseView {
         }
     }
 
+    /**
+     * prosess rules
+     * @param type $rule
+     * @param type $listUser
+     * @return boolean
+     */
     public function processAccess($rule, $listUser) {
         $auth = Base::instance()->auth;
         $user = array_key_exists('user', $rule) ? $auth->getUser() : $auth->getRole();
@@ -209,6 +215,19 @@ class BaseController extends BaseView {
         header("Location: " . $url);
     }
 
+    /**
+     * back to previous page
+     * this method is inspired by Yii2
+     */
+    public function goBack() {
+        $referrer = Base::instance()->input->getReferer();
+        return $this->redirect($referrer);
+    }
+
+    /**
+     * 
+     * @return type
+     */
     protected function access() {
         return array();
     }

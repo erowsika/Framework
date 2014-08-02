@@ -190,7 +190,7 @@ class Mysql extends DbAdapter implements Connection {
      * 
      * @param type $data
      */
-    public function bindParam($data = array()) {
+    public function bindParam(&$data = array()) {
         foreach ($data as $key => $value) {
             $name = ":" . $key;
             $value = "'" . $this->escape($value) . "'";

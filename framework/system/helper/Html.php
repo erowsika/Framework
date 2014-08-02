@@ -120,7 +120,7 @@ class Html {
                 $selected = array($_POST[$name]);
             }
         }
-        $form = '<select name="' . $name . '"' . $extra . $multiple . ">\n";
+        $form = '<select name="' . $name . '" ' . $extra . $multiple . ">\n";
 
         foreach ($options as $key => $val) {
 

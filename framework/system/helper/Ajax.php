@@ -33,12 +33,45 @@ SCRIPT
         return $jsfunc . '()';
     }
 
-    public function get() {
-        
+    /**
+     * 
+     * @param type $url
+     * @param type $target
+     * @param type $data
+     */
+    public function get($url, $target, $data = array()) {
+        $jsfunc = $this->convertUrlToMethod($url);
+        $url = $this->getFullUrl($url);
+        self::enqueueScript(
+                <<<EOF
+        function $jsfunc(){
+            $.get('$url', {}, function(response) {
+               $('$target').html(response);
+            })        
+        }
+EOF
+        );
+        return $jsfunc . '()';
     }
 
-    public function load($selector, $url) {
-        
+    /**
+     * 
+     * @param type $selector
+     * @param type $url
+     */
+    public function load($url, $selector) {
+        $jsfunc = $this->convertUrlToMethod($url);
+        $url = $this->getFullUrl($url);
+        self::enqueueScript(
+                <<<EOF
+        function $jsfunc(){        
+            $.load({url:'$url',success:function(result){
+                $('$selector').html(result);
+            }});
+        }
+EOF
+        );
+        return $jsfunc . '()';
     }
 
     public function post() {
@@ -83,8 +116,8 @@ SCRIPT
         }
         return $url;
     }
-    
-    private function convertUrlToMethod($url){
+
+    private function convertUrlToMethod($url) {
         return str_replace('/', '', $url);
     }
 

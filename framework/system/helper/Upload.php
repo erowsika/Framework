@@ -16,9 +16,17 @@ class Upload {
         '0' => 'Invalid upload directory.',
         '1' => 'Invalid number of file upload parameters.',
         '2' => 'Invalid MIME type of target file.');
+    
     private $allowedTypes = array
         ('jpg', 'gif', 'png', 'bmp');
 
+    /**
+     * 
+     * @param type $name
+     * @param type $uploadDir
+     * @param type $destName
+     * @param type $mime
+     */
     public function __construct($name, $uploadDir, $destName = '', $mime = '') {
 
         if ($mime != '') {
@@ -122,6 +130,19 @@ class Upload {
         return $this->tmp_name != '' ? $this->uploadFile : false;
     }
 
+    /**
+     * 
+     * @return type
+     */
+    public function getOriginalFileName(){
+        return $this->name;
+    }
+    
+    /**
+     * 
+     * @param type $file
+     * @return type
+     */
     private function getExt($file) {
         $file = explode('.', $file);
         $ext = end($file);

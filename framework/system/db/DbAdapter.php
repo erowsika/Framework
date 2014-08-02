@@ -257,10 +257,28 @@ abstract class DbAdapter {
             $this->criteria = $where;
         }
 
-        if (is_array($data)) {
+        if (!empty($data)) {
             $this->param = array_merge($this->param, $data);
         }
         return $this;
+    }
+
+    /**
+     * 
+     * @param type $column
+     * @param array $data
+     */
+    public function whereIn($column, array $data) {
+        $where = $column." IN (". implode(', ', $data). ")";
+        $this->criteria .= $where;
+    }
+
+    /**
+     * 
+     * @param array $data
+     */
+    public function param(array $data) {
+        $this->param =  $data;
     }
 
     /**
@@ -398,6 +416,7 @@ abstract class DbAdapter {
         $this->orderType;
         $this->group = array();
         $this->sql = '';
+        $this->param = array();
     }
 
     /**
@@ -410,6 +429,7 @@ abstract class DbAdapter {
             $this->sql = $this->buildSelect();
             $this->query($this->sql, $this->param);
         }
+        
         return $this;
     }
 
@@ -419,7 +439,7 @@ abstract class DbAdapter {
      * @return type
      */
     public function All($mode = 'Object') {
-       
+
         if ($mode == 'Assoc') {
             $result = $this->get()->fetchAssoc();
         } else {

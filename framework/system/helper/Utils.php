@@ -79,10 +79,22 @@ class Utils {
         return date($format, strtotime($date));
     }
 
-    public static function deleteFile($filename){
-        if(file_exists($filename)){
-           return unlink($filename);
+    /**
+     * 
+     * @param type $filename
+     * @return boolean
+     */
+    public static function deleteFile($filename) {
+        if (file_exists($filename) && !is_dir($filename)) {
+            return unlink($filename);
         }
         return false;
     }
+
+    public static function getFileExtension($filename) {
+        $file = explode('.', $filename);
+        $ext = end($file);
+        return strtolower($ext);
+    }
+
 }

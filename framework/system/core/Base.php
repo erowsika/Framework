@@ -17,6 +17,8 @@ class Base {
      */
 
     private static $_instance;
+    
+    public $config;
 
     /**
      * load these automatically class at runtime
@@ -39,7 +41,8 @@ class Base {
     public function __construct() {
 
         // assign config string to this member
-        $conf = Config::getInstance()->getProperty();
+        $this->config = Config::getInstance();
+        $conf = $this->config->getProperty();
         foreach ($conf as $key => $value) {
             if (!is_array($value)) {
                 $this->$key = $value;
@@ -47,7 +50,7 @@ class Base {
         }
 
         //merge core class with moduls class
-        $moduls = Config::getInstance()->get('moduls');
+        $moduls = $this->config->get('moduls');
         /*  $diff = array_intersect_key($moduls, $this->classes);
           if (!empty($diff)) {
           $sameclass = implode(', ', array_keys($diff));

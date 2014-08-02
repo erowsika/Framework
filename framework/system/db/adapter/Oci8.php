@@ -20,6 +20,11 @@ use system\core\DbException;
 class Oci8 extends DbAdapter implements Connection {
 
     protected $_commit = OCI_COMMIT_ON_SUCCESS;
+    
+    /**
+     *
+     * @var type 
+     */
     private $lastInsertId;
 
     /**
@@ -207,7 +212,7 @@ class Oci8 extends DbAdapter implements Connection {
                 $name = ":" . $key;
                 if (!oci_bind_by_name($this->stmt, $name, $data[$key])) {
                     $e = oci_error();
-                    echo $name.'<br>';
+                    echo $name . '<br>';
                     throw new DbException($e['message']);
                 }
             }
@@ -320,11 +325,12 @@ class Oci8 extends DbAdapter implements Connection {
         $primary_key = '';
         $fields = array_keys($data);
         $colBind = array();
+        $returning = '';
         foreach ($data as $key => $val) {
             $data[$key] = $this->escape($val);
-            $colBind[] = ':'.$key;
+            $colBind[] = ':' . $key;
         }
-       
+
         $cols = $this->columns($table);
         foreach ($cols as $key => $value) {
             if ($value['pk']) {
@@ -333,9 +339,15 @@ class Oci8 extends DbAdapter implements Connection {
                 break;
             }
         }
-        $sql = "INSERT INTO $table (" . implode(', ', $fields) . ") VALUES (" . implode(", ", $colBind) . ") RETURNING $primary_key INTO :$primary_key ";
+
+        if ($primary_key != '') {
+            $returning = "RETURNING $primary_key INTO :$primary_key";
+        }
+
+        $sql = "INSERT INTO $table (" . implode(', ', $fields) . ") VALUES (" . implode(", ", $colBind) . ") $returning";
         $this->query($sql, $data);
-        $this->lastInsertId = $data[$primary_key];
+        $this->lastInsertId = isset($data[$primary_key]) ? $data[$primary_key] : 0;
         return true;
     }
+
 }

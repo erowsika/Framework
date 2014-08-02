@@ -62,6 +62,12 @@ class Model {
     private static $instance = array();
 
     /**
+     *
+     * @var type 
+     */
+    private $result = array();
+
+    /**
      * constructor
      * @param type $table
      * @param type $db
@@ -89,10 +95,21 @@ class Model {
         return self::$instance[$class];
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function insertId() {
         return $this->db->insertId();
     }
 
+    /**
+     * 
+     * @param type $name
+     * @param type $arguments
+     * @return type
+     * @throws \system\core\MainException
+     */
     public function __call($name, $arguments) {
         if (method_exists($this->db, $name)) {
             return call_user_func_array(array($this->db, $name), $arguments);
@@ -101,6 +118,13 @@ class Model {
         }
     }
 
+    /**
+     * 
+     * @param type $name
+     * @param type $arguments
+     * @return type
+     * @throws \system\core\MainException
+     */
     public static function __callStatic($name, $arguments) {
         $model = self::model();
         if (method_exists($model, $name)) {
@@ -114,9 +138,14 @@ class Model {
      * get data
      * @return type
      */
-    public function find() {
-        $this->db->select()->from($this->table);
-        return $this->db;
+    public function find($condition = array()) {
+
+        $this->buildCondition($condition);
+
+        if (!isset($condition['select'])) {
+            $this->db->select('*');
+        }
+        return $this->db->from($this->table)->One();
     }
 
     /**
@@ -124,11 +153,35 @@ class Model {
      * @param type $pk
      * @return type
      */
-    public function findByPk($pk) {
+    public function findByPk($pk, $condition = array()) {
         $this->getColumn();
-        return $this->db->select('*')
-                        ->from($this->table)
-                        ->where(array($this->pk => $pk));
+        $this->buildCondition($condition);
+        if (!isset($condition['select'])) {
+            $this->db->select('*');
+        }
+        $this->db->where(array($this->pk => $pk));
+        return $this->db->from($this->table)->One();
+    }
+
+    public function findAll($condition = array()) {
+
+        $this->buildCondition($condition);
+        if (!isset($condition['select'])) {
+            $this->db->select('*');
+        }
+        return $this->db->from($this->table)->All();
+    }
+
+    /*
+     * 
+     */
+
+    private function buildCondition(array $condition) {
+        foreach ($condition as $method => $value) {
+            if (method_exists($this->db, $method)) {
+                call_user_func_array(array($this->db, $method), $value);
+            }
+        }
     }
 
     /**
@@ -172,6 +225,8 @@ class Model {
         }
         if (isset($this->attributes[$name])) {
             return $this->attributes[$name];
+        } else {
+            return '';
         }
     }
 
@@ -221,6 +276,8 @@ class Model {
             return false;
         }
         $this->db->insert($this->table, $this->attributes);
+
+        $this->attributes[$this->pk] = $this->db->insertId();
         return $this;
     }
 
