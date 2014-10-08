@@ -10,9 +10,12 @@
         <link href="<?php echo App::instance()->base_url ?>assets/docs/css/docs.min.css" rel="stylesheet">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo App::instance()->base_url ?>assets/docs/ico/apple-touch-icon-144-precomposed.png">
         <link rel="shortcut icon" href="<?php echo App::instance()->base_url ?>assets/docs/ico/favicon.ico">
+        <link href="<?php echo App::instance()->base_url ?>assets/js/prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="<?php echo App::instance()->base_url ?>assets/js/prettify/prettify.js"></script>
+
         <title><?php echo App::instance()->title ?></title>
     </head>
-    <body class="bs-docs-home">
+    <body class="bs-docs-home" onload="prettyPrint()">
         <?php
         echo $this->outputHtml('layout\menu.php');
         echo $content;

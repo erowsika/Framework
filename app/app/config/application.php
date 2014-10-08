@@ -7,11 +7,29 @@ return array(
      * base url for domain and path 
      */
     'base_url' => 'http://hisyam-pc/framework/app/',
-    
     /*
      * modules is an autoload mechanism
      */
     'moduls' => array('auth' => 'app\core\Auth'),
+    'router' => array(
+        /**
+         * default controller
+         */
+        'default_controller' => 'Welcome',
+        /**
+         * add suffix at the end of controller class
+         */
+        'controller_suffix' => 'Controller',
+        /**
+         * parameter of url pattern
+         */
+        'parameter' => array(
+            'controller' => '(\w+)',
+            'action' => '(\w+)',
+            'id' => '(\d+)',
+            'page' => '(\d+)'
+        )
+    ),
     /*
      * database configuration
      * we can use multiple database connection at same time

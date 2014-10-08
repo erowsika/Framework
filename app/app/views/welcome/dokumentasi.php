@@ -62,13 +62,177 @@
             <div class="bs-docs-section">
                 <h1 id="konfigurasi" class="page-header">Konfigurasi</h1>
                 <p>Semua konfigurasi dasar dari framework ini ada di file <br> <code>app/config/application.php</code></p>
-                <pre>
-                <code class="html">
-                    <p>&lt;?php<br /><br />return array(<br />&nbsp;&nbsp;&nbsp; 'base_path' =&gt; dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',<br />&nbsp;&nbsp;&nbsp; 'title' =&gt; 'Framework baru',<br />&nbsp;&nbsp;&nbsp; /*<br />&nbsp;&nbsp;&nbsp;&nbsp; * base url for domain and path <br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; 'base_url' =&gt; 'http://localhost/framework/app/',<br />&nbsp;&nbsp;&nbsp; /* default router where the default class and action should be called<br />&nbsp;&nbsp;&nbsp;&nbsp; * controller is a class name<br />&nbsp;&nbsp;&nbsp;&nbsp; * action is a function name<br />&nbsp;&nbsp;&nbsp;&nbsp; * <br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; 'router' =&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'controller' =&gt; 'welcome',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'parameter' =&gt; array()),<br />&nbsp;&nbsp;&nbsp; /*<br />&nbsp;&nbsp;&nbsp;&nbsp; * modules is an autoload mechanism<br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; 'modules' =&gt; array('Config' =&gt; 'core\Config',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Router' =&gt; 'core\Router',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Logger' =&gt; 'core\Logger'),<br />&nbsp;&nbsp;&nbsp; /*<br />&nbsp;&nbsp;&nbsp;&nbsp; * database configuration<br />&nbsp;&nbsp;&nbsp;&nbsp; * we can use multiple database connection at same time<br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; 'database' =&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the first database configuration<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'db' =&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'driver' =&gt; 'mysql',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'host' =&gt; 'localhost',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'database' =&gt; 'mydb',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'username' =&gt; 'root',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'password' =&gt; '1234',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'port' =&gt; '3306',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'persistent' =&gt; false,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'autoinit' =&gt; true,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),<br />&nbsp;&nbsp;&nbsp; /* second database<br />&nbsp;&nbsp;&nbsp;&nbsp; * <br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />//"db" =&gt; array()<br />&nbsp;&nbsp;&nbsp; ),<br />&nbsp;&nbsp;&nbsp; 'encoding' =&gt; 'UTF-8',<br />&nbsp;&nbsp;&nbsp; 'timezone' =&gt; 'UTC'<br />);<br /><br /></p>
-                </code>
+                <pre class="prettyprint">
+                    <xmp>
+                        
+
+return array(
+    'base_path' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'title' => 'Framework baru',
+    /*
+     * base url for domain and path 
+     */
+    'base_url' => 'http://hisyam-pc/framework/app/',
+    /*
+     * modules is an autoload mechanism
+     */
+    'moduls' => array('auth' => 'app\core\Auth'),
+    'router' => array(
+        /**
+         * default controller
+         */
+        'default_controller' => 'Welcome',
+        /**
+         * add suffix at the end of controller class
+         */
+        'controller_suffix' => 'Controller',
+        /**
+         * parameter of url pattern
+         */
+        'parameter' => array(
+            'controller' => '(\w+)',
+            'action' => '(\w+)',
+            'id' => '(\d+)',
+            'page' => '(\d+)'
+        )
+    ),
+    /*
+     * database configuration
+     * we can use multiple database connection at same time
+     */
+    'database' => array(
+        /*
+         * the first database configuration
+         */
+        'mysql' => array(
+            'driver' => 'mysqli',
+            'host' => 'localhost',
+            'database' => 'posyandu',
+            'username' => 'root',
+            'password' => '1234',
+            'port' => '3306',
+            'persistent' => false,
+            'autoinit' => true,
+        ),
+        'pgsql' => array(
+            'driver' => 'pgsql',
+            'host' => 'localhost',
+            'database' => 'hr',
+            'username' => 'postgres',
+            'password' => '1234',
+            'persistent' => false,
+            'autoinit' => true,
+        ),
+        'pdo' => array(
+            'driver' => 'pdo',
+            'dsn' => 'sqlite:/mydb.sq3',
+            'username' => 'postgres',
+            'password' => '1234',
+            'persistent' => false,
+            'autoinit' => true,
+        ),
+        'oci' => array(
+            'driver' => 'oci',
+            'dsn' => 'orcl',
+            'username' => 'hr',
+            'password' => 'hr',
+            'port' => '1521',
+            'persistent' => false,
+            'autoinit' => true,
+        ),
+        'mongo' => array(
+            'driver' => 'mongodb',
+            'document' => 'test',
+            'host' => 'localhost',
+            'username' => '',
+            'password' => '',
+            'autoinit' => true,
+        ),
+    ),
+    'encoding' => 'UTF-8',
+    /**
+     * set time zone
+     */
+    'timezone' => 'UTC',
+    /**
+     * set session name
+     */
+    'session' => array(
+        'login_url' => '',
+        /**
+         * set session name
+         */
+        'session_name' => 'framework',
+        /**
+         * session time expiration
+         * default 2 weeks
+         */
+        'session_expire' => 3600 * 24 * 14),
+    'cache' => array('driver' => 'file')
+);
+
+
+                    </xmp>
                 </pre>
             </div>
 
+            <div class="bs-docs-section">
+                <h1 id="routing" class="page-header">Routing</h1>
+                <p>Untuk konfigurasi routing, maka yang perlu diubah adalah file  <br> <code>app/config/router.php</code></p>
+                <pre class="prettyprint">
+                    <xmp>
+      array(
+        /**
+         * 
+         */
+        array('GET', '/admin', 'admin\Login@index'),
+        /**
+         * 
+         */
+        array('GET', '/admin/<controller>', 'app\controllers\admin\<controller>@index'),
+        /**
+         * 
+         */
+        array('GET|POST', '/admin/<controller>/<action>', 'admin\<controller>@<action>'),
+        /**
+         * 
+         */
+        array('GET|POST', '/admin/<controller>/<action>/<id>', 'admin\<controller>@<action>\<id>'),
+        /**
+         * default controller
+         */
+        'default_controller' => 'Beranda',
+        /**
+         * add suffix at the end of controller class
+         */
+        'controller_suffix' => 'Controller',
+        /**
+         * parameter of url pattern
+         */
+        'parameter' => array(
+            'controller' => '(\w+)',
+            'action' => '(\w+)',
+            'id' => '(\d+)',
+            'page' => '(\d+)'
+        )
+    ),
+                    </xmp>
+                </pre>
+            </div>    
+            
+            <div class="bs-docs-section">
+                <h1 id="caching" class="page-header">Caching</h1>
+                <p>Cache berguna untuk menyimpan sementara data dari database atau halaman website utuh</p>
+                <pre class="prettyprint">
+                    <xmp>
+//set data
+App::instance()->cache->set('key','value', 5);  
+
+//get data
+App::instance()->cache->get('key');
+</xmp>
+                </pre>
+            </div>
             <div class="bs-docs-section">
                 <h1 id="mvc" class="page-header">Model View Controller</h1>
                 Model-View-Controller atau MVC adalah sebuah metode untuk membuat sebuah aplikasi dengan memisahkan data (Model) dari tampilan (View) dan cara bagaimana memprosesnya (Controller). Dalam implementasinya kebanyakan framework dalam aplikasi website adalah berbasis arsitektur MVC.[1] MVC memisahkan pengembangan aplikasi berdasarkan komponen utama yang membangun sebuah aplikasi seperti manipulasi data, antarmuka pengguna, dan bagian yang menjadi kontrol dalam sebuah aplikasi web.
@@ -78,10 +242,36 @@
                 <h2 id="controller" class="page-header">Controller</h2>
                 Membuat controller sederhana yaitu bisa dengan mengextends class <code class="html">/system/core/BaseController.php</code>
                 <br>
-                <pre>
-                <code class="html">
-                    <p>&lt;?php<br /><br />namespace app\controllers;<br /><br />/**<br />&nbsp;* Description of welcome<br />&nbsp;* @package name<br />&nbsp;* @author masfu<br />&nbsp;* @copyright (c) 2014, Masfu Hisyam<br />&nbsp;*/<br /><br />use app\core as app;<br />use app\models as model;<br /><br />class welcome extends app\Controller {<br />&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; /**<br />&nbsp;&nbsp;&nbsp;&nbsp; * constructor<br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; public function __construct() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; /**<br />&nbsp;&nbsp;&nbsp;&nbsp; * index page<br />&nbsp;&nbsp;&nbsp;&nbsp; * @access public<br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; public function index() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $this-&gt;display("welcome\index.php");<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; /**<br />&nbsp;&nbsp;&nbsp;&nbsp; * method before execution<br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp; public function beforeExecute() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; }<br /><br />&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; /**<br />&nbsp;&nbsp;&nbsp;&nbsp; * method after execution<br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; public function afterExcetion(){<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; }<br />}<br /><br /></p>
-                </code>
+                <pre class="prettyprint">
+                    <xmp>
+namespace app\controllers;
+
+/**
+ * Description of welcome
+ * @package name
+ * @author masfu
+ * @copyright (c) 2014, Masfu Hisyam
+ */
+use app\core\Controller;
+
+class WelcomeController extends Controller {
+
+    /**
+     * constructor
+     */
+    public function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * index page
+     * @access public
+     */
+    public function index() {
+      return $this->display("welcome\index.php");
+    }
+}
+                    </xmp>
                 </pre>
                 atau bisa kita menggunakan custom controller dengan membuat class di <code>\app\core\Controller.php</code> 
                 yang merupakan turunan dari class <code class="html">/system/core/BaseController.php</code> dengan mengextends nya kita bisa membuat layouting sederharna
@@ -90,10 +280,40 @@
                 <h2 id="model" class="page-header">Model</h2>
                 Model merepresentasikan struktur data dari aplikasi kita. Pada intinya, di model ini memiliki banyak fungsi yang terfokus untuk melakukan retrieve, insert, update, dan delete record dari database.
                 <br>
-                <pre>
-                <code class="html">
-                    <p>&lt;?php<br /><br />/*<br />&nbsp;* To change this license header, choose License Headers in Project Properties.<br />&nbsp;* To change this template file, choose Tools | Templates<br />&nbsp;* and open the template in the editor.<br />&nbsp;*/<br /><br />/**<br />&nbsp;* Description of User<br />&nbsp;* @package name<br />&nbsp;* @author masfu<br />&nbsp;* @copyright (c) 2014, Masfu Hisyam<br />&nbsp;*/<br /><br />namespace app\models;<br /><br />use \system\db as db;<br /><br /><br />class User extends db\ActiveRecord {<br /><br />&nbsp;&nbsp;&nbsp; private $db;<br /><br />&nbsp;&nbsp;&nbsp; public function __construct() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;&nbsp; }<br /><br />&nbsp;&nbsp;&nbsp; public function getSantri() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $db = \Sby::instance()-&gt;db-&gt;createDb();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $hasil = $db-&gt;query('select * from santri');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $data = $hasil-&gt;fetchArray();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foreach ($data as $value) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //&nbsp;&nbsp; print_r($value);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; }<br /><br />}<br /><br /></p>
-                </code>
+                <pre class="prettyprint">
+                    <xmp>
+                        /**
+ * Description of User
+ * @package name
+ * @author masfu
+ * @copyright (c) 2014, Masfu Hisyam
+ */
+
+namespace app\models;
+
+use system\db\Model;
+
+class Users extends Model {
+
+    public function __construct() {
+        parent::__construct();
+    }
+    
+    public function rules() {
+        return array(
+            array(
+                'label' => 'name',
+                'field' => 'name',
+                'rules' => 'type:string|min:0|required:true|trim:true'),
+             array(
+                'label' => 'email',
+                'field' => 'name',
+                'rules' => 'type:email|min:0|required:true|trim:true'),
+            );
+    }
+}
+
+                </xmp>
                 </pre>
             </div>
             <div class="bs-docs-section">
@@ -110,30 +330,43 @@
                 <h2 id="db_konfigurasi" class="page-header">Konfigurasi database</h2>
                 Untuk mengatur koneksi database kita bisa mengedit file <code class="html">\app\config\application.php</code>
                 <br>
-                <pre>
-                <code class="html">
-                    <p>&nbsp;&nbsp;&nbsp; 'database' =&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the first database configuration<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'db' =&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'driver' =&gt; 'mysql',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'host' =&gt; 'localhost',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'database' =&gt; 'mydb',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'username' =&gt; 'root',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'password' =&gt; '1234',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'port' =&gt; '3306',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'persistent' =&gt; false,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'autoinit' =&gt; true,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),<br />&nbsp;&nbsp;&nbsp; /* second database<br />&nbsp;&nbsp;&nbsp;&nbsp; * <br />&nbsp;&nbsp;&nbsp;&nbsp; */<br />//"db" =&gt; array()</p>
-                </code>
+                <pre class="prettyprint">
+                <xmp>
+       'database' => array(
+        /*
+         * the first database configuration
+         */
+        'db' => array(
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'database' => 'mydb',
+            'username' => 'root',
+            'password' => '1234',
+            'port' => '3306',
+            'persistent' => false,
+            'autoinit' => true,
+        ),
+    /* second database
+     *
+     */
+//"db" => array()
+</xmp>
                 </pre>
                 untuk menambah database lagi kita bisa menambah array lagi di bawah dengan nama misalnya db2
             </div>
             <div class="bs-docs-section">
                 <h2 id="db_query" class="page-header">Menulis Query</h2>
                 <br>
-                <pre>
-                <code class="html">
-                    <p>$db = \Sby::instance()-&gt;db-&gt;createDb();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $hasil = $db-&gt;query('select * from santri');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $data = $hasil-&gt;fetchArray();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foreach ($data as $value) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print_r($value);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
-                </code>
+                <pre class="prettyprint">
+                <xmp>
+$db = \Sby::instance()->db->createDb();
+$result = $db->query('select * from users');
+foreach ($hasil->fetchArray() as $value) {
+    var_dump($value);
+}
+    </xmp>
                 </pre>
                 atau kita bisa langsung membuat koneksi ke db dengan class <code class="html">\system\db\SqlProvider</code>
-            </div>
-            <div class="bs-docs-section">
-                <h2 id="db_result" class="page-header">Menampilkan data dari database</h2>
-                <pre>
-                <code class="html">
-                    <p>$hasil = $db-&gt;query('select * from santri');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $data = $hasil-&gt;fetchArray();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foreach ($data as $value) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print_r($value);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
-                </code>
-                </pre>
             </div>
         </div>
         <div class="col-md-3">
@@ -149,6 +382,12 @@
                         <a href="#konfigurasi">Konfigurasi Framework</a>
                     </li>
                     <li>
+                        <a href="#routing">Routing</a>
+                    </li>
+                    <li>
+                        <a href="#caching">Caching</a>
+                    </li>
+                    <li>
                         <a href="#mvc">Model View Controller</a>
                         <ul class="nav">
                             <li><a href="#controller">Controller</a></li>
@@ -161,8 +400,7 @@
                         <ul class="nav">
                             <li><a href="#db_konfigurasi">Konfigurasi</a></li>
                             <li><a href="#db_query">Menulis query</a></li>
-                            <li><a href="#db_result">Menampilkan data</a></li>
-                        </ul>
+                     </ul>
                     </li>
                 </ul>
                 <a class="back-to-top" href="#top">

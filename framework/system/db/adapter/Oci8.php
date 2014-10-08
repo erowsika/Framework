@@ -20,7 +20,7 @@ use system\core\DbException;
 class Oci8 extends DbAdapter implements Connection {
 
     protected $_commit = OCI_COMMIT_ON_SUCCESS;
-    
+
     /**
      *
      * @var type 
@@ -316,6 +316,31 @@ class Oci8 extends DbAdapter implements Connection {
     }
 
     /**
+     * override method update
+     * @param type $table
+     * @param type $data
+     * @param type $where
+     * @return \system\db\adapter\Oci8
+     */
+     public function update($table, $data, $where = null) {
+
+        $datas = array();
+        $wheres = array();
+
+        foreach ($data as $key => $val) {
+            $datas[] = " $key = :$key";
+        }
+
+        if (is_array($where)) {
+            foreach ($where as $col => $val) {
+                $wheres[] = "$col = '" . $this->escape($val) . "'";
+            }
+            $where = implode(' AND ', $wheres);
+        }
+        $this->query("UPDATE $table SET " . implode(', ', $datas) . ' WHERE ' . $where, $data);
+        return $this;
+    }
+    /**
      * override method insert to customize and get last insert id
      * @param type $table
      * @param type $data
@@ -335,7 +360,10 @@ class Oci8 extends DbAdapter implements Connection {
         foreach ($cols as $key => $value) {
             if ($value['pk']) {
                 $primary_key = $value['name'];
-                $data[$primary_key] = 999999;
+
+                if (!isset($data[$primary_key]) || $data[$primary_key] == '') {
+                    $data[$primary_key] = 999999;
+                }
                 break;
             }
         }

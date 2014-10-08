@@ -224,6 +224,11 @@ class Router {
         return $this->segments[$index];
     }
 
+    /**
+     * 
+     * @param type $class
+     * @return type
+     */
     private function upperClassName($class) {
         $class = explode('\\', $class);
         $class[count($class) - 1] = ucwords(end($class));

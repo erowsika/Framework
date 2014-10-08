@@ -78,11 +78,14 @@ class Validator {
 
             $field = $value['field'];
 
+            
             if (array_key_exists('required', $opt) and $opt['required'] == true and isset($this->attributes[$field])) {
                 $this->is_set($field);
             } else if (!isset($this->attributes[$field])) {
                 // $this->is_set($field);
                 continue;
+            }else{
+                 $opt['required'] = false;
             }
 
             if (array_key_exists('trim', $opt) and $opt['trim'] == true and array_key_exists($field, $this->attributes)) {
@@ -288,7 +291,6 @@ class Validator {
 
         if (filter_var($this->attributes[$var], FILTER_VALIDATE_INT, array("options" => array("min_range" => $min, "max_range" => $max))) === FALSE) {
             $this->errors[$var] = $var . $this->error_message[7];
-            var_dump($this->attributes[$var]);
         }
     }
 

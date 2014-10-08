@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class system\db\DbAdapter | framework</title>
+
+	<script type="text/javascript" src="resources/combined.js?3846477802"></script>
+	<script type="text/javascript" src="elementlist.js?815270973"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">framework</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-system.db.html" title="Summary of system\db"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-system.html">system<span></span></a>
+						<ul>
+				<li><a href="namespace-system.auth.html">auth</a>
+						</li>
+				<li><a href="namespace-system.cache.html">cache<span></span></a>
+						<ul>
+				<li><a href="namespace-system.cache.driver.html">driver</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-system.core.html">core</a>
+						</li>
+				<li><a href="namespace-system.crudgen.html">crudgen</a>
+						</li>
+				<li class="active"><a href="namespace-system.db.html">db<span></span></a>
+						<ul>
+				<li><a href="namespace-system.db.adapter.html">adapter<span></span></a>
+						<ul>
+				<li><a href="namespace-system.db.adapter.pdo.html">pdo</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-system.helper.html">helper</a>
+						</li>
+				<li><a href="namespace-system.service.html">service</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-system.db.Database.html">Database</a></li>
+				<li class="active"><a href="class-system.db.DbAdapter.html">DbAdapter</a></li>
+				<li><a href="class-system.db.Model.html">Model</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-system.db.Connection.html">Connection</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class DbAdapter</h1>
+
+
+
+
+
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-system.db.adapter.Mysql.html">system\db\adapter\Mysql</a></code>, 
+			<code><a href="class-system.db.adapter.Mysqli.html">system\db\adapter\Mysqli</a></code>, 
+			<code><a href="class-system.db.adapter.Oci8.html">system\db\adapter\Oci8</a></code>, 
+			<code><a href="class-system.db.adapter.pdo.Mysql.html">system\db\adapter\pdo\Mysql</a></code>, 
+			<code><a href="class-system.db.adapter.pdo.Oci.html">system\db\adapter\pdo\Oci</a></code>, 
+			<code><a href="class-system.db.adapter.pdo.Pgsql.html">system\db\adapter\pdo\Pgsql</a></code>, 
+			<code><a href="class-system.db.adapter.pdo.Sqlite.html">system\db\adapter\pdo\Sqlite</a></code>, 
+			<code><a href="class-system.db.adapter.Pgsql.html">system\db\adapter\Pgsql</a></code>
+		</p>
+	</div>
+
+
+
+
+
+
+	<div class="alert alert-info">
+		<b>Abstract</b><br />
+		
+		<b>Namespace:</b> <a href="namespace-system.html">system</a>\<a href="namespace-system.db.html">db</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-system.db.DbAdapter.html#17-533" title="Go to source code">framework/system/db/DbAdapter.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="connect" id="_connect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_connect">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#46-61" title="Go to source code">connect</a>( )</code>
+
+			<div class="description short">
+				
+<p>connect database</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>connect database</p>
+
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="pconnect" id="_pconnect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_pconnect">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#63-81" title="Go to source code">pconnect</a>( )</code>
+
+			<div class="description short">
+				
+<p>connect database with persistent connection</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>connect database with persistent connection</p>
+
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="disconnect" id="_disconnect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_disconnect">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#83-85" title="Go to source code">disconnect</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="initialize" id="_initialize">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_initialize">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#87-96" title="Go to source code">initialize</a>( )</code>
+
+			<div class="description short">
+				
+<p>initialize database according from config file</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>initialize database according from config file</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="columns" id="_columns">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_columns">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#98-110" title="Go to source code">columns</a>( <span>type <var>$table</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$table</var></dt>
+						<dd><code>type</code><br>$table</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="tables" id="_tables">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_tables">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#112-119" title="Go to source code">tables</a>( <span>string <var>$like</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+<p>get list table</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>get list table</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$like</var></dt>
+						<dd><code>string</code><br>$like</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="transaction" id="_transaction">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_transaction">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#121-129" title="Go to source code">transaction</a>( )</code>
+
+			<div class="description short">
+				
+<p>begin transaction</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>begin transaction</p>
+
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="commit" id="_commit">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_commit">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#131-139" title="Go to source code">commit</a>( )</code>
+
+			<div class="description short">
+				
+<p>commit transaction</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>commit transaction</p>
+
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rollback" id="_rollback">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rollback">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#141-149" title="Go to source code">rollback</a>( )</code>
+
+			<div class="description short">
+				
+<p>roolback transaction</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>roolback transaction</p>
+
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="insert" id="_insert">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html#$database">system\db\DbAdapter::<var>$database</var></a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_insert">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#151-163" title="Go to source code">insert</a>( <span>string <var>$table</var></span>, <span>array <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+<p>insert data to database</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>insert data to database</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$table</var></dt>
+						<dd><code>string</code><br>$table table name</dd>
+						<dt><var>$data</var></dt>
+						<dd><code>array</code><br>$data data</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html#$database">system\db\DbAdapter::<var>$database</var></a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#165-189" title="Go to source code">update</a>( <span>string <var>$table</var></span>, <span>array <var>$data</var></span>, <span>string <var>$where</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+<p>update table</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>update table</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$table</var></dt>
+						<dd><code>string</code><br>$table</dd>
+						<dt><var>$data</var></dt>
+						<dd><code>array</code><br>$data</dd>
+						<dt><var>$where</var></dt>
+						<dd><code>string</code><br>$where</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#191-209" title="Go to source code">delete</a>( <span>string <var>$table</var></span>, <span>string <var>$where</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+<p>delete data</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>delete data</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$table</var></dt>
+						<dd><code>string</code><br>$table</dd>
+						<dt><var>$where</var></dt>
+						<dd><code>string</code><br>$where</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="limit" id="_limit">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_limit">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#211-221" title="Go to source code">limit</a>( <span>integer <var>$limit</var> = <span class="php-num">0</span></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span> )</code>
+
+			<div class="description short">
+				
+<p>limiting data</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>limiting data</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$limit</var></dt>
+						<dd><code>integer</code><br>$limit</dd>
+						<dt><var>$offset</var></dt>
+						<dd><code>integer</code><br>$offset</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="from" id="_from">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_from">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#223-240" title="Go to source code">from</a>( )</code>
+
+			<div class="description short">
+				
+<p>select table</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>select table</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="where" id="_where">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_where">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#242-264" title="Go to source code">where</a>( <span>string <var>$where</var></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+<p>add criteria</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>add criteria</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$where</var></dt>
+						<dd><code>string</code><br>$where</dd>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="select" id="_select">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_select">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#266-276" title="Go to source code">select</a>( )</code>
+
+			<div class="description short">
+				
+<p>select data</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>select data</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="join" id="_join">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_join">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#278-286" title="Go to source code">join</a>( <span>type <var>$join</var></span> )</code>
+
+			<div class="description short">
+				
+<p>join table</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>join table</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$join</var></dt>
+						<dd><code>type</code><br>$join</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="orderBy" id="_orderBy">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_orderBy">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#288-298" title="Go to source code">orderBy</a>( <span>string <var>$column</var></span>, <span>string <var>$type</var> = <span class="php-quote">'ASC'</span></span> )</code>
+
+			<div class="description short">
+				
+<p>order data</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>order data</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$column</var></dt>
+						<dd><code>string</code><br>$column</dd>
+						<dt><var>$type</var></dt>
+						<dd><code>string</code><br>$type</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="groupBy" id="_groupBy">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_groupBy">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#300-311" title="Go to source code">groupBy</a>( <span>string <var>$column</var></span> )</code>
+
+			<div class="description short">
+				
+<p>group by</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>group by</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$column</var></dt>
+						<dd><code>string</code><br>$column</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="distinct" id="_distinct">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_distinct">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#313-321" title="Go to source code">distinct</a>( <span>string <var>$val</var> = <span class="php-keyword1">TRUE</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$val</var></dt>
+						<dd><code>string</code><br>$val</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="having" id="_having">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_having">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#323-331" title="Go to source code">having</a>( <span>type <var>$having</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$having</var></dt>
+						<dd><code>type</code><br>$having</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="countAll" id="_countAll">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_countAll">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#333-354" title="Go to source code">countAll</a>( <span>type <var>$table</var></span>, <span>type <var>$where</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$table</var></dt>
+						<dd><code>type</code><br>$table</dd>
+						<dt><var>$where</var></dt>
+						<dd><code>type</code><br>$where</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="buildSelect" id="_buildSelect">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_buildSelect">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#356-382" title="Go to source code">buildSelect</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reset" id="_reset">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reset">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#384-400" title="Go to source code">reset</a>( )</code>
+
+			<div class="description short">
+				
+<p>reset database query</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>reset database query</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get" id="_get">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#402-413" title="Go to source code">get</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="All" id="_All">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_All">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#415-423" title="Go to source code">All</a>( <span>type <var>$mode</var> = <span class="php-quote">'Object'</span></span> )</code>
+
+			<div class="description short">
+				
+<p>fetch all data</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>fetch all data</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$mode</var></dt>
+						<dd><code>type</code><br>$mode</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="One" id="_One">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_One">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#425-433" title="Go to source code">One</a>( <span>type <var>$mode</var> = <span class="php-quote">'Object'</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$mode</var></dt>
+						<dd><code>type</code><br>$mode</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="query" id="_query">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_query">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#435-464" title="Go to source code">query</a>( <span>type <var>$sql</var></span>, <span>type <var>&amp; $value</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sql</var></dt>
+						<dd><code>type</code><br>$sql</dd>
+						<dt><var>$value</var></dt>
+						<dd><code>type</code><br>$value</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-system.db.DbAdapter.html">system\db\DbAdapter</a></code></code><br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-system.core.DbException.html">system\core\DbException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fetchObject" id="_fetchObject">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fetchObject">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#466-476" title="Go to source code">fetchObject</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fetchAssoc" id="_fetchAssoc">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fetchAssoc">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#478-488" title="Go to source code">fetchAssoc</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="escape" id="_escape">
+
+			<td class="attributes"><code>
+				 public 
+				type
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_escape">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#490-498" title="Go to source code">escape</a>( <span>type <var>$str</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$str</var></dt>
+						<dd><code>type</code><br>$str</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>type</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="insertId" id="_insertId">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_insertId">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#500-506" title="Go to source code">insertId</a>( <span>type <var>$sequence</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sequence</var></dt>
+						<dd><code>type</code><br>$sequence</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="bindParam" id="_bindParam">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_bindParam">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#508-522" title="Go to source code">bindParam</a>( <span>type <var>&amp; $data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd><code>type</code><br>$data</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_columnInfo" id="__columnInfo">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__columnInfo">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#524" title="Go to source code">_columnInfo</a>( <span>mixed <var>$column</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_column" id="__column">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__column">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#526" title="Go to source code">_column</a>( <span>mixed <var>$column</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setEncoding" id="_setEncoding">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setEncoding">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#528" title="Go to source code">setEncoding</a>( <span>mixed <var>$charset</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_tables" id="__tables">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__tables">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#530" title="Go to source code">_tables</a>( <span>mixed <var>$like</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_limit" id="__limit">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__limit">#</a>
+			<code><a href="source-class-system.db.DbAdapter.html#532" title="Go to source code">_limit</a>( <span>mixed <var>$sql</var></span>, <span>mixed <var>$limit</var></span>, <span>mixed <var>$offset</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="host" id="$host">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#19" title="Go to source code"><var>$host</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$host" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="username" id="$username">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#20" title="Go to source code"><var>$username</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$username" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="password" id="$password">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#21" title="Go to source code"><var>$password</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$password" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="database" id="$database">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#22" title="Go to source code"><var>$database</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$database" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="conn" id="$conn">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#23" title="Go to source code"><var>$conn</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$conn" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="dsn" id="$dsn">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#24" title="Go to source code"><var>$dsn</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$dsn" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="port" id="$port">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#25" title="Go to source code"><var>$port</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$port" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="persistent" id="$persistent">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#26" title="Go to source code"><var>$persistent</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$persistent" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="autoinit" id="$autoinit">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#27" title="Go to source code"><var>$autoinit</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$autoinit" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="resultid" id="$resultid">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#28" title="Go to source code"><var>$resultid</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$resultid" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="param" id="$param">
+			<td class="attributes"><code>
+				protected  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#29" title="Go to source code"><var>$param</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$param" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="column" id="$column">
+			<td class="attributes"><code>
+				protected  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#33" title="Go to source code"><var>$column</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$column" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="criteria" id="$criteria">
+			<td class="attributes"><code>
+				protected  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#34" title="Go to source code"><var>$criteria</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$criteria" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="tables" id="$tables">
+			<td class="attributes"><code>
+				protected  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#35" title="Go to source code"><var>$tables</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$tables" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="join" id="$join">
+			<td class="attributes"><code>
+				protected  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#36" title="Go to source code"><var>$join</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$join" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="distinct" id="$distinct">
+			<td class="attributes"><code>
+				protected  
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#37" title="Go to source code"><var>$distinct</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$distinct" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="limit" id="$limit">
+			<td class="attributes"><code>
+				protected  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#38" title="Go to source code"><var>$limit</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$limit" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="offset" id="$offset">
+			<td class="attributes"><code>
+				protected  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#39" title="Go to source code"><var>$offset</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$offset" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="having" id="$having">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#40" title="Go to source code"><var>$having</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$having" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="order" id="$order">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#41" title="Go to source code"><var>$order</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$order" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="orderType" id="$orderType">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#42" title="Go to source code"><var>$orderType</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$orderType" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="group" id="$group">
+			<td class="attributes"><code>
+				protected  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#43" title="Go to source code"><var>$group</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$group" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="sql" id="$sql">
+			<td class="attributes"><code>
+				protected  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-system.db.DbAdapter.html#44" title="Go to source code"><var>$sql</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$sql" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		framework API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

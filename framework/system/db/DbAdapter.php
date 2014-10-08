@@ -250,15 +250,15 @@ abstract class DbAdapter {
             foreach ($where as $col => $val) {
                 $wheres[] = "$col = '" . $this->escape($val) . "'";
             }
-            $this->criteria = implode(' AND ', $wheres);
+            $this->criteria .= implode(' AND ', $wheres);
         }
 
         if (is_string($where)) {
-            $this->criteria = $where;
+            $this->criteria .= $where;
         }
 
-        if (!empty($data)) {
-            $this->param = array_merge($this->param, $data);
+        if (count($data)> 0) {
+            $this->param = $data;
         }
         return $this;
     }
@@ -299,7 +299,7 @@ abstract class DbAdapter {
      * @return \system\db\DbAdapter
      */
     public function join($join) {
-        $this->joins = $join;
+        $this->join = $join;
         return $this;
     }
 
@@ -365,8 +365,8 @@ abstract class DbAdapter {
         if (!empty($where)) {
             $where = " WHERE " . $where;
         }
-
-        $result = $this->query("SELECT COUNT(*) AS num_rows FROM $table $where")->fetchAssoc();
+        $sql = "SELECT COUNT(*) AS num_rows FROM $table $where";
+        $result = $this->query($sql)->fetchAssoc();
         $result = reset($result);
         return $result['num_rows'];
     }
@@ -383,7 +383,7 @@ abstract class DbAdapter {
 
         $sql .= " FROM " . implode(', ', $this->tables);
 
-        $sql .=($this->join) ? $this->join : "";
+        $sql .= ($this->join) ? " ".$this->join : "";
 
         $sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
 
@@ -411,9 +411,9 @@ abstract class DbAdapter {
         $this->distinct = FALSE;
         $this->limit = '';
         $this->offset = '';
-        $this->having;
-        $this->order;
-        $this->orderType;
+        $this->having = '';
+        $this->order = '';
+        $this->orderType = '';
         $this->group = array();
         $this->sql = '';
         $this->param = array();

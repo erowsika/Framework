@@ -246,4 +246,14 @@ class BaseController extends BaseView {
         
     }
 
+    public function createUrl($url, $data = '') {
+        if ($url and strpos($url, "://") == false) {
+            $url = Base::instance()->base_url . $url;
+        }
+        if (is_array($data)) {
+            $data = '?'. http_build_query($data);
+        }
+        return $url . $data;
+    }
+
 }

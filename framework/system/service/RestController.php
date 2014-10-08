@@ -32,6 +32,12 @@ class RestController extends BaseView {
     private $output = '';
 
     /**
+     *
+     * @var type 
+     */
+    private $httpStatus = 200;
+
+    /**
      * public constructor
      */
     public function __construct() {
@@ -107,10 +113,26 @@ class RestController extends BaseView {
         }
     }
 
+    public function setHttpStatus($code) {
+        $this->httpStatus = $code;
+    }
+
+    /**
+     * 
+     * @param type $output
+     */
+    protected function setOutput($output, $code = 200) {
+        $this->output = $output;
+        $this->httpStatus = $code;
+    }
+
+    /**
+     * 
+     */
     public function __destruct() {
         $response = $this->outputJson($this->output);
         $response = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $response);
-        $this->input->response($response, "application/json", 200);
+        $this->input->response($response, "application/json", $this->httpStatus);
     }
 
     /**

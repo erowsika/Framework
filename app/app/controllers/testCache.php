@@ -27,11 +27,11 @@ class TestCache extends Controller {
 
     public function index() {
         $data = App::instance()->cache->get('index');
-        echo $data;
         if (!$data) {
-            echo "buat";
-            App::instance()->cache->set('index', 'aakfakfahfhfafhakf', 5);
+            $data =  'data cache';
+            App::instance()->cache->set('index',$data, 5);
         }
+        echo $data;
     }
 
 }

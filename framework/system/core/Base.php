@@ -149,7 +149,7 @@ class Base {
                 $this->$controller = new $controller();
                 $this->runController($controller, $method, $parameters);
             } else {
-                throw new HttpException('Page not found', 404);
+              //  throw new HttpException('Page not found', 404);
             }
         } catch (HttpException $e) {
             $e->printError();

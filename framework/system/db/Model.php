@@ -190,9 +190,9 @@ class Model {
      * @param type $values
      * @return type
      */
-    public function findBySql($sql, $values = null) {
+    public function findBySql($sql, $values = array()) {
         $this->db->reset();
-        return $this->db->query($sql, $values);
+        return $this->db->query($sql, $values)->All();
     }
 
     /**
@@ -285,8 +285,8 @@ class Model {
      * 
      * @return type
      */
-    public function countAll() {
-        return $this->db->countAll($this->table);
+    public function countAll($where = "") {
+        return $this->db->countAll($this->table, $where);
     }
 
     /**
@@ -375,13 +375,28 @@ class Model {
      * @param type $target
      * @return type
      */
-    public function paging($target) {
+    public function paging($target, $criteria = null) {
         $current = Base::instance()->input->get('page', 1);
-        $count = $this->CountAll();
+        $where = "";
+
+        if (is_array($criteria)) {
+            $where = isset($criteria['where'][0]) ? reset($criteria['where']) : "";
+        } else {
+            $where = $criteria;
+        }
+        $count = $this->CountAll($where);
         $paging = new Paginator($current, $count);
         $paging->setRPP(10);
         $paging->setTarget(Base::instance()->base_url . $target);
         return $paging->parse();
+    }
+
+    /**
+     * get table name
+     * @return string
+     */
+    public function getTable() {
+        return $this->table;
     }
 
 }

@@ -19,7 +19,7 @@
                     <a href="<?php echo App::instance()->base_url?>welcome/dokumentasi">Dokumentasi</a>
                 </li>
                 <li>
-                    <a href="<?php echo App::instance()->base_url?>welcome/classReference">Class Reference</a>
+                    <a href="<?php echo App::instance()->base_url?>welcome/referense">Class Reference</a>
                 </li>
                 <li>
                     <a href="<?php echo App::instance()->base_url?>welcome/tentang">Tentang</a>

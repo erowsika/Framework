@@ -74,6 +74,15 @@ class Input {
     }
 
     /**
+     * 
+     * @param type $key
+     * @return type
+     */
+    public function getServer($key) {
+        return isset($_SERVER[$key]) ? $_SERVER[$key] : null;
+    }
+    
+    /**
      * check is ajax request
      * @return type
      */
@@ -291,6 +300,13 @@ class Input {
         return $_SERVER['HTTP_REFERER'];
     }
 
+    /**
+     * get user agent
+     * @return type
+     */
+    public function getUserAgent(){
+        return $_SERVER['HTTP_USER_AGENT'];
+    }
     /**
      * response
      * @param string string
