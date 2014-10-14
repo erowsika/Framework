@@ -179,6 +179,9 @@ class Model {
     private function buildCondition(array $condition) {
         foreach ($condition as $method => $value) {
             if (method_exists($this->db, $method)) {
+                if ($method === 'param') {
+                    $value = array($value);
+                }
                 call_user_func_array(array($this->db, $method), $value);
             }
         }
@@ -363,6 +366,8 @@ class Model {
         return $result;
     }
 
+    
+    
     /**
      * 
      */

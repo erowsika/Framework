@@ -257,7 +257,7 @@ abstract class DbAdapter {
             $this->criteria .= $where;
         }
 
-        if (count($data)> 0) {
+        if (count($data) > 0) {
             $this->param = $data;
         }
         return $this;
@@ -269,8 +269,9 @@ abstract class DbAdapter {
      * @param array $data
      */
     public function whereIn($column, array $data) {
-        $where = $column." IN (". implode(', ', $data). ")";
+        $where = $column . " IN (" . implode(', ', $data) . ")";
         $this->criteria .= $where;
+        return $this;
     }
 
     /**
@@ -278,7 +279,8 @@ abstract class DbAdapter {
      * @param array $data
      */
     public function param(array $data) {
-        $this->param =  $data;
+        $this->param = $data;
+        return $this;
     }
 
     /**
@@ -383,7 +385,7 @@ abstract class DbAdapter {
 
         $sql .= " FROM " . implode(', ', $this->tables);
 
-        $sql .= ($this->join) ? " ".$this->join : "";
+        $sql .= ($this->join) ? " " . $this->join : "";
 
         $sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
 
@@ -429,7 +431,7 @@ abstract class DbAdapter {
             $this->sql = $this->buildSelect();
             $this->query($this->sql, $this->param);
         }
-        
+
         return $this;
     }
 
