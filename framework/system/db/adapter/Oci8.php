@@ -20,6 +20,7 @@ use system\core\DbException;
 class Oci8 extends DbAdapter implements Connection {
 
     protected $_commit = OCI_COMMIT_ON_SUCCESS;
+    protected $isTransaction = false;
 
     /**
      *
@@ -162,7 +163,7 @@ class Oci8 extends DbAdapter implements Connection {
     public function escape($str) {
         if (is_array($str)) {
             foreach ($str as $key => $value) {
-                $data[$key] = $this->escape($value);
+                $str[$key] = $this->escape($value);
             }
         }
         $str = addslashes($str);
@@ -207,6 +208,7 @@ class Oci8 extends DbAdapter implements Connection {
      * @throws DbException
      */
     public function bindParam(&$data = array()) {
+        
         try {
             foreach ($data as $key => $value) {
                 $name = ":" . $key;
@@ -229,36 +231,45 @@ class Oci8 extends DbAdapter implements Connection {
      * @throws DbException
      */
     public function query($sql, &$value = array()) {
-        try {
-            if (!$this->autoinit) {
-                $this->initialize();
+        if (!$this->isTransaction) {
+            try {
+                $this->execute($sql, $value);
+            } catch (DbException $e) {
+                $e->printError();
             }
-
-            $this->stmt = ociparse($this->conn, $sql);
-            if (!$this->stmt) {
-                $e = oci_error($this->stmt);
-                $str = htmlentities("error " . $e['message']);
-                throw new DbException($str);
-            }
-
-            $this->bindParam($value);
-
-            if (!($result = @oci_execute($this->stmt, $this->_commit))) {
-                $e = oci_error($this->stmt);
-                $str = htmlentities($e['message']);
-                $str .= "<pre>";
-                $str .= htmlentities($e['sqltext']) . "<br>";
-                for ($i = 0; $i < $e['offset']; $i++) {
-                    $str .= " ";
-                }
-                $str .= "^";
-                $str .= "</pre>";
-                throw new DbException($str);
-            }
-        } catch (DbException $e) {
-            $e->printError();
+        } else {
+            $this->execute($sql, $value);
         }
+
         return $this;
+    }
+
+    private function execute($sql, &$value = array()) {
+        if (!$this->autoinit) {
+            $this->initialize();
+        }
+
+        $this->stmt = ociparse($this->conn, $sql);
+        if (!$this->stmt) {
+            $e = oci_error($this->stmt);
+            $str = htmlentities("error " . $e['message']);
+            throw new DbException($str);
+        }
+
+        $this->bindParam($value);
+
+        if (!($result = oci_execute($this->stmt, $this->_commit))) {
+            $e = oci_error($this->stmt);
+            $str = htmlentities($e['message']);
+            $str .= "<pre>";
+            $str .= htmlentities($e['sqltext']) . "<br>";
+            for ($i = 0; $i < $e['offset']; $i++) {
+                $str .= " ";
+            }
+            $str .= "^";
+            $str .= "</pre>";
+            throw new DbException($str);
+        }
     }
 
     /**
@@ -266,8 +277,9 @@ class Oci8 extends DbAdapter implements Connection {
      * @return boolean
      */
     public function rollback() {
-        $this->query('ROLLBACK');
-        $this->query('SET AUTOCOMMIT=1');
+        if ($this->conn != null) {
+            oci_rollback($this->conn);
+        }
         return true;
     }
 
@@ -276,8 +288,8 @@ class Oci8 extends DbAdapter implements Connection {
      * @return boolean
      */
     public function transaction() {
-        $this->query('SET AUTOCOMMIT=0');
-        $this->query('START TRANSACTION');
+        $this->_commit = OCI_NO_AUTO_COMMIT;
+        $this->isTransaction = true;
         return true;
     }
 
@@ -286,8 +298,9 @@ class Oci8 extends DbAdapter implements Connection {
      * @return boolean
      */
     public function commit() {
-        $this->query('COMMIT');
-        $this->query('SET AUTOCOMMIT=1');
+        oci_commit($this->conn);
+        $this->isTransaction = false;
+        $this->_commit = OCI_COMMIT_ON_SUCCESS;
         return true;
     }
 
@@ -322,7 +335,7 @@ class Oci8 extends DbAdapter implements Connection {
      * @param type $where
      * @return \system\db\adapter\Oci8
      */
-     public function update($table, $data, $where = null) {
+    public function update($table, $data, $where = null) {
 
         $datas = array();
         $wheres = array();
@@ -340,6 +353,7 @@ class Oci8 extends DbAdapter implements Connection {
         $this->query("UPDATE $table SET " . implode(', ', $datas) . ' WHERE ' . $where, $data);
         return $this;
     }
+
     /**
      * override method insert to customize and get last insert id
      * @param type $table
@@ -347,7 +361,7 @@ class Oci8 extends DbAdapter implements Connection {
      * @return type
      */
     public function insert($table, $data = array()) {
-        $primary_key = '';
+        $primary_key = array();
         $fields = array_keys($data);
         $colBind = array();
         $returning = '';
@@ -359,22 +373,31 @@ class Oci8 extends DbAdapter implements Connection {
         $cols = $this->columns($table);
         foreach ($cols as $key => $value) {
             if ($value['pk']) {
-                $primary_key = $value['name'];
+                $pk_name = $value['name'];
 
-                if (!isset($data[$primary_key]) || $data[$primary_key] == '') {
-                    $data[$primary_key] = 999999;
+                if (!isset($data[$pk_name]) || $data[$pk_name] == '') {
+                    $data[$pk_name] = 999999;
                 }
-                break;
+                $primary_key[$key] = $pk_name;
             }
         }
 
-        if ($primary_key != '') {
-            $returning = "RETURNING $primary_key INTO :$primary_key";
+        if (count($primary_key) > 0) {
+            $returning = "RETURNING " . implode(", ", $primary_key) . " INTO :" . implode(", :", $primary_key) . "";
         }
 
         $sql = "INSERT INTO $table (" . implode(', ', $fields) . ") VALUES (" . implode(", ", $colBind) . ") $returning";
         $this->query($sql, $data);
-        $this->lastInsertId = isset($data[$primary_key]) ? $data[$primary_key] : 0;
+        
+        if (count($primary_key) > 1) {
+            $this->lastInsertId = array();
+            foreach ($primary_key as $key => $value) {
+                $this->lastInsertId[$value] = isset($data[$value]) ? $data[$value] : 0;
+            }
+        } else {
+            $primary_key = reset($primary_key);
+            $this->lastInsertId = isset($data[$primary_key]) ? $data[$primary_key] : 0;
+        }
         return true;
     }
 

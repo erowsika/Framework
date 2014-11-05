@@ -22,11 +22,13 @@ class Session {
      * @var array 
      */
     private static $_instance;
+
     /**
      * config variable
      * @var array 
      */
     private $config = array();
+
     /**
      * message variable
      * @var string 
@@ -73,7 +75,17 @@ class Session {
     }
 
     /**
-     * get user data
+     * 
+     * @param type $key
+     * @return type
+     */
+    public function get($key) {
+        return (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
+    }
+
+    /**
+     * deprecated
+     * get user data 
      * @param string $key
      * @return string
      */
@@ -82,6 +94,23 @@ class Session {
     }
 
     /**
+     * 
+     * @param type $name
+     * @param type $value
+     */
+    public function set($name, $value) {
+        $this->setTimeExpire();
+        if (is_array($name)) {
+            foreach ($name as $key => $value) {
+                $_SESSION[$key] = $value;
+            }
+        } else {
+            $_SESSION[$name] = $value;
+        }
+    }
+
+    /**
+     * deprecated
      * set data
      * @param string $name
      * @param string $value
@@ -103,7 +132,7 @@ class Session {
      * @param sting $value
      */
     public function setFlashData($key, $value) {
-       $this->setData($key, $value);
+        $this->setData($key, $value);
     }
 
     /**
@@ -115,6 +144,7 @@ class Session {
             $this->messages['next'][$key] = $val;
         }
     }
+
     /**
      * get flash message data
      * @param string $name
@@ -132,7 +162,7 @@ class Session {
     public function setTimeExpire() {
         $_SESSION['sess_expiration'] = time() + $this->config['session_expire'];
     }
-    
+
     /**
      * destroy session
      */

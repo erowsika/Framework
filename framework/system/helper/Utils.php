@@ -76,7 +76,7 @@ class Utils {
      * @param type $format
      */
     public static function dateFormat($date, $format = 'Y-m-d') {
-        return date($format, strtotime($date));
+        return $date != '' ? date($format, strtotime($date)) : '';
     }
 
     /**

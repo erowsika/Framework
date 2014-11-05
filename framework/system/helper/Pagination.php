@@ -11,78 +11,136 @@ namespace system\helper;
 /**
  * Description of Pagination
  *
- * @author masfu
+ * @author Masfu Hisyam
  */
 class Pagination {
 
-    public $baseUrl;
-    public $total;
-    public $limit;
-    public $current;
-    public $query = 'page';
-    public $prevText = '<li><a href="#">&laquo;</a></li>';
-    public $nextText = '<li><a href="#">&raquo;</a></li>';
-    public $styleListActive = '<li class="active"><a href="#">{page}</a><li>';
-    public $styleList = '<li><a href="{page}">{num}</a><li>';
+    private $limit;
+    private $adjacents;
+    private $rows;
+    private $page;
 
-    /**
-     * 
-     * @param type $config
-     */
-    public function __construct($config = array()) {
-        if (!empty($config)) {
-            $this->set($config);
-        }
+    function __construct($rows, $page, $limit = 10, $adjacents = 10) {
+        $this->limit = $limit;
+        $this->rows = $rows;
+        $this->adjacents = $adjacents;
+        $this->setPage($page);
     }
 
-    /**
-     * 
-     * @param type $var
-     * @param type $value
-     */
-    public function set($var, $value = false) {
-        if (is_string($var)) {
-            $this->$var = $value;
-        }
+    public function getLimit() {
+        return $this->limit;
+    }
 
-        if (is_array($var)) {
+    public function getAdjacents() {
+        return $this->adjacents;
+    }
 
-            foreach ($var as $key => $value) {
-                $this->$key = $value;
-            }
+    public function getRows() {
+        return $this->rows;
+    }
+
+    public function getPage() {
+        return $this->page;
+    }
+
+    public function setLimit($limit) {
+        $this->limit = $limit;
+    }
+
+    public function setAdjacents($adjacents) {
+        $this->adjacents = $adjacents;
+    }
+
+    public function setRows($rows) {
+        $this->rows = $rows;
+    }
+
+    public function setPage($page) {
+        if ($page == 0) {
+            $this->page = 1;
+        } else {
+            $this->page = $page;
         }
     }
 
     public function render() {
-        $total = ceil($this->total / $this->limit);
-        $output = '';
-        //$total += $this->current;
-        $start = 1;
+        $pagination = '';
+        //if no page var is given, default to 1.
+        $prev = $this->page - 1;       //previous page is page - 1
+        $next = $this->page + 1;       //next page is page + 1
+        $prev_ = '';
+        $first = '';
+        $lastpage = ceil($this->rows / $this->limit);
+        $next_ = '';
+        $last = '';
+        if ($lastpage > 1) {
 
-        $urlCallback = $this->baseUrl . "/?" . $this->query . "=";
-
-        if ($total > 1) {
-            $output = str_replace("#", $urlCallback . $this->current - 1, $this->prevText);
-        }
-
-        for ($i = $this->current + 1; $i <= $total; $i++) {
-
-            if ($i > $this->total)
-                break;
-
-            if ($i == $this->current) {
-                $output .= str_replace("{page}", $i, $this->styleListActive);
-            } else {
-                $page = str_replace("{page}", $urlCallback . $i, $this->styleList);
-                $page = str_replace("{num}", $i, $page);
-                $output .= $page;
+            //previous button
+            if ($this->page > 1)
+                $prev_.= "<li><a href=\"?page=$prev\">previous</a></li>";
+            else {
+                $pagination.= "<li class=\"disabled\"><a href=\"#\">previous</a></li>";	
             }
+
+            //pages	
+            if ($lastpage < 5 + ($this->adjacents * 2)) { //not enough pages to bother breaking it up
+                $first = '';
+                for ($counter = 1; $counter <= $lastpage; $counter++) {
+                    if ($counter == $this->page)
+                        $pagination.= "<li class=\"active\"><a href=\"#\">$counter</a></li>";
+                    else
+                        $pagination.= "<li><a href=\"?page=$counter\">$counter</a></li>";
+                }
+                $last = '';
+            }
+            elseif ($lastpage > 3 + ($this->adjacents * 2)) { //enough pages to hide some
+                //close to beginning; only hide later pages
+                $first = '';
+                if ($this->page < 1 + ($this->adjacents * 2)) {
+                    for ($counter = 1; $counter < 4 + ($this->adjacents * 2); $counter++) {
+                        if ($counter == $this->page)
+                            $pagination.= "<li class=\"active\"><a href=\"#\">$counter</a></li>";
+                        else
+                            $pagination.= "<li><a href=\"?page=$counter\">$counter</a></li>";
+                    }
+                    $last.= "<li><a href=\"?page=$lastpage\">Last</a></li>";
+                }
+
+                //in middle; hide some front and some back
+                elseif ($lastpage - ($this->adjacents * 2) > $this->page && $this->page > ($this->adjacents * 2)) {
+                    $first.= "<li><a href=\"?page=1\">First</a></li>";
+                    for ($counter = $this->page - $this->adjacents; $counter <= $this->page + $this->adjacents; $counter++) {
+                        if ($counter == $this->page)
+                            $pagination.= "<li class=\"active\"><a href=\"#\">$counter</a></li>";
+                        else
+                            $pagination.= "<li><a href=\"?page=$counter\">$counter</a><li>";
+                    }
+                    $last.= "<li><a href=\"?page=$lastpage\">Last</a></li>";
+                }
+                //close to end; only hide early pages
+                else {
+                    $first.= "<li><a  href=\"?page=1\">First</a></li>";
+                    for ($counter = $lastpage - (2 + ($this->adjacents * 2)); $counter <= $lastpage; $counter++) {
+                        if ($counter == $this->page)
+                            $pagination.= "<li class=\"active\"><a href=\"#\">$counter</a></li>";
+                        else
+                            $pagination.= "<li><a href=\"?page=$counter\">$counter</a></li>";
+                    }
+                    $last = '';
+                }
+            }
+            if ($this->page < $counter - 1)
+                $next_.= "<li><a  href=\"?page=$next\">next</a></li>";
+            else {
+                $pagination.=  "<li class=\"disabled\"><a href=\"#\">next</a></li>";	
+            }
+            $pagination = "<ul class=\"pagination\">" . $first . $prev_ . $pagination . $next_ . $last;
+            //next button
+
+            $pagination.= "</ul>\n";
         }
-        if ($total > 1) {
-            $end = ($total >= $this->total) ? $total : $total + 1;
-            $output .= str_replace("#", $urlCallback . $end, $this->nextText);
-        }
-        return $output;
+
+        return $pagination;
     }
 
 }

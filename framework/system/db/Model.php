@@ -15,7 +15,7 @@ namespace system\db;
  */
 use system\core\Base;
 use system\helper\Validator;
-use system\helper\Paginator;
+use app\modules\Pagination;
 
 class Model {
 
@@ -66,6 +66,8 @@ class Model {
      * @var type 
      */
     private $result = array();
+    private $param = array();
+    private $where = '';
 
     /**
      * constructor
@@ -179,10 +181,21 @@ class Model {
     private function buildCondition(array $condition) {
         foreach ($condition as $method => $value) {
             if (method_exists($this->db, $method)) {
-                if ($method === 'param') {
-                    $value = array($value);
+                switch ($method) {
+                    case 'param':
+                        $this->param = $value;
+                        $value = array($value);
+                        break;
+                    case 'where':
+                        $this->where = is_array($value) ? reset($value) : $value;
+                        break;
+                    default:
+                        break;
                 }
                 call_user_func_array(array($this->db, $method), $value);
+            } else if ($method === 'alias') {
+                $name = reset($value);
+                $this->alias($name);
             }
         }
     }
@@ -280,8 +293,23 @@ class Model {
         }
         $this->db->insert($this->table, $this->attributes);
 
-        $this->attributes[$this->pk] = $this->db->insertId();
+        $pk = $this->db->insertId();
+        if (is_array($pk)) {
+            foreach ($pk as $key => $value) {
+                $this->attributes[$key] = $value;
+            }
+        } else {
+            $this->attributes[$this->pk] = $pk;
+        }
         return $this;
+    }
+
+    /**
+     * 
+     * @param type $name
+     */
+    public function alias($name) {
+        $this->table = $name;
     }
 
     /**
@@ -289,7 +317,8 @@ class Model {
      * @return type
      */
     public function countAll($where = "") {
-        return $this->db->countAll($this->table, $where);
+        $this->db->param($this->param);
+        return $this->db->countAll($this->table, $this->where);
     }
 
     /**
@@ -366,8 +395,6 @@ class Model {
         return $result;
     }
 
-    
-    
     /**
      * 
      */
@@ -380,7 +407,7 @@ class Model {
      * @param type $target
      * @return type
      */
-    public function paging($target, $criteria = null) {
+    public function paging($target = '', $criteria = null) {
         $current = Base::instance()->input->get('page', 1);
         $where = "";
 
@@ -390,10 +417,8 @@ class Model {
             $where = $criteria;
         }
         $count = $this->CountAll($where);
-        $paging = new Paginator($current, $count);
-        $paging->setRPP(10);
-        $paging->setTarget(Base::instance()->base_url . $target);
-        return $paging->parse();
+        $paging = new Pagination($count, $current);
+        return $paging->render();
     }
 
     /**
@@ -402,6 +427,10 @@ class Model {
      */
     public function getTable() {
         return $this->table;
+    }
+
+    public function getDb() {
+        return $this->db;
     }
 
 }

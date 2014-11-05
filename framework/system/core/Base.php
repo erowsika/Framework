@@ -58,8 +58,8 @@ class Base {
           } */
         $this->classes = array_merge($this->classes, $moduls);
 
-        set_exception_handler('system\core\MainException::handleException');
-        set_error_handler('system\core\MainException::handleError', error_reporting());
+      //  set_exception_handler('system\core\MainException::handleException');
+      //  set_error_handler('system\core\MainException::handleError', error_reporting());
 
         register_shutdown_function(array($this, 'shutDown'));
     }
@@ -144,12 +144,14 @@ class Base {
         $method = $this->router->getAction();
         $parameters = $this->router->getParameter();
         
+      //  echo $controller." ".$method." ".print_r($parameters, true);
+        
         try {
             if (class_exists($controller, true)) {
                 $this->$controller = new $controller();
                 $this->runController($controller, $method, $parameters);
             } else {
-              //  throw new HttpException('Page not found', 404);
+                throw new HttpException('Page not found', 404);
             }
         } catch (HttpException $e) {
             $e->printError();

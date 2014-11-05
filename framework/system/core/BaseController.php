@@ -163,26 +163,30 @@ class BaseController extends BaseView {
         return $scr;
     }
 
-    /**
-     * check access
-     * @return boolean
-     */
     public function checkAccess() {
+        $accessList = $this->access();
+        $auth = Base::instance()->auth;
         $action = Base::instance()->router->getAction();
         if (!method_exists($this, $action)) {
             throw new HttpException('Page not found', 404);
         }
-        foreach ($this->access() as $rule) {
-            $userList = array_key_exists('user', $rule) ? $rule['user'] : $rule['role'];
+        foreach ($accessList as $key => $rule) {
+            $listUser = array_key_exists('user', $rule) ? $rule['user'] : $rule['role'];
 
-            if (!in_array($action, $rule['executes'])) {
-                throw new HttpException('you are not allowed to access this page', 403);
-            }
-
-            if ($this->processAccess($rule, $userList)) {
-                return true;
+            $user = array_key_exists('user', $rule) ? $auth->getUser() : $auth->getRole();
+            if ($rule[0] == 'grant') {
+                if (in_array($action, $rule['executes']) && in_array($user, $listUser) == true) {
+                    return true;
+                }
+            } else if ($rule[0] == 'revoke') {
+                if ($auth->isGuest()) {
+                    $this->redirect($auth->loginUrl);
+                } else {
+                    throw new HttpException('you are not allowed to access this page', 403);
+                }
             }
         }
+        return false;
     }
 
     /**
@@ -191,17 +195,8 @@ class BaseController extends BaseView {
      * @param type $listUser
      * @return boolean
      */
-    public function processAccess($rule, $listUser) {
-        $auth = Base::instance()->auth;
-        $user = array_key_exists('user', $rule) ? $auth->getUser() : $auth->getRole();
-        $isDefined = in_array($user, $listUser);
-        if ($rule[0] == 'grant' and $isDefined) {
-            return true;
-        } else if ($rule[0] == 'revoke' and $isDefined and $auth->isGuest()) {
-            $this->redirect($auth->loginUrl);
-        } else if ($rule[0] == 'revoke' and $isDefined) {
-            return false;
-        }
+    public function processAccess($rule, $action, $listUser) {
+        
     }
 
     /**
@@ -251,7 +246,7 @@ class BaseController extends BaseView {
             $url = Base::instance()->base_url . $url;
         }
         if (is_array($data)) {
-            $data = '?'. http_build_query($data);
+            $data = '?' . http_build_query($data);
         }
         return $url . $data;
     }
