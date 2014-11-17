@@ -301,7 +301,7 @@ abstract class DbAdapter {
      * @return \system\db\DbAdapter
      */
     public function join($join) {
-        $this->join = $this->join.'  '.$join;
+        $this->join = $this->join . '  ' . $join;
         return $this;
     }
 
@@ -368,7 +368,7 @@ abstract class DbAdapter {
             $where = " WHERE " . $where;
         }
         $sql = "SELECT COUNT(*) AS num_rows FROM $table $where";
-       
+
         $result = $this->query($sql, $this->param)->fetchAssoc();
         $result = reset($result);
         return $result['num_rows'];
@@ -387,7 +387,7 @@ abstract class DbAdapter {
         $sql .= " FROM " . implode(', ', $this->tables);
 
         $sql .= ($this->join) ? " " . $this->join : "";
-        
+
         $sql .= ($this->criteria) ? " WHERE " . $this->criteria : "";
 
         $sql .= (!empty($this->group)) ? " GROUP BY " . implode(', ', $this->group) : "";
@@ -399,6 +399,7 @@ abstract class DbAdapter {
         if ($this->limit || $this->offset) {
             $sql = $this->_limit($sql, $this->limit, $this->offset);
         }
+      
         return $sql;
     }
 
